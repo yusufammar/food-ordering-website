@@ -1,7 +1,7 @@
 
 function getHomePage(req,res){
-    res.send("Home Page");
-    console.log("Home Page - Console");
+    res.send("Sent From Server: Home Page ");
+    console.log("Server Console: HomePage");
 } 
 
 module.exports = {getHomePage};

@@ -3,6 +3,8 @@ import Home from './components/home';
 import About from './components/about';
 
 function App(){
+  
+  App.baseUrl= "http://localhost:5000/api";  
 
   return(
     <Router>
