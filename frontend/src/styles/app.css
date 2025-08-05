@@ -1,0 +1,65 @@
+body {
+    padding: 10%;
+}
+
+form {
+    width: min-content;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.nav-bar{
+    display: flex;
+    gap:5%;
+}
+
+button {
+    background-color: blue;
+    text-decoration: none;
+    color: white;
+    width: max-content;
+    /* padding: 10px; */
+    /* padding-left: 15px; */
+    padding-block: 10px;
+    padding-inline: 15px;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: white;
+    text-decoration: none;
+    color: blue;
+
+}
+
+.linkButton {
+    background-color: blue;
+    text-decoration: none;
+    color: white;
+    width: max-content;
+    /* padding: 10px; */
+    /* padding-left: 15px; */
+    padding-block: 10px;
+    padding-inline: 15px;
+    border-radius: 10px;
+   border-style: solid;
+   border-color: black;
+   border-width: 2px;
+
+}
+
+.linkButton:hover {
+    background-color: white;
+    text-decoration: none;
+    color: blue;
+    width: max-content;
+    /* padding: 10px; */
+    /* padding-left: 15px; */
+    padding-block: 10px;
+    padding-inline: 15px;
+    border-radius: 10px;
+    border-style: solid; 
+}
+
+
