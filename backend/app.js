@@ -13,9 +13,12 @@ app.use(cors());
 // This is useful if, later on, the frontend is served as static files from the backend server.
 
 const authRouter= require('./routes/authRoutes');
+const userRouter= require('./routes/userRoutes');
 
 
 app.use('/api',authRouter);
+app.use('/api/user',userRouter);
+
 
 
 module.exports = app;

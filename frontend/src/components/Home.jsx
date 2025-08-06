@@ -15,6 +15,49 @@ function Home() {
         setUser(savedUser);
     }
 
+    //-------------------------------------------------------
+    // Event Handlers
+    //-------------------------------------------------------
+
+    function handleClick(e) {
+
+        //Input Validation
+        if (!user.token){
+            return alert("No User Logged In - No Token")
+        }
+
+        //------------------------------------------
+        
+        const config = {
+            headers: {
+                authorization: user.token
+            }
+        }
+
+        return axios.get(App.baseUrl + "/user/sampleRequest", config)
+            .then(res => handleSuccess(res))
+            .catch(err => handleFailure(err));
+    }
+
+    //-------------------------------------------------------
+    //Helper Methods
+    //-------------------------------------------------------
+
+    function handleSuccess(res) {
+        const { message } = res.data;
+        alert(message);
+    }
+
+
+    function handleFailure(err) {
+        const error = err.response.data.error;
+        alert(error);
+        utils.unsetUser();
+        window.location.reload();
+        // setUser({});
+    }
+
+
     return (
         <>
             <div className='nav-bar'>
@@ -29,6 +72,8 @@ function Home() {
             </div>
 
             <h1>Home </h1>
+
+            <button onClick={handleClick}> Sample Request</button>
 
         </>
 

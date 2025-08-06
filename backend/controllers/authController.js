@@ -134,4 +134,4 @@ function generateToken(userCredentials) {
 
 
 
-module.exports = { login, signUp, getCurrentUser };
+module.exports = { login, signUp };
