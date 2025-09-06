@@ -14,10 +14,12 @@ app.use(cors());
 
 const authRouter= require('./routes/authRoutes');
 const userRouter= require('./routes/userRoutes');
+const adminRouter= require('./routes/adminRoutes');
 
 
 app.use('/api',authRouter);
 app.use('/api/user',userRouter);
+app.use('/api/admin',adminRouter);
 
 
 

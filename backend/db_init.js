@@ -1,4 +1,6 @@
 const user = require('./models/user');
+const product = require('./models/product');
+
 const pool = require('./config/db.js')
 
 async function setupDB() {
@@ -9,6 +11,11 @@ async function setupDB() {
             console.log("User Table Cleared");
         await user.insertAdmin();
             console.log("Admin Inserted");
+
+
+         await product.createProductsTable();
+            console.log("Products Table Created");
+
 
         //----------------------------------
         // Terminal stays open because the database connection pool is still active, keeping Node.js running until closed

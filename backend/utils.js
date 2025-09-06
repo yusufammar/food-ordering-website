@@ -1,22 +1,98 @@
+// prepareMultipleInsert()
+// Objective: Build the values array + placeholders string so we can plug them into  an SQL query to insert multiple rows at once.
+// Input: array of objects (dataArray), list of columns (columnsNeeded).
+// Builds:
+//   1. a flat array of all the values (valuesArray)
+//   2. a string of SQL placeholders like "($1,$2),($3,$4)" (placeholdersString)
+function prepareMultipleInsert(dataArray, columnsNeeded) {
+
+
+    let valuesArray = [];
+    let placeholdersArray = [];
+    let placeHolderCounter = 1;
+
+    for (let dataRow of dataArray) {
+
+        let insertRow = [];
+        let placeholderRow = [];
+
+
+        // For each column in this data row:
+        // - Add the actual value to `insertRow`
+        // - Add a positional placeholder ($1, $2, …) to `placeholderRow`
+        // - Increment the counter for the next placeholder
+        for (let column of columnsNeeded) {
+            insertRow.push(dataRow[column])
+            placeholderRow.push(`$${placeHolderCounter}`);
+            placeHolderCounter++;
+        }
+
+        valuesArray.push(insertRow);
+        placeholdersArray.push(placeholderRow);
+
+    }
+
+
+    valuesArray = valuesArray.flat();
+    let placeholdersString = buildPlaceholdersString(placeholdersArray);
+
+    return { valuesArray, placeholdersString };
+}
+
+
+
+function buildPlaceholdersString(placeholdersArray) {
+    //Input(Array): [  [ '$1', '$2', '$3', '$4' ],  [ '$5', '$6', '$7', '$8' ]     ]
+    //Output(String): '($1,$2,$3,$4),($5,$6,$7,$8)'
+
+
+    //Step 1: join each single row into 1 string
+    //Input (single row):  [ '$1', '$2', '$3', '$4' ]
+    //Output:                   '($1,$2,$3,$4)'
+    let placeholderString = placeholdersArray.map(row => {
+        rowString = `(${row.join(",")})`;
+        return rowString;
+    }
+    );
+
+    //Step 2: join all rows into 1 string (array turned to string removes braces)
+    placeholderString = placeholderString.join(',');
+
+
+    return placeholderString;
+
+    //--------------------------------------
+    //Approach 2: using JSON stringify
+    //--------------------------------------
+
+    // let phString=JSON.stringify(placeholdersArray);
+    // phString= phString.slice(1,phString.length-1)
+    // phString= phString.replaceAll("[","(");
+    // phString= phString.replaceAll("]",")");
+    // phString= phString.replaceAll('"','');
+
+}
+
+
 //-------------------------------------------
 // Input Validation
 //-----------------------------------------
-function validateData(data) {
+function validateAuthData(data) {  // for things that have email & password --> sign in & sign up
 
-    const [requiredFieldsValid, missingFields, transformedData] = checkRequiredFields(data);
+    const [requiredFieldsAvailable, missingFields, transformedData] = checkAndTransformRequiredFields(data);
 
     let errMessage = "";
     let dataValid = true;
 
-    if (!requiredFieldsValid) {
+    if (!requiredFieldsAvailable) {
         errMessage = "Please Complete Missing Fields: " + missingFields.toString();
         dataValid = false;
     }
 
     //If required fields valid go to next step -->  Check Inputs (specific schecks)
-    else if (requiredFieldsValid) {
+    else if (requiredFieldsAvailable) {
 
-        const [inputsValid, errList] = checkInputs(transformedData);
+        const [inputsValid, errList] = checkAuthInputs(transformedData);
 
         if (!inputsValid) {
             errMessage = constructErrMessage(errList);
@@ -30,8 +106,8 @@ function validateData(data) {
 }
 
 
-function checkRequiredFields(data) {
-    let requiredFieldsValid = true;
+function checkAndTransformRequiredFields(data) {
+    let requiredFieldsAvailable = true;
     let missingFields = [];
     let transformedData = {};
 
@@ -57,22 +133,52 @@ function checkRequiredFields(data) {
 
 
     }
-    return [requiredFieldsValid, missingFields, transformedData];
+    return [requiredFieldsAvailable, missingFields, transformedData];
 }
 
-function checkInputs(transformedData) {
+
+function checkRequiredFields(data) {
+    let errMessage = null;
+    let requiredFieldsAvailable = true;
+    let missingFields = [];
+
+
+    for (let fieldObject of data) {
+
+        const fieldName = Object.keys(fieldObject)[0];
+        let fieldValue = fieldObject[fieldName];
+
+        const required = fieldObject.required;
+
+
+        //2- Chceck If Not Empty (if Required)
+        if (required == 1 && (fieldValue == "" || fieldValue == null)) {
+            requiredFieldsAvailable = false;
+            missingFields.push(fieldName);
+        }
+    }
+
+
+    if (!requiredFieldsAvailable) {
+        errMessage = "Please Complete Missing Fields: " + missingFields.toString();
+    }
+
+    return [requiredFieldsAvailable, missingFields, errMessage];
+}
+
+function checkAuthInputs(data) {
     let errList = [];
     let valid = true;
 
 
     //check email
-    const emailInput = transformedData.email;
+    const emailInput = data.email;
     const emailErr = checkEmailInput(emailInput);
     if (emailErr) errList.push(emailErr);
 
 
     //check password
-    const passwordInput = transformedData.password;
+    const passwordInput = data.password;
     const passwordErr = checkPasswordInput(passwordInput);
     if (passwordErr) errList.push(passwordErr);
 
@@ -91,7 +197,7 @@ function checkInputs(transformedData) {
 
 function checkEmailInput(input) {
     let errObj = {};
-    if (!input.includes("@") || !input.includes(".com")) {
+    if (input != "admin" && (!input.includes("@") || !input.includes(".com"))) {
         errObj.email = "* Invalid Email: Please Enter a Valid Email";
         return errObj;
     }
@@ -121,4 +227,4 @@ function constructErrMessage(errList) {
     return fullMsg;
 }
 
-module.exports={validateData}
+module.exports = { validateAuthData, checkRequiredFields, prepareMultipleInsert }

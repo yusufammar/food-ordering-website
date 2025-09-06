@@ -1,23 +1,16 @@
 import App from '../App';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as utils from "../utils";
+import NavBar from './NavBar';
+import UserBar from './UserBar';
 
 function SignUp() {
 
-    //-------------------------------------------------------
-    //User
-    //-------------------------------------------------------
+    const navigate = useNavigate();
+    const roleRequired = null;
 
-    const [user, setUser] = useState({});
-
-    useEffect(displayUser, []);
-
-    function displayUser() {
-        const savedUser = utils.getSavedUser();
-        setUser(savedUser);
-    }
 
     //-------------------------------------------------------
     //Inputs
@@ -86,29 +79,21 @@ function SignUp() {
         alert(error);
     }
 
-  
+
 
     return (
         <>
+            <NavBar></NavBar>
+            <UserBar role={roleRequired}></UserBar>
 
-            <div className='nav-bar'>
-                <Link className='linkButton' to="/">Home</Link>
-                <Link className='linkButton' to="/login">Log In</Link>
-            </div>
-
-            <div>
-                <h4>User ID: {user.id} | Name: {user.name} | Email: {user.email} | Role: {user.role} </h4>
-                Token: {user.token}
-            </div>
 
             <h1>Sign Up </h1>
-            <form>
 
+            <form>
                 <div>
                     <label htmlFor='1'>Name</label>
                     <input id='1' type='text' value={name} onChange={handleNameChange}></input>
                 </div>
-
 
                 <div>
                     <label htmlFor='2'>Email</label>

@@ -1,23 +1,15 @@
 import App from '../App';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as utils from "../utils";
+import NavBar from './NavBar';
+import UserBar from './UserBar';
 
 function Login() {
 
-    //-------------------------------------------------------
-    //User
-    //-------------------------------------------------------
-
-    const [user, setUser] = useState({});
-
-    useEffect(displayUser, []);
-
-    function displayUser() {
-        const savedUser = utils.getSavedUser();
-        setUser(savedUser);
-    }
+    const navigate = useNavigate();
+    const roleRequired= null;
 
     //-------------------------------------------------------
     //Inputs
@@ -80,15 +72,13 @@ function Login() {
         const error = err.response.data.error;
         alert(error);
     }
+ 
 
     return (
         <>
-            <Link className='linkButton' to="/">Home</Link>
+            <NavBar></NavBar>
+            <UserBar role={roleRequired}></UserBar>
 
-            <div>
-                <h4>User ID: {user.id} | Name: {user.name} | Email: {user.email} | Role: {user.role} </h4>
-                Token: {user.token}
-            </div>
 
             <h1>Login </h1>
             <form>

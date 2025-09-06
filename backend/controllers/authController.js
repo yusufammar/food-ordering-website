@@ -1,6 +1,6 @@
 require('dotenv').config();
 const user = require('../models/user')
-const utils= require('../utils');
+const utils = require('../utils');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
@@ -15,11 +15,11 @@ async function login(req, res) {
         { password, trim: 0, required: 1 },
     ];
 
-    const [dataValid, errMessage, transformedData] = utils.validateData(data);
+    const [dataValid, errMessage, transformedData] = utils.validateAuthData(data);
 
     if (dataValid) {
         //next step
-        let {email, password } = transformedData;
+        let { email, password } = transformedData;
         try {
             const userCredentials = await user.getUserCredentials(email);
             const userFound = (userCredentials != null);
@@ -48,7 +48,6 @@ async function login(req, res) {
 
 async function signUp(req, res) {
     let { name, email, password } = req.body;
-    console.log(req.body);
 
     const data = [
         { name, trim: 1, required: 1 },
@@ -56,7 +55,7 @@ async function signUp(req, res) {
         { password, trim: 0, required: 1 },
     ];
 
-    const [dataValid, errMessage, transformedData] = utils.validateData(data);
+    const [dataValid, errMessage, transformedData] = utils.validateAuthData(data);
 
     if (dataValid) {
         //next step

@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 //Schema
 //----------------
 
-async function createUsersTable() {
+function createUsersTable() {
   const query = `
    CREATE TABLE IF NOT EXISTS users(
       id SERIAL PRIMARY KEY,
@@ -53,7 +53,7 @@ async function insertUser(name, email, password, role) {
 //----------------------------------
 //#DB_Init Methods / Helper Methods
 //----------------------------------
-async function clearUsersTable() {
+function clearUsersTable() {
   const query = `TRUNCATE TABLE users RESTART IDENTITY`;
   return pool.query(query)
 }

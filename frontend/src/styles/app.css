@@ -33,6 +33,25 @@ button:hover {
 
 }
 
+
+.redButton {
+    background-color: red;
+    /* text-decoration: none;
+    
+    width: max-content;
+    /* padding: 10px; */
+    /* padding-left: 15px; */
+    /* padding-block: 10px;
+    padding-inline: 15px;
+    border-radius: 10px; */ 
+}
+
+.redButton:hover {  
+    background-color: white; 
+    color: red;
+
+}
+
 .linkButton {
     background-color: blue;
     text-decoration: none;

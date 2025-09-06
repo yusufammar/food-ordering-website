@@ -1,13 +1,14 @@
 const express = require('express');
-const userRouter = express.Router();
-const userController = require('../controllers/userController');
+const adminRouter = express.Router();
+const adminController = require('../controllers/adminController');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
 
 //----------------------------------------------------------
 //Middleware
 //----------------------------------------------------------
-userRouter.use(verifyTokenMiddleware);
+adminRouter.use(verifyTokenMiddleware);
+adminRouter.use(verifyRoleMiddleware);
 
 function verifyTokenMiddleware(req, res, next) {
     const token = req.headers.authorization;
@@ -17,12 +18,13 @@ function verifyTokenMiddleware(req, res, next) {
     //--------------------------------------------------------------------------
 
     if (!token) {
+        console.log("no token");
         return res.status(401).json({ error: 'No token provided' });
     }
 
     try {
-        const user = jwt.verify(token, secretKey); // user payload
-        // Note: if jwt is invalid, jwt.verify throws an error (caught in catch block)
+        const user = jwt.verify(token, secretKey); // user payload (decoded)- Note: if jwt is invalid, jwt.verify throws an error (caught in catch block)         
+        req.user = user; // attach user to request for next middleware
         next();
     }
     catch (err) {
@@ -35,11 +37,30 @@ function verifyTokenMiddleware(req, res, next) {
             res.status(500).json({ error });
     }
 }
+function verifyRoleMiddleware(req, res, next) {
 
+    const user = req.user
+    const role = user.role;
+
+    if (role != "admin") {
+        //403: Forbidden
+        return res.status(403).json({ error: "Access Denied: Admin-Only" });
+    }
+
+    next();
+}
 //-----------------------------------------------------------
 //Routes
 //----------------------------------------------------------
-userRouter.get('/sampleRequest', userController.sampleRequest);
+
+adminRouter.post('/importProducts', adminController.importProducts);
 
 
-module.exports = userRouter;
+module.exports = adminRouter;
+
+
+
+
+
+
+
