@@ -1,3 +1,29 @@
+
+const jwt = require('jsonwebtoken');
+const secretKey = process.env.SECRET
+// function verifyTokenMiddleWare() Documentation:-
+// NOTE: Using `Authorization: <token>` (not `Bearer <token>`) for simplicity.
+// My backend expects the raw token in the `Authorization` header.
+// Can switch to standard Bearer format if integrating with third-party APIs.
+//--------------------------------------------------------------------------
+
+function verifyTokenMiddleware(req, res, next) {
+    const token = req.headers.authorization;
+
+    if (!token)
+        return handleNoToken(res);
+
+    try {
+        const user = jwt.verify(token, secretKey); // user payload (decoded)- Note: if jwt is invalid, jwt.verify throws an error (caught in catch block)         
+        req.user = user; // attach user to request for next middleware
+        next();
+    }
+    catch (err) {
+        handleError(err, res);
+    }
+}
+
+
 // prepareMultipleInsert()
 // Objective: Build the values array + placeholders string so we can plug them into  an SQL query to insert multiple rows at once.
 // Input: array of objects (dataArray), list of columns (columnsNeeded).
@@ -74,157 +100,5 @@ function buildPlaceholdersString(placeholdersArray) {
 }
 
 
-//-------------------------------------------
-// Input Validation
-//-----------------------------------------
-function validateAuthData(data) {  // for things that have email & password --> sign in & sign up
 
-    const [requiredFieldsAvailable, missingFields, transformedData] = checkAndTransformRequiredFields(data);
-
-    let errMessage = "";
-    let dataValid = true;
-
-    if (!requiredFieldsAvailable) {
-        errMessage = "Please Complete Missing Fields: " + missingFields.toString();
-        dataValid = false;
-    }
-
-    //If required fields valid go to next step -->  Check Inputs (specific schecks)
-    else if (requiredFieldsAvailable) {
-
-        const [inputsValid, errList] = checkAuthInputs(transformedData);
-
-        if (!inputsValid) {
-            errMessage = constructErrMessage(errList);
-            dataValid = false;
-        }
-
-    }
-    return [dataValid, errMessage, transformedData]
-
-
-}
-
-
-function checkAndTransformRequiredFields(data) {
-    let requiredFieldsAvailable = true;
-    let missingFields = [];
-    let transformedData = {};
-
-    for (let fieldObject of data) {
-
-        const fieldName = Object.keys(fieldObject)[0];
-        let fieldValue = fieldObject[fieldName];
-        const trim = fieldObject.trim;
-        const required = fieldObject.required;
-
-
-        //1- Trim First
-        if (trim == 1)
-            fieldValue = fieldValue.trim();
-
-        //2- Chceck If Not Empty (if Required)
-        if (required == 1 && (fieldValue == "" || fieldValue == null)) {
-            requiredFieldsValid = false;
-            missingFields.push(fieldName);
-        }
-
-        transformedData[fieldName] = fieldValue;
-
-
-    }
-    return [requiredFieldsAvailable, missingFields, transformedData];
-}
-
-
-function checkRequiredFields(data) {
-    let errMessage = null;
-    let requiredFieldsAvailable = true;
-    let missingFields = [];
-
-
-    for (let fieldObject of data) {
-
-        const fieldName = Object.keys(fieldObject)[0];
-        let fieldValue = fieldObject[fieldName];
-
-        const required = fieldObject.required;
-
-
-        //2- Chceck If Not Empty (if Required)
-        if (required == 1 && (fieldValue == "" || fieldValue == null)) {
-            requiredFieldsAvailable = false;
-            missingFields.push(fieldName);
-        }
-    }
-
-
-    if (!requiredFieldsAvailable) {
-        errMessage = "Please Complete Missing Fields: " + missingFields.toString();
-    }
-
-    return [requiredFieldsAvailable, missingFields, errMessage];
-}
-
-function checkAuthInputs(data) {
-    let errList = [];
-    let valid = true;
-
-
-    //check email
-    const emailInput = data.email;
-    const emailErr = checkEmailInput(emailInput);
-    if (emailErr) errList.push(emailErr);
-
-
-    //check password
-    const passwordInput = data.password;
-    const passwordErr = checkPasswordInput(passwordInput);
-    if (passwordErr) errList.push(passwordErr);
-
-    //-----------------------------------------------       
-
-    if (errList.length > 0)
-        valid = false;
-
-
-    return [valid, errList];
-}
-
-//--------------------------------------
-//Helper Methods
-//--------------------------------------
-
-function checkEmailInput(input) {
-    let errObj = {};
-    if (input != "admin" && (!input.includes("@") || !input.includes(".com"))) {
-        errObj.email = "* Invalid Email: Please Enter a Valid Email";
-        return errObj;
-    }
-    else
-        return null;
-}
-
-function checkPasswordInput(input) {
-    let errObj = {};
-
-    if (input.length < 4) {
-        errObj.password = "* Short Password: Please Enter Password Longer than 4 characters";
-        return errObj;
-    }
-    else
-        return null;
-}
-
-function constructErrMessage(errList) {
-    let fullMsg = "";
-    for (let i = 0; i < errList.length; i++) {
-        const errObj = errList[i];
-        const errKey = Object.keys(errObj)[0];
-        const errMsg = errObj[errKey];
-        fullMsg += errMsg + " \n";
-    }
-    return fullMsg;
-}
-
-module.exports = { validateAuthData, checkRequiredFields, prepareMultipleInsert }
+module.exports = { verifyTokenMiddleware, prepareMultipleInsert };

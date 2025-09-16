@@ -2,9 +2,12 @@ import App from '../App';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import * as utils from "../utils";
 import NavBar from './NavBar';
 import UserBar from './UserBar';
+
+import * as utils from "../utils";
+import * as utilsErrorHandling from "../utils_errorHandling";
+import * as utilsInputValidation from '../utils_inputValidation';
 
 function SignUp() {
 
@@ -40,27 +43,33 @@ function SignUp() {
     //-------------------------------------------------------
 
 
-    function handleSignUpSubmit(e) {
+    async function handleSignUpSubmit(e) {
         e.preventDefault();
 
+        // const data = [
+        //     { name, trim: 1, required: 1 },
+        //     { email, trim: 1, required: 1 },
+        //     { password, trim: 0, required: 1 },
+        // ];
+
         const data = [
-            { name, trim: 1, required: 1 },
-            { email, trim: 1, required: 1 },
-            { password, trim: 0, required: 1 },
+            { key: "name", value: name, type: "string", trim: 1, required: 1 },
+            { key: "email", value: email, type: "email", trim: 1, required: 1 },
+            { key: "password", value: password, type: "password", trim: 0, required: 1 },
         ];
 
-        const [dataValid, errMessage, transformedData] = utils.validateData(data);
+        const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
 
-        if (dataValid) {
-            alert("All Checks Passed, Forwarding Request...");
-            //--------------------------------------------------
-            return axios.post(App.baseUrl + "/signUp", transformedData)
-                .then(res => handleSignUpSuccess(res))
-                .catch(err => handleSignUpFailure(err));
+        if (!dataValid) {
+            return utilsErrorHandling.handleDataInvalid(errMessage); // stopping condition
         }
-        else {
-            alert(errMessage);
-        }
+        //----------------------------------------------
+
+        alert("All Checks Passed, Forwarding Request...");
+        return axios.post(App.baseUrl + "/signUp", transformedData)
+            .then(res => handleSignUpSuccess(res))
+            .catch(err => utilsErrorHandling.handleFailureStandard(err));
+
 
     }
 
@@ -69,16 +78,10 @@ function SignUp() {
     //-------------------------------------------------------
 
     function handleSignUpSuccess(res) {
-        const { message } = res.data
+        const { message } = res.data;
         alert(message);
         window.location.reload();
     }
-
-    function handleSignUpFailure(err) {
-        const error = err.response.data.error;
-        alert(error);
-    }
-
 
 
     return (

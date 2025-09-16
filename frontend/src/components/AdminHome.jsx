@@ -2,30 +2,29 @@ import App from '../App';
 import axios from 'axios';
 import { useState, useEffect, } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import * as utils from '../utils';
 import NavBar from './NavBar';
 import UserBar from './UserBar';
 
+import * as utils from '../utils';
+
 function AdminHome() {
     const navigate = useNavigate();
-    const roleRequired= "admin";
+    const roleRequired = "admin";
 
     //-------------------------------------------------------
     // Event Handlers
-    //-------------------------------------------------------
-
-     
+    //-------------------------------------------------------  
 
 
     return (
         <>
-           <NavBar></NavBar>
+            <NavBar></NavBar>
 
             <UserBar role={roleRequired}></UserBar>
 
-            <h1>Admin Home</h1>     
+            <h1>Admin Home</h1>
 
-            <Link className='linkButton' to="/adminImportProducts">Import Products</Link>     
+            <Link className='linkButton' to="/adminImportProducts">Import Products</Link>
 
         </>
 

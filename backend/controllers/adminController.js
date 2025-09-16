@@ -1,39 +1,37 @@
 require('dotenv').config();
 const user = require('../models/user')
 const product = require('../models/product')
-const utils = require('../utils');
 
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
-// const secretKey = process.env.SECRET
+const utils = require('../utils');
+const utilsErrorHandling = require('../utils_errorHandling');
+const utilsInputValidation = require('../utils_inputValidation');
+
 
 async function importProducts(req, res) {
     const { productsArray } = req.body
 
     const data = [
-        { productsArray, required: 1 },
+        { key: "productsArray", value: productsArray, type: "array", trim: 0, required: 1 },
+
     ];
 
-    const [requiredFieldsAvailable, missingFields, errMessage] = utils.checkRequiredFields(data);
+    const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
 
 
-    if (requiredFieldsAvailable) {
-        try {
-            await product.insertProducts(productsArray)
-            const message = "Import Products Successful";
-            console.log(message);
-            return res.json({ message })
-        }
-        catch (err) {
-            const errStatus = err.status || 500;
-            console.error(err);
-            return res.status(errStatus).json({ error: "Error: " + err.detail });
-        }
+    if (!dataValid)
+        return utilsErrorHandling.handleDataInvalid(res, errMessage); // stopping condition
+    //-----------------------------
+
+    try {
+        let { productsArray } = transformedData
+        await product.insertProducts(productsArray)
+        const message = "Import Products Successful";
+        console.log(message);
+        return res.json({ message })
     }
-    else
-        return res.status(400).json({ error: errMessage });
-
-
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
 
 }
 

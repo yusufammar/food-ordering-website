@@ -1,0 +1,15 @@
+*   [33m86ee344[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m Merge branch 'develop' of https://github.com/yusufammar/food-ordering-website into develop
+[31m|[m[32m\[m  
+[31m|[m * [33m6470b87[m feat (admin): implement importing products from excel sheet
+[31m|[m * [33m63fd05c[m feat: implement verify token middleware for user routes
+[31m|[m * [33m45c0b43[m feat(auth): implement signup/login with JWT, password hashing, and input validation (frontend & backend)
+[31m|[m * [33mfd8edba[m chore: setup postgres db
+* [32m|[m [33m2cf2cc7[m feat (admin): implement importing products from excel sheet
+* [32m|[m [33m6754b1b[m feat: implement verify token middleware for user routes
+* [32m|[m [33mb365cfa[m feat(auth): implement signup/login with JWT, password hashing, and input validation (frontend & backend)
+* [32m|[m [33mba3cced[m chore: setup postgres db
+[32m|[m[32m/[m  
+* [33m91444c5[m feat: connect frontend to backend APIs
+* [33m3ae4a9d[m chore: set up frontend (React) app structure
+* [33ma426b0d[m chore: set up backend (Express) app structure
+* [33ma112505[m Initial commit

@@ -1,48 +1,54 @@
 require('dotenv').config();
 const user = require('../models/user')
-const utils = require('../utils');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
 
+const utils = require('../utils');
+const utilsErrorHandling = require('../utils_errorHandling');
+const utilsInputValidation = require('../utils_inputValidation');
+
+
 
 async function login(req, res) {
     let { email, password } = req.body;
-    console.log(req.body);
+
 
     const data = [
-        { email, trim: 1, required: 1 },
-        { password, trim: 0, required: 1 },
+        { key: "email", value: email, type: "email", trim: 1, required: 1 },
+        { key: "password", value: password, type: "password", trim: 0, required: 1 },
     ];
 
-    const [dataValid, errMessage, transformedData] = utils.validateAuthData(data);
+    console.log(data);
 
-    if (dataValid) {
-        //next step
+    const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
+
+
+    if (!dataValid)
+        return utilsErrorHandling.handleDataInvalid(res, errMessage); // stopping condition
+
+    //--------------------------------------
+
+    try {
         let { email, password } = transformedData;
-        try {
-            const userCredentials = await user.getUserCredentials(email);
-            const userFound = (userCredentials != null);
+        const userCredentials = await user.getUserCredentials(email);
+        const userFound = (userCredentials != null);
 
-            if (userFound) {
-                const token = await handleUserFound(userCredentials, password);
-                const message = "Login Successful";
-                console.log(message);
-                return res.json({ token, message });
-            }
-            else
-                throwUserNotFoundErr();
+        if (userFound) {
+            const token = await handleUserFound(userCredentials, password);
+            const message = "Login Successful";
+            console.log(message);
+            return res.json({ token, message });
         }
-        catch (err) {
-            const errStatus = err.status || 500;
-            console.error(err);
-            return res.status(errStatus).json({ error: err.name });
-        }
+        else
+            throwUserNotFoundErr();
+
     }
-    else {
-        console.error(errMessage);
-        return res.status(400).json({ error: errMessage });
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
     }
+
+
 
 }
 
@@ -50,37 +56,39 @@ async function signUp(req, res) {
     let { name, email, password } = req.body;
 
     const data = [
-        { name, trim: 1, required: 1 },
-        { email, trim: 1, required: 1 },
-        { password, trim: 0, required: 1 },
+        { key: "name", value: name, type: "string", trim: 1, required: 1 },
+        { key: "email", value: email, type: "email", trim: 1, required: 1 },
+        { key: "password", value: password, type: "password", trim: 0, required: 1 },
     ];
 
-    const [dataValid, errMessage, transformedData] = utils.validateAuthData(data);
 
-    if (dataValid) {
-        //next step
+    const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
+
+
+    if (!dataValid)
+        return utilsErrorHandling.handleDataInvalid(res, errMessage); // stopping condition
+
+    //---------------------------------
+
+    try {
         let { name, email, password } = transformedData;
         const role = 'customer';
-        try {
-            await user.insertUser(name, email, password, role);
-            const message = "Sign Up Successful";
-            console.log(message);
-            return res.json({ message })
-        }
-        catch (err) {
-            const errStatus = err.status || 500;
-            console.error(err);
-            return res.status(errStatus).json({ error: "Error: " + err.detail });
-        }
+        await user.insertUser(name, email, password, role);
+        const message = "Sign Up Successful";
+        console.log(message);
+        return res.json({ message })
     }
-    else {
-        console.error(errMessage);
-        return res.status(400).json({ error: errMessage });
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
     }
+
+
+
 
 }
 
 //------------------------------------------------
+// Helper Methods
 
 async function handleUserFound(userCredentials, password) {
     const passwordsMatch = await checkPassword(userCredentials, password);
@@ -93,12 +101,7 @@ async function handleUserFound(userCredentials, password) {
         throwPasswordErr();
 }
 
-function throwUserNotFoundErr() {
-    const err = new Error("User Not Found");
-    err.name = "UserNotFoundError";
-    err.status = 400;
-    throw err;
-}
+
 
 async function checkPassword(userCredentials, password) {
     const hashedPass = userCredentials.password;
@@ -106,16 +109,6 @@ async function checkPassword(userCredentials, password) {
 
     return passwordsMatch
 }
-
-
-function throwPasswordErr() {
-    const err = new Error("Wrong Passsword");
-    err.name = "InvalidPasswordError";
-    err.status = 401;
-    throw err;
-}
-
-
 
 function generateToken(userCredentials) {
     const id = userCredentials.id
@@ -131,6 +124,24 @@ function generateToken(userCredentials) {
     return token;
 }
 
+
+//----------------------------------------------------------------
+// Error Throwing Methods
+
+function throwUserNotFoundErr() {
+    const err = new Error("User Not Found");
+    err.name = "UserNotFoundError";
+    err.status = 401;
+    throw err;
+}
+
+
+function throwPasswordErr() {
+    const err = new Error("Wrong Passsword");
+    err.name = "InvalidPasswordError";
+    err.status = 401;
+    throw err;
+}
 
 
 module.exports = { login, signUp };

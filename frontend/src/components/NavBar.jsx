@@ -2,7 +2,9 @@ import App from '../App';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import * as utils from '../utils';
+import * as utilsErrorHandling from '../utils_errorHandling';
 
 function NavBar() {
 
@@ -10,13 +12,7 @@ function NavBar() {
     // Event Handlers
     //-------------------------------------------------------
 
-    function handleLogout(e) {
-        utils.unsetUser();
-        window.location.reload();
-        // setUser({});
-    }
-
-
+  
 
     return (
 
@@ -25,7 +21,7 @@ function NavBar() {
             <Link className='linkButton' to="/login">Login</Link>
             <Link className='linkButton' to="/signUp">Sign Up</Link>
             <Link className='linkButton' to="/adminHome">Admin Home</Link>
-            <button className="redButton" onClick={handleLogout}>Log Out</button>
+            <button className="redButton" onClick={utilsErrorHandling.logout}>Log Out</button>
         </div>
 
 

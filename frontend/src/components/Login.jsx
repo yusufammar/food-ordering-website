@@ -1,15 +1,18 @@
 import App from '../App';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import * as utils from "../utils";
+import { data, Link, useNavigate } from "react-router-dom";
 import NavBar from './NavBar';
 import UserBar from './UserBar';
+
+import * as utils from "../utils";
+import * as utilsErrorHandling from '../utils_errorHandling';
+import * as utilsInputValidation from '../utils_inputValidation';
 
 function Login() {
 
     const navigate = useNavigate();
-    const roleRequired= null;
+    const roleRequired = null;
 
     //-------------------------------------------------------
     //Inputs
@@ -30,27 +33,31 @@ function Login() {
     // Event Handlers
     //-------------------------------------------------------
 
-    function handleLoginSubmit(e) {
+    async function handleLoginSubmit(e) {
         e.preventDefault();
 
+
         const data = [
-            { email, trim: 1, required: 1 },
-            { password, trim: 0, required: 1 },
+            { key: "email", value: email, type: "email", trim: 1, required: 1 },
+            { key: "password", value: password, type: "password", trim: 0, required: 1 },
         ];
 
-        const [dataValid, errMessage, transformedData] = utils.validateData(data);
+        const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
 
-        if (dataValid) {
-            alert("All Checks Passed, Forwarding Request...");
-            //--------------------------------------------------
-            return axios.post(App.baseUrl + "/login", transformedData)
-                .then(res => handleLoginSuccess(res))
-                .catch(err => handleLoginFailure(err));
-        }
-        else {
-            alert(errMessage);
+        if (!dataValid) {
+            return utilsErrorHandling.handleDataInvalid(errMessage); // stopping condition
         }
 
+        //##########################
+        //Test (Backend Response- HandleDataInvalid): Passing Incomplete Data to Backend
+        const dataIncomplete = { password };
+        //##############################
+
+        //---------------------------------------------------------------
+        alert("All Checks Passed, Forwarding Request...");
+        return axios.post(App.baseUrl + "/login", transformedData)
+            .then(res => handleLoginSuccess(res))
+            .catch(err => utilsErrorHandling.handleFailureStandard(err));
     }
 
     //-------------------------------------------------------
@@ -65,14 +72,7 @@ function Login() {
         window.location.reload();
     }
 
-    function handleLoginFailure(err) {
-        utils.unsetUser();
-        setUser({});
 
-        const error = err.response.data.error;
-        alert(error);
-    }
- 
 
     return (
         <>

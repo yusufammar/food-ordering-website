@@ -7,7 +7,7 @@ function UserBar({ role }) {
     //-------------------------------------------------
 
     const navigate = useNavigate();
-    
+
     //------------------------------------------------------
 
     const [user, setUser] = useState({});
@@ -27,7 +27,7 @@ function UserBar({ role }) {
             return
 
         if (currentUser.role != role) {
-            const errMsg = "" + role + " needed"
+            const errMsg = "" + role + " Login Required"
             alert("Access Denied: " + errMsg);
             navigate("/");
         }
