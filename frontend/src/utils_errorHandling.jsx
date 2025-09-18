@@ -6,6 +6,7 @@
 // 409 = conflict (email already exists)
 //-----------------------------------------------------------------------
 
+import * as utils from './utils';
 
 function handleSuccessStandard(res) {
   const { message } = res.data;

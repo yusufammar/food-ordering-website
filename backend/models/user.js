@@ -35,17 +35,24 @@ async function getUserCredentials(email) {
 }
 
 
-async function insertUser(name, email, password, role) {
-  // console.log(name);
-  console.log(name);
-  console.log(password);
-  
-
+async function insertUser(client, name, email, password, role) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const query = `INSERT INTO users (name,email,password,role) VALUES ($1,$2,$3,$4); `;
+  const query = `INSERT INTO users (name,email,password,role) VALUES ($1,$2,$3,$4)
+    RETURNING id;`;
   const values = [name, email, hashedPassword, role];
 
+  const result = await client.query(query, values);
+  // const result = await pool.query(query, values);
+
+  const userID = result.rows[0].id;
+  return userID;
+}
+
+function deleteUserByID(userID) {
+
+  const query = `DELETE FROM users WHERE id=$1`;
+  const values = [userID];
   return pool.query(query, values);
 }
 
@@ -54,7 +61,7 @@ async function insertUser(name, email, password, role) {
 //#DB_Init Methods / Helper Methods
 //----------------------------------
 function clearUsersTable() {
-  const query = `TRUNCATE TABLE users RESTART IDENTITY`;
+  const query = `TRUNCATE TABLE users RESTART IDENTITY CASCADE`;
   return pool.query(query)
 }
 
@@ -69,7 +76,9 @@ async function insertAdmin() {
 }
 
 
+
+
 module.exports = {
   createUsersTable, clearUsersTable, insertAdmin,
-  getUserCredentials, insertUser
+  getUserCredentials, insertUser, deleteUserByID
 };

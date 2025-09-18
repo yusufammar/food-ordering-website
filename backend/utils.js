@@ -1,4 +1,6 @@
 
+const utilsErrorHandling= require('./utils_errorHandling');
+
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
 // function verifyTokenMiddleWare() Documentation:-
@@ -11,7 +13,7 @@ function verifyTokenMiddleware(req, res, next) {
     const token = req.headers.authorization;
 
     if (!token)
-        return handleNoToken(res);
+        return utilsErrorHandling.handleNoToken(res);
 
     try {
         const user = jwt.verify(token, secretKey); // user payload (decoded)- Note: if jwt is invalid, jwt.verify throws an error (caught in catch block)         
@@ -19,7 +21,7 @@ function verifyTokenMiddleware(req, res, next) {
         next();
     }
     catch (err) {
-        handleError(err, res);
+        utilsErrorHandling.handleError(err, res);
     }
 }
 

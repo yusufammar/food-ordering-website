@@ -18,20 +18,20 @@ function handleDataInvalid(res, errMessage) {
 
 
 function handleError(err, res) {
-    console.error(err);
+    // console.error(err);
     let errStatus = err.status || 500;
+
 
     if (err.name == "TokenExpiredError" || err.name == "JsonWebTokenError") {
         errStatus = 401;
     }
 
-    if (err.detail!=null &&  err.detail.includes("already exists")) {
+    if (err.detail != null && err.detail.includes("already exists")) {
         errStatus = 409;
     }
 
-    let errMsg = `Error ${errStatus} (${err.name || "Internal Server Error"}): ${err.detail || "Network Error"}`;
+    let errMsg = `Error ${errStatus} (${err.name || "Internal Server Error"}): ${err.detail || err.message || "Network Error"}`;
     return res.status(errStatus).json({ error: errMsg });
-    //return res.status(errStatus).json({ error: "Error: " + err.detail });
 }
 
 module.exports = { handleNoToken, handleDataInvalid, handleError }
