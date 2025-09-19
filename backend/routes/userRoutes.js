@@ -16,6 +16,7 @@ userRouter.use(utils.verifyTokenMiddleware);
 //Routes
 //----------------------------------------------------------
 userRouter.get('/sampleRequest', userController.sampleRequest);
+userRouter.get('/getProducts', userController.getProducts);
 
 
 module.exports = userRouter;

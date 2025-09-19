@@ -18,7 +18,7 @@ function Home() {
     // Event Handlers
     //-------------------------------------------------------
 
-    function handleSampleRequest(e) { // only for checking token middleware functionality
+    function handleSampleRequest() { // only for checking token middleware functionality
 
 
         const config = { headers: { authorization: user.token } };

@@ -4,6 +4,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import AdminHome from './components/AdminHome';
 import AdminImportProducts from './components/Admin_ImportProducts';
+import CustomerHome from './components/CustomerHome';
 
 function App(){
   
@@ -16,6 +17,7 @@ function App(){
         <Route path="/login"  element={<Login/>} />
         <Route path="/signUp"  element={<SignUp/>} />
         <Route path="/adminHome"  element={<AdminHome/>} />
+        <Route path="/customerHome"  element={<CustomerHome/>} />
          <Route path="/adminImportProducts"  element={<AdminImportProducts/>} />
       </Routes>
 

@@ -1,9 +1,16 @@
 require('dotenv').config();
-const user = require('../models/user')
-const utils = require('../utils');
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
+
+const user = require('../models/user');
+const address = require('../models/address');
+const product = require('../models/product');
+
+const utils = require('../utils');
+const utilsErrorHandling = require('../utils_errorHandling');
+const utilsInputValidation = require('../utils_inputValidation');
 
 
 function sampleRequest(req, res) {
@@ -11,5 +18,24 @@ function sampleRequest(req, res) {
     res.json({ message: "Sample Request successful" });
 }
 
+async function getProducts(req, res) {
+   
 
-module.exports = { sampleRequest };
+    try {
+        const result = await product.getProducts();
+        const products = result.rows;
+        
+        // const message = "Sign Up Successful";
+        console.log(products);
+        return res.json({ products })
+
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+
+}
+
+
+
+module.exports = { sampleRequest, getProducts };

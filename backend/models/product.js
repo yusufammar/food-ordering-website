@@ -45,6 +45,12 @@ async function insertProducts(productsArray) {
     return pool.query(query, values);
 }
 
+function getProducts(){
+    const query = `SELECT * FROM products;`;
+
+    return pool.query(query);
+}
+
 //-----------------------------------
 //Helper Methods
 //-----------------------------------
@@ -53,4 +59,4 @@ function clearProductsTable() {
     return pool.query(query)
 }
 
-module.exports = { createProductsTable, insertProducts };
+module.exports = { createProductsTable, insertProducts, getProducts };
