@@ -29,7 +29,11 @@ function UserBar({ role }) {
         if (currentUser.role != role) {
             const errMsg = "" + role + " Login Required"
             alert("Access Denied: " + errMsg);
-            navigate("/");
+            switch(currentUser.role){
+                case("admin"): navigate("/adminHome");break;
+                case("customer"): navigate("/customerHome");break;
+                default: navigate("/login");
+            }
         }
     }
 

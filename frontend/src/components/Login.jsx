@@ -57,7 +57,7 @@ function Login() {
         alert("All Checks Passed, Forwarding Request...");
         return axios.post(App.baseUrl + "/login", transformedData)
             .then(res => handleLoginSuccess(res))
-            .catch(err => utilsErrorHandling.handleFailureStandard(err));
+            .catch(err => utilsErrorHandling.handleFailureStandard(err,navigate));
     }
 
     //-------------------------------------------------------
@@ -69,7 +69,20 @@ function Login() {
         utils.setUser(token);
 
         alert(message);
-        window.location.reload();
+        // navigate("/");
+        //---------------------------
+        
+        // window.location.reload();
+        const user=utils.getSavedUser();
+        console.log(user);
+
+        if (user.role== "customer")
+            navigate("/customerHome");
+        if (user.role== "admin")
+            navigate("/adminHome");
+        
+        
+
     }
 
 

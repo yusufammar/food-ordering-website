@@ -98,7 +98,7 @@ function SignUp() {
         alert("All Checks Passed, Forwarding Request...");
         return axios.post(App.baseUrl + "/signUp", transformedData)
             .then(res => handleSignUpSuccess(res))
-            .catch(err => utilsErrorHandling.handleFailureStandard(err));
+            .catch(err => utilsErrorHandling.handleFailureStandard(err,navigate));
 
 
     }

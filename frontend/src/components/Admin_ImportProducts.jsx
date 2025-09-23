@@ -44,7 +44,7 @@ function AdminImportProducts() {
 
         return axios.post(App.baseUrl + "/admin/importProducts", transformedData, config)
             .then(res => utilsErrorHandling.handleSuccessStandard(res))
-            .catch(err => utilsErrorHandling.handleFailureStandard(err));
+            .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
     }
 
     //-------------------------------------------------------

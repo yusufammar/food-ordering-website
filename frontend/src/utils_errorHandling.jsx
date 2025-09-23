@@ -14,14 +14,14 @@ function handleSuccessStandard(res) {
 }
 
 
-function handleFailureStandard(err) {
+function handleFailureStandard(err, navigate) {
 
   const error = err.response.data.error;
   console.log(err.status);
 
   switch (err.status) {
     case (400): alert(error); break; // Client Error (Wrong Input)
-    case (401 || 403 || 409): alert(error); logout(); break; // Client Error: Forbiden / wrong email,pass
+    case (401 || 403 || 409): alert(error); logout(navigate); break; // Client Error: Forbiden / wrong email,pass
     default: alert(error); break; // Server Error (500)
   }
 
@@ -32,9 +32,12 @@ function handleDataInvalid(errMessage) {
 
 }
 
-function logout() {
+function logout(navigate) {
   utils.unsetUser();
+  
   window.location.reload();
+  navigate("/login");
+  
 }
 
 export { logout, handleFailureStandard, handleSuccessStandard, handleDataInvalid };

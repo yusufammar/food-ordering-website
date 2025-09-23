@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const pool = require('../config/db.js')
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
@@ -7,6 +9,9 @@ const secretKey = process.env.SECRET
 const user = require('../models/user');
 const address = require('../models/address');
 const product = require('../models/product');
+const order = require('../models/order');
+const order_items = require('../models/order_items');
+
 
 const utils = require('../utils');
 const utilsErrorHandling = require('../utils_errorHandling');
@@ -19,14 +24,11 @@ function sampleRequest(req, res) {
 }
 
 async function getProducts(req, res) {
-   
 
     try {
         const result = await product.getProducts();
         const products = result.rows;
-        
-        // const message = "Sign Up Successful";
-        console.log(products);
+        // console.log(products);
         return res.json({ products })
 
     }
@@ -36,6 +38,45 @@ async function getProducts(req, res) {
 
 }
 
+async function checkoutOrder(req, res) {
+    let { cart, userID, total } = req.body;
+
+    const data = [
+        { key: "cart", value: cart, type: "array", trim: 0, required: 1 },
+        { key: "userID", value: userID, type: "number", trim: 0, required: 1 },
+        { key: "total", value: total, type: "number", trim: 0, required: 1 },
+    ];
+
+    const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
 
 
-module.exports = { sampleRequest, getProducts };
+    if (!dataValid)
+        return utilsErrorHandling.handleDataInvalid(res, errMessage); // stopping condition
+    //-----------------------------
+
+    const client = await pool.connect();
+
+    try {
+        let { cart, userID, total } = transformedData;
+        // console.log(cart);
+        await client.query('BEGIN');
+        const orderID = await order.insertOrder(client, userID, total);
+        // console.log("Order ID: " + orderID);
+        await order_items.insertOrderItems(client, orderID, cart);
+        await client.query('COMMIT');
+
+        const message = "Order Checkout Successful";
+        console.log(message);
+        return res.json({ message })
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+
+}
+
+
+
+
+
+module.exports = { sampleRequest, getProducts, checkoutOrder };

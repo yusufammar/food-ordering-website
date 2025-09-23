@@ -30,6 +30,10 @@ function handleError(err, res) {
         errStatus = 409;
     }
 
+      if (err.detail != null && err.detail.includes(`is not present in table "users"`)) {
+        errStatus = 401;
+    }
+
     let errMsg = `Error ${errStatus} (${err.name || "Internal Server Error"}): ${err.detail || err.message || "Network Error"}`;
     return res.status(errStatus).json({ error: errMsg });
 }

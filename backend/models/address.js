@@ -18,7 +18,9 @@ function createAddressesTable() {
             description TEXT,
             user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
         );
-    `;
+    `; 
+
+    //On delete cascade, means here if a change happens in the parent table (users), like a row delete then delete here too
 
     return pool.query(query);
 
@@ -33,6 +35,10 @@ function clearAddressesTable() {
     return pool.query(query)
 }
 
+function dropAddressesTable() {
+    const query = `DROP TABLE IF EXISTS addresses;`;
+    return pool.query(query)
+}
 
 //--------------------------------------------
 
@@ -51,4 +57,4 @@ function insertAddress(client, userID, city, district, street, buildingNo, apart
 //-----------------------------------
 
 
-module.exports = { createAddressesTable, clearAddressesTable, insertAddress };
+module.exports = { createAddressesTable, clearAddressesTable, dropAddressesTable, insertAddress };

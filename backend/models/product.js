@@ -32,7 +32,8 @@ async function insertProducts(productsArray) {
     console.log("Products Table Cleared");
     //----------------------------------------------------------
 
-    const columnsNeeded = ["Name", "Category", "Price", "Arabic Name"];
+    
+    const columnsNeeded = ["Name", "Category", "Price", "Arabic Name"]; 
     const { valuesArray, placeholdersString } = utils.prepareMultipleInsert(productsArray, columnsNeeded);
 
     // console.log(valuesArray);
@@ -59,4 +60,9 @@ function clearProductsTable() {
     return pool.query(query)
 }
 
-module.exports = { createProductsTable, insertProducts, getProducts };
+function dropProductsTable() {
+    const query = `DROP TABLE IF EXISTS products;`;
+    return pool.query(query)
+}
+
+module.exports = { createProductsTable, clearProductsTable, dropProductsTable, insertProducts, getProducts };

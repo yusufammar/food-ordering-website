@@ -1,5 +1,5 @@
 
-const utilsErrorHandling= require('./utils_errorHandling');
+const utilsErrorHandling = require('./utils_errorHandling');
 
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
@@ -28,12 +28,14 @@ function verifyTokenMiddleware(req, res, next) {
 
 // prepareMultipleInsert()
 // Objective: Build the values array + placeholders string so we can plug them into  an SQL query to insert multiple rows at once.
-// Input: array of objects (dataArray), list of columns (columnsNeeded).
+// Input: array of objects (dataArray), list of columns/field (columnsNeeded) -> (names should be matching the ones of data array)
+
 // Builds:
 //   1. a flat array of all the values (valuesArray)
 //   2. a string of SQL placeholders like "($1,$2),($3,$4)" (placeholdersString)
 function prepareMultipleInsert(dataArray, columnsNeeded) {
-
+    //Note (columnsNeeded): column /field names should matches column /field names of the data array given to the method (it will be used to look up values from the data array)
+    //columns needed names don't need to match name of columns of new table, but order should match (in terms of how construct the columsNeed array, becuase it is used for lookup and it will construct values Array accordingly)
 
     let valuesArray = [];
     let placeholdersArray = [];

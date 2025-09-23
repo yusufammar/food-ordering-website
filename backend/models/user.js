@@ -65,6 +65,14 @@ function clearUsersTable() {
   return pool.query(query)
 }
 
+function dropUsersTable() {
+    const query = `DROP TABLE IF EXISTS users CASCADE`; 
+    return pool.query(query)
+
+   // You can't drop the parent table by default because it would leave the child table with a broken foreign key reference. This is a safety feature.
+  //To force the deletion, you must use the DROP TABLE parent_table_name CASCADE; command. This will also delete the foreign key constraint on the child table and potentially the child table itself if it has no other dependencies.
+}
+
 
 async function insertAdmin() {
   const adminPassword = 'admin';
@@ -79,6 +87,6 @@ async function insertAdmin() {
 
 
 module.exports = {
-  createUsersTable, clearUsersTable, insertAdmin,
+  createUsersTable, clearUsersTable, dropUsersTable, insertAdmin,
   getUserCredentials, insertUser, deleteUserByID
 };

@@ -25,7 +25,7 @@ function Home() {
 
         return axios.get(App.baseUrl + "/user/sampleRequest", config)
             .then(res => utilsErrorHandling.handleSuccessStandard(res))
-            .catch(err => utilsErrorHandling.handleFailureStandard(err));
+            .catch(err => utilsErrorHandling.handleFailureStandard(err,navigate));
 
         //---------------
         //Test
