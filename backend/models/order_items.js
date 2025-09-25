@@ -54,6 +54,14 @@ async function insertOrderItems(client, orderID, cart) {
 
 }
 
+function getOrderItems(orderID){
+    const query = `SELECT * FROM order_items WHERE order_id=$1`;
+    const values= [orderID];
+
+    return pool.query(query,values);
+}
+
+
 //-----------------------------------
 //Helper Methods
 //-----------------------------------
@@ -66,4 +74,4 @@ function addOrderIdToCartItems(cart,orderID){
     return;
 }
 
-module.exports = { createOrderItemsTable,clearOrdersItemsTable,dropOrderItemsTable, insertOrderItems };
+module.exports = { createOrderItemsTable,clearOrdersItemsTable,dropOrderItemsTable, insertOrderItems, getOrderItems };

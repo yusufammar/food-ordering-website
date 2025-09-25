@@ -1,13 +1,13 @@
-import App from '../App';
+import App from '../../App';
 import axios from 'axios';
 import { useState, useEffect, } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import NavBar from './NavBar';
-import UserBar from './UserBar';
+import NavBar from '../NavBar';
+import UserBar from '../UserBar';
 
-import * as utils from '../utils';
-import * as utilsErrorHandling from '../utils_errorHandling';
-import * as utilsInputValidation from '../utils_inputValidation';
+import * as utils from '../../utils';
+import * as utilsErrorHandling from '../../utils_errorHandling';
+import * as utilsInputValidation from '../../utils_inputValidation';
 
 function CustomerHome() {
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ function CustomerHome() {
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
 
-    useEffect(getProductsRequest, []);
+    useEffect(getProductsRequest, []); //this should be blocked userbar gives access denied
     useEffect(updateProducts, [products]);
     useEffect(updateCart, [cart]);
 

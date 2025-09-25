@@ -62,9 +62,17 @@ async function insertOrder(client, userID, total) {
 
 }
 
+function getOrders(userID){
+    const query = `SELECT * FROM orders WHERE user_id=$1`;
+    const values= [userID];
+
+    return pool.query(query,values);
+}
+
+
 //-----------------------------------
 //Helper Methods
 //-----------------------------------
 
 
-module.exports = { createOrdersTable, clearOrdersTable, dropOrdersTable, insertOrder };
+module.exports = { createOrdersTable, clearOrdersTable, dropOrdersTable, insertOrder, getOrders };

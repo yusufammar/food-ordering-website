@@ -76,7 +76,55 @@ async function checkoutOrder(req, res) {
 }
 
 
+async function getOrders(req, res) {
+    const user= req.user;
+
+    try {
+        const result = await order.getOrders(user.id);
+        
+        const orders = result.rows;
+        // console.log(orders);
+
+        // //Test (Date Parsability & Comparibility)
+        // const date1= orders[0].date;
+        // const date2= orders[1].date;
+        // console.log(date1);
+        // console.log(date2);
+
+        // if (date1>date2)
+        //     console.log(true);
+        // else
+        //     console.log(false);
+        // //----------------------
+
+        
+        return res.json({ orders })
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+}
+
+
+async function getOrderItems(req, res) {
+    
+    const orderID = req.params.orderID; 
+    console.log(orderID);
+
+    try {
+        const result = await order_items.getOrderItems(orderID);
+        
+        const orderItems = result.rows;
+        return res.json({ orderItems })
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+}
 
 
 
-module.exports = { sampleRequest, getProducts, checkoutOrder };
+
+
+
+module.exports = { sampleRequest, getProducts, checkoutOrder, getOrders, getOrderItems };

@@ -18,5 +18,7 @@ userRouter.use(utils.verifyTokenMiddleware);
 userRouter.get('/sampleRequest', userController.sampleRequest);
 userRouter.get('/getProducts', userController.getProducts);
 userRouter.post('/checkoutOrder', userController.checkoutOrder);
+userRouter.get('/getOrders', userController.getOrders);
+userRouter.get('/getOrderItems/:orderID', userController.getOrderItems);
 
 module.exports = userRouter;

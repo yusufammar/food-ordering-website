@@ -1,11 +1,11 @@
-import App from '../App';
+import App from '../../App';
 import axios from 'axios';
 import { useState, useEffect, } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import NavBar from './NavBar';
-import UserBar from './UserBar';
+import NavBar from '../NavBar';
+import UserBar from '../UserBar';
 
-import * as utils from '../utils';
+import * as utils from '../../utils';
 
 function AdminHome() {
     const navigate = useNavigate();

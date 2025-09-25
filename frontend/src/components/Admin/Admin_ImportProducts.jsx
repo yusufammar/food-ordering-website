@@ -1,14 +1,14 @@
-import App from '../App';
+import App from '../../App';
 import axios from 'axios';
 import { useState, useEffect, } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
-import NavBar from './NavBar';
-import UserBar from './UserBar';
+import NavBar from '../NavBar';
+import UserBar from '../UserBar';
 
-import * as utils from '../utils';
-import * as utilsErrorHandling from '../utils_errorHandling';
-import * as utilsInputValidation from '../utils_inputValidation';
+import * as utils from '../../utils';
+import * as utilsErrorHandling from '../../utils_errorHandling';
+import * as utilsInputValidation from '../../utils_inputValidation';
 
 
 function AdminImportProducts() {
