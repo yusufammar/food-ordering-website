@@ -23,7 +23,7 @@ async function login(req, res) {
         { key: "password", value: password, type: "password", trim: 0, required: 1 },
     ];
 
-    console.log(data);
+    // console.log(data);
 
     const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
 

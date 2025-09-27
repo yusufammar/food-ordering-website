@@ -7,6 +7,7 @@ import AdminImportProducts from './components/Admin/Admin_ImportProducts';
 import CustomerHome from './components/Customer/CustomerHome';
 import CustomerOrderHistory from './components/Customer/Customer_OrderHistory';
 import CustomerOrderDetails from './components/Customer/Customer_OrderDetails';
+import CustomerProfile from './components/Customer/Customer_Profile';
 
 function App(){
   
@@ -23,6 +24,7 @@ function App(){
         <Route path="/adminImportProducts"  element={<AdminImportProducts/>} />
         <Route path="/customerOrderHistory"  element={<CustomerOrderHistory/>} />
         <Route path="/customerOrderDetails"  element={<CustomerOrderDetails/>} />
+        <Route path="/customerProfile"  element={<CustomerProfile/>} />
       </Routes>
 
     </Router>

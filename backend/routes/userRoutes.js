@@ -20,5 +20,7 @@ userRouter.get('/getProducts', userController.getProducts);
 userRouter.post('/checkoutOrder', userController.checkoutOrder);
 userRouter.get('/getOrders', userController.getOrders);
 userRouter.get('/getOrderItems/:orderID', userController.getOrderItems);
+userRouter.get('/getProfile', userController.getProfile);
+
 
 module.exports = userRouter;

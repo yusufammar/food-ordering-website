@@ -23,9 +23,15 @@ function createAddressesTable() {
     //On delete cascade, means here if a change happens in the parent table (users), like a row delete then delete here too
 
     return pool.query(query);
-
-
 }
+
+function getAddress(userID){
+    const query = `SELECT * FROM addresses WHERE user_id=$1`;
+    const values= [userID];
+
+    return pool.query(query,values);
+}
+
 
 //----------------------------------
 //#DB_Init Methods / Helper Methods
@@ -57,4 +63,4 @@ function insertAddress(client, userID, city, district, street, buildingNo, apart
 //-----------------------------------
 
 
-module.exports = { createAddressesTable, clearAddressesTable, dropAddressesTable, insertAddress };
+module.exports = { createAddressesTable, clearAddressesTable, dropAddressesTable, insertAddress, getAddress };

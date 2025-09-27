@@ -56,6 +56,13 @@ function deleteUserByID(userID) {
   return pool.query(query, values);
 }
 
+function getProfile(userID){
+    const query = `SELECT * FROM users WHERE id=$1`;
+    const values= [userID];
+
+    return pool.query(query,values);
+}
+
 
 //----------------------------------
 //#DB_Init Methods / Helper Methods
@@ -88,5 +95,5 @@ async function insertAdmin() {
 
 module.exports = {
   createUsersTable, clearUsersTable, dropUsersTable, insertAdmin,
-  getUserCredentials, insertUser, deleteUserByID
+  getUserCredentials, insertUser, deleteUserByID, getProfile
 };

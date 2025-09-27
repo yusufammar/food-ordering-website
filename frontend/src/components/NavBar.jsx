@@ -19,6 +19,7 @@ function NavBar() {
             <Link className='linkButton' to="/signUp">Sign Up</Link>
             <Link className='linkButton' to="/customerHome">Customer Home</Link>
             <Link className='linkButton' to="/customerOrderHistory">My Orders</Link>
+            <Link className='linkButton' to="/customerProfile">My Profile</Link>
             <Link className='linkButton' to="/adminHome">Admin Home</Link>
             <button className="redButton" onClick={()=>utilsErrorHandling.logout(navigate)}>Log Out</button>
         </div>

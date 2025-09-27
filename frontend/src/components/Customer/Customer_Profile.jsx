@@ -9,28 +9,28 @@ import * as utils from '../../utils';
 import * as utilsErrorHandling from '../../utils_errorHandling';
 import * as utilsInputValidation from '../../utils_inputValidation';
 
-function CustomerOrderDetails() {
+function CustomerProfile() {
     const navigate = useNavigate();
     const location = useLocation();
 
     const roleRequired = "customer";
     const user = utils.getSavedUser();
-    const order = location.state?.order; // retrieve passed state
-    const [orderItems, setOrderItems] = useState([]);
 
+    const [profile, setProfile] = useState({});
+    const [address, setAddress] = useState({});
 
-    useEffect(getOrderItemsRequest, []);
-    // useEffect(updateOrderItems, [orderItems]);
+    useEffect(getProfileRequest, []);
+    // useEffect(updateProfile_Address, [profile,address]);
 
 
     //-----------------------------
     // HTTP Requests
     //------------------------------
 
-    function getOrderItemsRequest() {
+    function getProfileRequest() {
         const config = { headers: { authorization: user.token } };
 
-        axios.get(App.baseUrl + `/user/getOrderItems/${order.id}`, config)
+        axios.get(App.baseUrl + `/user/getProfile`, config)
             .then(res => handleSuccess(res))
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
 
@@ -42,12 +42,17 @@ function CustomerOrderDetails() {
     //-------------------------------------------------------  
 
     function handleSuccess(res) {
-        setOrderItems(res.data.orderItems);
+        // console.log(res.data);
+        setProfile(res.data.profile);
+        setAddress(res.data.profileAddress);
     }
 
-    function updateOrderItems() {
-        console.log("Order Items: ");
-        console.log(orderItems);
+    function updateProfile_Address() {
+        console.log("Profile: ");
+        console.log(profile);
+        console.log("--------------");
+        console.log("Address: ");
+        console.log(address);
         console.log("--------------");
     }
 
@@ -62,17 +67,17 @@ function CustomerOrderDetails() {
 
             <UserBar role={roleRequired}></UserBar>
 
-            <h1>Order Details</h1>
-            
-            <p> <b>Date:</b> {order.date} | <b>Time:</b> {order.time} | <b>Total:</b> {order.total} EGP | <b>Payment Method:</b> {order.payment_method}  </p>
-            <p> <b>Status:</b> {order.status}</p>
+            <h1>My Profile</h1>
 
-            <br></br>
-            <h2>Items List</h2>
-            {orderItems.map((value, index) =>
-                <p key={index}> <b>Name:</b> {value.name} | <b>Price:</b> {value.price} | <b>Quantity:</b> {value.quantity}  </p>
-                
-            )}
+
+            <p>  <b>Name:</b> {profile.name} | <b>Email:</b> {profile.email} </p>
+
+
+            <h2>Address</h2>
+            <p> <b>City:</b> {address.city} | <b>District:</b> {address.district} | <b>Street:</b> {address.street} | <b>Building No:</b> {address.building_no} | <b>Apartment No:</b> {address.apt_no} </p>
+            <p> <b>Description:</b> {address.desscription}</p>
+
+           
 
 
 
@@ -82,4 +87,4 @@ function CustomerOrderDetails() {
     );
 }
 
-export default CustomerOrderDetails;
+export default CustomerProfile;

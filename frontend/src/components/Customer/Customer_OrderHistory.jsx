@@ -63,11 +63,11 @@ function CustomerOrderHistory() {
 
             <UserBar role={roleRequired}></UserBar>
 
-            <h1>Customer Order History</h1>
+            <h1>My Orders</h1>
 
 
             {orders.map((value, index) =>
-                <p key={index}> Date: {value.date} | Time: {value.time} | Total: {value.total} EGP | Payment Method: {value.payment_method} | Status: {value.status} |
+                <p key={index}> <b>Date:</b> {value.date} | <b>Time:</b> {value.time} | <b>Total:</b> {value.total} EGP | <b>Payment Method:</b> {value.payment_method} | <b>Status:</b> {value.status} |
                     <button onClick={() => viewOrderItems(value, index)}> Details </button>
                 </p>
 

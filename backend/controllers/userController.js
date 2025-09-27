@@ -77,10 +77,10 @@ async function checkoutOrder(req, res) {
 
 
 async function getOrders(req, res) {
-    const user= req.user;
+    const userAttached= req.user;
 
     try {
-        const result = await order.getOrders(user.id);
+        const result = await order.getOrders(userAttached.id);
         
         const orders = result.rows;
         // console.log(orders);
@@ -103,13 +103,13 @@ async function getOrders(req, res) {
     catch (err) {
         utilsErrorHandling.handleError(err, res);
     }
-}
+} 
 
 
 async function getOrderItems(req, res) {
     
     const orderID = req.params.orderID; 
-    console.log(orderID);
+    // console.log(orderID);
 
     try {
         const result = await order_items.getOrderItems(orderID);
@@ -123,8 +123,30 @@ async function getOrderItems(req, res) {
 }
 
 
+async function getProfile(req, res) {
+    const userAttached= req.user;
+    // console.log(userAttached);
+
+    try {
+        const result = await user.getProfile(userAttached.id);
+        const profile = result.rows[0];
+
+        const result2= await address.getAddress(userAttached.id);
+        const profileAddress = result2.rows[0];
+
+        // console.log(profile);
+        // console.log(profileAddress);
+                
+        return res.json({ profile, profileAddress})
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+} 
 
 
 
 
-module.exports = { sampleRequest, getProducts, checkoutOrder, getOrders, getOrderItems };
+
+
+module.exports = { sampleRequest, getProducts, checkoutOrder, getOrders, getOrderItems, getProfile };
