@@ -128,8 +128,10 @@ async function checkInputs(data) {
 function checkEmailInput(input) {
   let errObj = {};
 
+  if (input == "admin" || input== "cashier")
+    return null;
 
-  if (input != "admin" && (!input.includes("@") || !input.includes(".com"))) {
+  if ( !input.includes("@") || !input.includes(".com") ) {
     errObj.email = "* Invalid Email: Please Enter a Valid Email";
     return errObj;
   }

@@ -43,10 +43,17 @@ async function setupDB() {
 
 
         //--------------------
-        //Custom Insterts
+        //Custom Insterts / Functions
         //--------------------
         await user.insertAdmin();
         console.log("Admin Inserted");
+        
+        await user.insertCashier();
+        console.log("Cashier Inserted");
+
+        await order.implementOrdersTrigger();
+        console.log("Orders Trigger Implemented");
+
 
 
 

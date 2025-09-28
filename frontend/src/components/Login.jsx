@@ -80,6 +80,11 @@ function Login() {
             navigate("/customerHome");
         if (user.role== "admin")
             navigate("/adminHome");
+
+        
+        if (user.role== "cashier")
+            navigate("/cashierOrders");
+      
         
         
 

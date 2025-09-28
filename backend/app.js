@@ -15,11 +15,13 @@ app.use(cors());
 const authRouter= require('./routes/authRoutes');
 const userRouter= require('./routes/userRoutes');
 const adminRouter= require('./routes/adminRoutes');
+const cashierRouter = require('./routes/cashierRoutes');
 
 
 app.use('/api',authRouter);
 app.use('/api/user',userRouter);
 app.use('/api/admin',adminRouter);
+app.use('/api/cashier',cashierRouter);
 
 
 

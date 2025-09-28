@@ -10,8 +10,9 @@ const secretKey = process.env.SECRET
 //--------------------------------------------------------------------------
 
 function verifyTokenMiddleware(req, res, next) {
-    const token = req.headers.authorization;
-
+    // in  SSE order stream, the token is attached to url, so if headers.authorization is null, check url
+    const token = req.headers.authorization || req.query.token; 
+    
     if (!token)
         return utilsErrorHandling.handleNoToken(res);
 

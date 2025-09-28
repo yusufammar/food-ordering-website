@@ -91,9 +91,19 @@ async function insertAdmin() {
 }
 
 
+async function insertCashier() {
+  const cashierPassword = 'cashier';
+  const cashierHashedPassword = await bcrypt.hash(cashierPassword, 10);
+
+  const query = `INSERT INTO users (name,email,password,role) VALUES ($1,$2,$3,$4); `;
+  const values = ['cashier', 'cashier', cashierHashedPassword, 'cashier'];
+  return pool.query(query, values)
+}
+
+
 
 
 module.exports = {
-  createUsersTable, clearUsersTable, dropUsersTable, insertAdmin,
+  createUsersTable, clearUsersTable, dropUsersTable, insertAdmin, insertCashier,
   getUserCredentials, insertUser, deleteUserByID, getProfile
 };

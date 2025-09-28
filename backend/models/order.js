@@ -28,6 +28,37 @@ function createOrdersTable() {
 //----------------------------------
 //#DB_Init Methods / Helper Methods
 //----------------------------------
+async function implementOrdersTrigger() { // **doccument (explain)
+
+    const triggerFunctionQuery = `
+      CREATE OR REPLACE FUNCTION notify_new_order() RETURNS trigger AS $$
+    BEGIN
+      PERFORM pg_notify('new_order', row_to_json(NEW)::text);
+      RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+    `;
+
+    await pool.query(triggerFunctionQuery);
+
+    const createTriggerQuery = `
+      DO $$
+    BEGIN
+      IF NOT EXISTS (
+        SELECT 1 FROM pg_trigger WHERE tgname = 'order_notify'
+      ) THEN
+        CREATE TRIGGER order_notify
+        AFTER INSERT ON orders
+        FOR EACH ROW EXECUTE FUNCTION notify_new_order();
+      END IF;
+    END;
+    $$;
+    `;
+
+    return pool.query(createTriggerQuery);
+}
+
+
 function clearOrdersTable() {
     const query = `TRUNCATE TABLE orders RESTART IDENTITY CASCADE`;
     return pool.query(query)
@@ -54,25 +85,32 @@ async function insertOrder(client, userID, total) {
     // return pool.query(query, values);
     // return client.query(query, values);
 
-     const result = await client.query(query, values);
-     // const result = await pool.query(query, values);
+    const result = await client.query(query, values);
+    // const result = await pool.query(query, values);
 
     const orderID = result.rows[0].id;
     return orderID;
 
 }
 
-function getOrders(userID){
+function getOrders(userID) {
     const query = `SELECT * FROM orders WHERE user_id=$1`;
-    const values= [userID];
+    const values = [userID];
 
-    return pool.query(query,values);
+    return pool.query(query, values);
 }
 
+function getAllOrders() {
+    const query = `SELECT * FROM orders ORDER BY date DESC, time DESC`;
+    // const values= [userID];
+
+    // return pool.query(query,values);
+    return pool.query(query);
+}
 
 //-----------------------------------
 //Helper Methods
 //-----------------------------------
 
 
-module.exports = { createOrdersTable, clearOrdersTable, dropOrdersTable, insertOrder, getOrders };
+module.exports = { createOrdersTable, clearOrdersTable, dropOrdersTable, insertOrder, getOrders, getAllOrders, implementOrdersTrigger };

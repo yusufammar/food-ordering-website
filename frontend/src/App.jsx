@@ -8,6 +8,7 @@ import CustomerHome from './components/Customer/CustomerHome';
 import CustomerOrderHistory from './components/Customer/Customer_OrderHistory';
 import CustomerOrderDetails from './components/Customer/Customer_OrderDetails';
 import CustomerProfile from './components/Customer/Customer_Profile';
+import CashierOrders from './components/Cashier/Cashier_Orders';
 
 function App(){
   
@@ -25,6 +26,7 @@ function App(){
         <Route path="/customerOrderHistory"  element={<CustomerOrderHistory/>} />
         <Route path="/customerOrderDetails"  element={<CustomerOrderDetails/>} />
         <Route path="/customerProfile"  element={<CustomerProfile/>} />
+        <Route path="/cashierOrders"  element={<CashierOrders/>} />
       </Routes>
 
     </Router>
