@@ -9,10 +9,18 @@ form {
     gap: 40px;
 }
 
-.nav-bar{
+.nav-bar {
     display: flex;
-    gap:5%;
+    gap: 5%;
 }
+
+.titleFlexDiv {
+    display: flex;
+    height: min-content;
+    align-items: center;
+    gap: 20px;
+}
+
 
 button {
     background-color: blue;
@@ -36,19 +44,22 @@ button:hover {
 
 .redButton {
     background-color: red;
-    /* text-decoration: none;
-    
-    width: max-content;
-    /* padding: 10px; */
-    /* padding-left: 15px; */
-    /* padding-block: 10px;
-    padding-inline: 15px;
-    border-radius: 10px; */ 
 }
 
-.redButton:hover {  
-    background-color: white; 
+.redButton:hover {
+    background-color: white;
     color: red;
+
+}
+
+.greenButton {
+    background-color: green;
+
+}
+
+.greenButton:hover {
+    background-color: white;
+    color: green;
 
 }
 
@@ -62,9 +73,9 @@ button:hover {
     padding-block: 10px;
     padding-inline: 15px;
     border-radius: 10px;
-   border-style: solid;
-   border-color: black;
-   border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
 
 }
 
@@ -78,7 +89,5 @@ button:hover {
     padding-block: 10px;
     padding-inline: 15px;
     border-radius: 10px;
-    border-style: solid; 
+    border-style: solid;
 }
-
-

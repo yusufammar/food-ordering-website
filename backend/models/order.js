@@ -94,7 +94,7 @@ async function insertOrder(client, userID, total) {
 }
 
 function getOrders(userID) {
-    const query = `SELECT * FROM orders WHERE user_id=$1`;
+    const query = `SELECT * FROM orders WHERE user_id=$1 ORDER BY date DESC, time DESC`;
     const values = [userID];
 
     return pool.query(query, values);
@@ -108,9 +108,18 @@ function getAllOrders() {
     return pool.query(query);
 }
 
+
+function updateOrderStatus(orderID, newStatus) {
+    const query = `UPDATE orders SET status=$1 WHERE id=$2`;
+    const values = [newStatus,orderID];
+
+    return pool.query(query, values);
+}
+
+
 //-----------------------------------
 //Helper Methods
 //-----------------------------------
 
 
-module.exports = { createOrdersTable, clearOrdersTable, dropOrdersTable, insertOrder, getOrders, getAllOrders, implementOrdersTrigger };
+module.exports = { createOrdersTable, clearOrdersTable, dropOrdersTable, insertOrder, getOrders, getAllOrders, implementOrdersTrigger, updateOrderStatus };

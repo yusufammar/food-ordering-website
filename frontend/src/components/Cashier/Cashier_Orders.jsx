@@ -51,6 +51,27 @@ function CashierOrders() {
         return () => handlePageClose(evtSource)
     }
 
+
+    function updateOrderStatusRequest(order,newStatus) {
+        const config = { headers: { authorization: user.token } };
+
+        axios.get(App.baseUrl + `/cashier/updateOrderStatus/${order.id}/${newStatus}`, config)
+            .then(res => handleSuccess(res))
+            .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
+
+    }
+
+    //   function rejectOrderRequest(order) {
+    //     const config = { headers: { authorization: user.token } };
+
+    //     axios.get(App.baseUrl + `/cashier/rejectOrder/${order.id}`, config)
+    //         .then(res => handleSuccess(res))
+    //         .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
+
+    // }
+
+
+
     //-------------------------------------------------------
     // Event Handlers
     //-------------------------------------------------------  
@@ -80,6 +101,9 @@ function CashierOrders() {
 
     function handleSuccess(res) {
         setOrders(res.data.orders);
+
+        if (res.data.message)
+            alert(res.data.message);
     }
 
 
@@ -114,7 +138,7 @@ function CashierOrders() {
 
             <UserBar role={roleRequired}></UserBar>
 
-            <div style={{ display: 'flex', height: 'min-content', alignItems: 'center', gap: '20px' }}>
+            <div className='titleFlexDiv'>
                 <h1>Orders</h1>
                 {audioSwitch ? <button onClick={handleMute}>🔔</button> : <button onClick={handleUnmute}>🔇</button>}
             </div>
@@ -122,6 +146,9 @@ function CashierOrders() {
 
             {orders.map((value, index) =>
                 <p key={index}> <b>Date:</b> {value.date} | <b>Time:</b> {value.time} | <b>Total:</b> {value.total} EGP | <b>Payment Method:</b> {value.payment_method} | <b>Status:</b> {value.status} |
+                    {value.status=="Pending" ? <button className='greenButton' onClick={() => updateOrderStatusRequest(value,"Accepted")}> Accept </button> :
+                    <button className='redButton' onClick={() => updateOrderStatusRequest(value,"Pending")}> Cancel </button>
+                    }
                     <button onClick={() => viewOrderItems(value, index)}> Details </button>
                 </p>
 
