@@ -10,15 +10,15 @@ const utils = require('../utils');
 //Middleware
 //----------------------------------------------------------
 cashierRouter.use(utils.verifyTokenMiddleware);
-cashierRouter.use(verifycashierRoleMiddleware);
+cashierRouter.use(verifyCashierRoleMiddleware);
 
 
-function verifycashierRoleMiddleware(req, res, next) {
+function verifyCashierRoleMiddleware(req, res, next) {
     const user = req.user
     const role = user.role;
 
     if (role != "cashier") {
-        return res.status(403).json({ error: "Access Denied: cashier-Only" });
+        return res.status(403).json({ error: "Access Denied: Cashier-Only" });
     }
     next();
 }
@@ -27,10 +27,10 @@ function verifycashierRoleMiddleware(req, res, next) {
 //----------------------------------------------------------
 
 cashierRouter.get('/getOrders', cashierController.getOrders);
-cashierRouter.get('/getOrderItems/:orderID', cashierController.getOrderItems);
+cashierRouter.get('/getOrderDetails/:orderID/:customerID', cashierController.getOrderDetails);
 cashierRouter.get('/orderStream', cashierController.orderStream);
 cashierRouter.get('/updateOrderStatus/:orderID/:newStatus', cashierController.updateOrderStatus);
-// cashierRouter.get('/rejectOrder/:orderID', cashierController.rejectOrder);
+
 
 module.exports = cashierRouter;
 

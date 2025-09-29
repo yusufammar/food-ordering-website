@@ -9,6 +9,7 @@ import CustomerOrderHistory from './components/Customer/Customer_OrderHistory';
 import CustomerOrderDetails from './components/Customer/Customer_OrderDetails';
 import CustomerProfile from './components/Customer/Customer_Profile';
 import CashierOrders from './components/Cashier/Cashier_Orders';
+import CashierOrderDetails from './components/Cashier/Cashier_OrderDetails';
 
 function App(){
   
@@ -27,6 +28,7 @@ function App(){
         <Route path="/customerOrderDetails"  element={<CustomerOrderDetails/>} />
         <Route path="/customerProfile"  element={<CustomerProfile/>} />
         <Route path="/cashierOrders"  element={<CashierOrders/>} />
+        <Route path="/cashierOrderDetails"  element={<CashierOrderDetails/>} />
       </Routes>
 
     </Router>

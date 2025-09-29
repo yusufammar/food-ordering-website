@@ -2,6 +2,7 @@ require('dotenv').config();
 const pool = require("../config/db");
 
 const user = require('../models/user')
+const address = require('../models/address')
 const product = require('../models/product')
 const order = require('../models/order')
 const order_items = require('../models/order_items')
@@ -9,6 +10,7 @@ const order_items = require('../models/order_items')
 const utils = require('../utils');
 const utilsErrorHandling = require('../utils_errorHandling');
 const utilsInputValidation = require('../utils_inputValidation');
+const { getAddress } = require('../models/address');
 
 
 async function getOrders(req, res) {
@@ -29,16 +31,18 @@ async function getOrders(req, res) {
 }
 
 
-async function getOrderItems(req, res) {
+async function getOrderDetails(req, res) {
 
     const orderID = req.params.orderID;
-    // console.log(orderID);
-
+    const customerID = req.params.customerID;
+    
     try {
-        const result = await order_items.getOrderItems(orderID);
+        const orderItemsResult = await order_items.getOrderItems(orderID);
+        const customerAddressResult = await address.getAddress(customerID);
 
-        const orderItems = result.rows;
-        return res.json({ orderItems })
+        const orderItems = orderItemsResult.rows;
+        const customerAddress = customerAddressResult.rows[0];
+        return res.json({ orderItems, customerAddress })
     }
     catch (err) {
         utilsErrorHandling.handleError(err, res);
@@ -116,4 +120,4 @@ async function updateOrderStatus(req, res) {
 
 
 
-module.exports = { getOrders, getOrderItems, orderStream, updateOrderStatus };
+module.exports = { getOrders, getOrderDetails, orderStream, updateOrderStatus };

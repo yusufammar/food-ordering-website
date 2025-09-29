@@ -52,7 +52,7 @@ function CashierOrders() {
     }
 
 
-    function updateOrderStatusRequest(order,newStatus) {
+    function updateOrderStatusRequest(order, newStatus) {
         const config = { headers: { authorization: user.token } };
 
         axios.get(App.baseUrl + `/cashier/updateOrderStatus/${order.id}/${newStatus}`, config)
@@ -60,17 +60,6 @@ function CashierOrders() {
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
 
     }
-
-    //   function rejectOrderRequest(order) {
-    //     const config = { headers: { authorization: user.token } };
-
-    //     axios.get(App.baseUrl + `/cashier/rejectOrder/${order.id}`, config)
-    //         .then(res => handleSuccess(res))
-    //         .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
-
-    // }
-
-
 
     //-------------------------------------------------------
     // Event Handlers
@@ -100,6 +89,7 @@ function CashierOrders() {
 
 
     function handleSuccess(res) {
+        // console.log(res.data.orders[0]);
         setOrders(res.data.orders);
 
         if (res.data.message)
@@ -109,7 +99,8 @@ function CashierOrders() {
 
     function viewOrderItems(value, index) {
         const data = { state: { order: value } };
-        navigate('/customerOrderDetails', data); // data passed to next page
+        // console.log(data);
+        navigate('/cashierOrderDetails', data); // data passed to next page
     }
 
     //-------------------------------------------------------
@@ -145,9 +136,9 @@ function CashierOrders() {
 
 
             {orders.map((value, index) =>
-                <p key={index}> <b>Date:</b> {value.date} | <b>Time:</b> {value.time} | <b>Total:</b> {value.total} EGP | <b>Payment Method:</b> {value.payment_method} | <b>Status:</b> {value.status} |
-                    {value.status=="Pending" ? <button className='greenButton' onClick={() => updateOrderStatusRequest(value,"Accepted")}> Accept </button> :
-                    <button className='redButton' onClick={() => updateOrderStatusRequest(value,"Pending")}> Cancel </button>
+                <p key={index}> <b>Date:</b> {value.date} | <b>Time:</b> {value.time} | <b>Name:</b> {value.name} | <b>Email:</b> {value.email} | <b>Total:</b> {value.total} EGP | <b>Payment Method:</b> {value.payment_method} | <b>Status:</b> {value.status} |
+                    {value.status == "Pending" ? <button className='greenButton' onClick={() => updateOrderStatusRequest(value, "Accepted")}> Accept </button> :
+                        <button className='redButton' onClick={() => updateOrderStatusRequest(value, "Pending")}> Cancel </button>
                     }
                     <button onClick={() => viewOrderItems(value, index)}> Details </button>
                 </p>

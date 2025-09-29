@@ -10,7 +10,18 @@ const utils = require('../utils');
 //Middleware
 //----------------------------------------------------------
 userRouter.use(utils.verifyTokenMiddleware);
+userRouter.use(verifyCustomerRoleMiddleware);
 
+
+function verifyCustomerRoleMiddleware(req, res, next) {
+    const user = req.user
+    const role = user.role;
+
+    if (role != "customer") {
+        return res.status(403).json({ error: "Access Denied: Customer-Only" });
+    }
+    next();
+}
 
 //-----------------------------------------------------------
 //Routes
