@@ -18,9 +18,7 @@ function AdminHome() {
 
     return (
         <>
-            <NavBar></NavBar>
-
-            <UserBar role={roleRequired}></UserBar>
+          <NavBar role={roleRequired}/>
 
             <h1>Admin Home</h1>
 

@@ -1,0 +1,117 @@
+.flexButton {
+  display: flex;
+  gap: 10px;
+}
+
+
+
+.pageDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5%;
+  height: 100%;
+  width: 100%;
+  /* position: fixed; */
+}
+
+.productsItems {
+  padding: 2.5%;
+  height: 75vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5%;
+}
+
+
+.product {
+  display: flex;
+  padding: 2.5%;
+  gap: 5%;
+  /* background-color: lightgray;  */
+  border-color: lightgray;
+  /* border-style: solid; */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* justify-content: center;
+    text-align: left; */
+  /* align-items: end; */
+
+}
+
+.product:hover{
+  cursor: pointer;
+}
+.product:active{
+    transform: scale(0.98); /* slightly shrink to give a pressed feel */
+    background-color: rgba(0,0,0,0.05); /* subtle feedback */
+    cursor: default;
+}
+
+.productItemNamePrice {
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.5%;
+  width: 65%;
+  font-size: large;
+  /* font-weight: bold; */
+  overflow: hidden;
+  justify-content: center;
+  /* text-align: left; */
+  align-items: left;
+  /* border-color: black;
+    border-style: solid; */
+}
+
+.productName {
+  font-size: large;
+  font-weight: bold;
+}
+
+.productImage {
+  /* width: 25%; */
+  /* border-color: black;
+    border-style: solid; */
+  height: fit-content;
+
+}
+
+.buttonDiv {
+  display: flex;
+  /* padding: 5px; */
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  align-items: right;
+  /* border-color: black;
+    border-style: solid; */
+
+}
+
+.cartButton {
+  padding: 15px;
+  display: flex;
+  width: 80%;
+  gap: 10%;
+  font-size: x-large;
+  /* font-family: "Roboto Flex"; */
+  font-weight: bold;
+  justify-content: space-between;
+  /* justify-content: center;
+  text-align: center;
+  align-items: center; */
+  border-radius: 25px;
+  border-color: white;
+    border-style: solid;
+}
+
+.buttonSpacer{
+  width: 35%;
+  /* border-color: black;
+    border-style: solid; */
+}
+
+.spacer{
+  height: 0%;
+}

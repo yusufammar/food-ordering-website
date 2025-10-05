@@ -9,6 +9,20 @@ import * as utils from "../utils";
 import * as utilsErrorHandling from "../utils_errorHandling";
 import * as utilsInputValidation from '../utils_inputValidation';
 
+import "../styles/login-signup.css";
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import HomeIcon from '@mui/icons-material/Home';
+import ForestIcon from '@mui/icons-material/Forest';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import FlagIcon from '@mui/icons-material/Flag';
+import SignpostIcon from '@mui/icons-material/Signpost';
+import WbIridescentIcon from '@mui/icons-material/WbIridescent';
+
 function SignUp() {
 
     const navigate = useNavigate();
@@ -98,7 +112,7 @@ function SignUp() {
         alert("All Checks Passed, Forwarding Request...");
         return axios.post(App.baseUrl + "/signUp", transformedData)
             .then(res => handleSignUpSuccess(res))
-            .catch(err => utilsErrorHandling.handleFailureStandard(err,navigate));
+            .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
 
 
     }
@@ -110,69 +124,123 @@ function SignUp() {
     function handleSignUpSuccess(res) {
         const { message } = res.data;
         alert(message);
-        window.location.reload();
+        // window.location.reload();
+        navigate("/login");
     }
 
 
     return (
-        <>
-            <NavBar></NavBar>
-            <UserBar role={roleRequired}></UserBar>
+        <div className='pageDiv2'>
+            <NavBar role={roleRequired} />
+
+            <div className='signUpFormContainer'>
+
+                <div className='formCard'>
 
 
-            <h1>Sign Up </h1>
+                    <form className='form'>
 
-            <form>
-                <div>
-                    <label htmlFor='1'>Name</label>
-                    <input id='1' type='text' value={name} onChange={handleNameChange}></input>
+                        <div className='cardTitle'>
+                            <AssignmentIcon sx={{ fontSize: 40, color: 'blue' }} />
+                            <h1>Sign Up</h1>
+
+                        </div>
+
+
+                        <TextField required label="Name" type='text' value={name} onChange={handleNameChange}// required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <PersonIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+                        <TextField required label="Email" type='text' value={email} onChange={handleEmailChange}// required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <EmailIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+
+                        <TextField required label="Password" type='password' value={password} onChange={handlePasswordChange}  // required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <LockOpenIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+
+                        <div className='cardTitle'>
+                            <HomeIcon sx={{ fontSize: 30, color: 'blue' }} />
+                            <h3>Address Details</h3>
+                        </div>
+
+
+                        <TextField required label="City" type='text' value={city} onChange={handleCityChange}// required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <ForestIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+                        <TextField required label="District" type='text' value={district} onChange={handleDistrictChange}// required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <FlagIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+
+                        <TextField required label="Street / Compound" type='text' value={street} onChange={handleStreetChange} // required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <SignpostIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+                        <TextField required label="Building No / Parcel No" type='number' value={buildingNo} onChange={handleBuildingNoChange}// required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <ApartmentIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+                        <TextField required label="Apartment No / Villa No" type='number' value={apartmentNo} onChange={handleApartmentNoChange}// required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <HomeIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+
+                        <TextField label="Description" type='text' value={addressDescription} onChange={handleAddressDescriptionChange} // required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <WbIridescentIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+                        <div className='formButtons'>
+                            <button type="submit" onClick={handleSignUpSubmit}>Sign Up</button>
+                            <button className='secondaryButton' onClick={() => navigate("/login")}>Login</button>
+                        </div>
+                    </form>
+                    {/* </div> */}
+
                 </div>
 
-                <div>
-                    <label htmlFor='2'>Email</label>
-                    <input id='2' type='text' value={email} onChange={handleEmailChange}></input>
-                </div>
+            </div>
 
-                <div>
-                    <label htmlFor='3'> Password </label>
-                    <input id='3' type='password' value={password} onChange={handlePasswordChange}></input>
-                </div>
-
-
-
-
-                <h3>Address Details</h3>
-
-                <div>
-                    <label htmlFor='4'>City</label>
-                    <input id='4' type='text' value={city} onChange={handleCityChange}></input>
-                </div>
-                <div>
-                    <label htmlFor='5'>District</label>
-                    <input id='5' type='text' value={district} onChange={handleDistrictChange}></input>
-                </div>
-                <div>
-                    <label htmlFor='6'>Street</label>
-                    <input id='6' type='text' value={street} onChange={handleStreetChange}></input>
-                </div>
-                <div>
-                    <label htmlFor='7'>Building No</label>
-                    <input id='7' type='number' value={buildingNo} onChange={handleBuildingNoChange}></input>
-                </div>
-                <div>
-                    <label htmlFor='8'>Apartment No</label>
-                    <input id='8' type='number' value={apartmentNo} onChange={handleApartmentNoChange}></input>
-                </div>
-                <div>
-                    <label htmlFor='9'>Description</label>
-                    <input id='9' type='text' value={addressDescription} onChange={handleAddressDescriptionChange}></input>
-                </div>
-
-
-                <button type="submit" onClick={handleSignUpSubmit}>Submit</button>
-            </form>
-
-        </>
+        </div>
     );
 }
 

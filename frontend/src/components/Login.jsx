@@ -8,6 +8,13 @@ import UserBar from './UserBar';
 import * as utils from "../utils";
 import * as utilsErrorHandling from '../utils_errorHandling';
 import * as utilsInputValidation from '../utils_inputValidation';
+import '../styles/login-signup.css';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import EmailIcon from '@mui/icons-material/Email';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import LoginIcon from '@mui/icons-material/Login';
+
 
 function Login() {
 
@@ -57,7 +64,7 @@ function Login() {
         alert("All Checks Passed, Forwarding Request...");
         return axios.post(App.baseUrl + "/login", transformedData)
             .then(res => handleLoginSuccess(res))
-            .catch(err => utilsErrorHandling.handleFailureStandard(err,navigate));
+            .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
     }
 
     //-------------------------------------------------------
@@ -69,52 +76,63 @@ function Login() {
         utils.setUser(token);
 
         alert(message);
-        // navigate("/");
-        //---------------------------
-        
-        // window.location.reload();
-        const user=utils.getSavedUser();
-        console.log(user);
-
-        if (user.role== "customer")
-            navigate("/customerHome");
-        if (user.role== "admin")
-            navigate("/adminHome");
-
-        
-        if (user.role== "cashier")
-            navigate("/cashierOrders");
-      
-        
-        
+        navigate("/");
 
     }
 
 
 
     return (
-        <>
-            <NavBar></NavBar>
-            <UserBar role={roleRequired}></UserBar>
+        <div className='pageDiv2'>
+            <NavBar role={roleRequired} />
+
+            <div className='formContainer'>
 
 
-            <h1>Login </h1>
-            <form>
-                <div>
-                    <label htmlFor='1'>Email</label>
-                    <input id='1' type='text' value={email} onChange={handleEmailChange}></input>
+                <div className='formCard'>
+
+                    {/* <div className='formDiv'> */}
+
+                    <form className='form'>
+
+                        <div className='cardTitle'>
+                            <LoginIcon sx={{ fontSize: 40, color: 'blue' }} />
+                            <h1>Login</h1>
+
+                        </div>
+
+                        <TextField label="Email" type='text' value={email} onChange={handleEmailChange}// required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <EmailIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+
+                        <TextField label="Password" type='password' value={password} onChange={handlePasswordChange}  // required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <LockOpenIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+                        <div className='formButtons'>
+                            <button type="submit" onClick={handleLoginSubmit}>Login</button>
+
+                            <button className='secondaryButton' onClick={() => navigate("/signUp")}>Sign Up</button>
+
+                        </div>
+
+                    </form>
+                    {/* </div> */}
+
                 </div>
 
-                <div>
-                    <label htmlFor='2'> Password </label>
-                    <input id='2' type='password' value={password} onChange={handlePasswordChange}></input>
-                </div>
+            </div>
 
-
-                <button type="submit" onClick={handleLoginSubmit}>Submit</button>
-            </form>
-
-        </>
+        </div>
     );
 }
 

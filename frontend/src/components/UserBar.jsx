@@ -1,6 +1,8 @@
 import { useState, useEffect, } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as utils from '../utils';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
 
 function UserBar({ role }) {
     console.log("role passed (needed): " + role);
@@ -27,13 +29,9 @@ function UserBar({ role }) {
             return
 
         if (currentUser.role != role) {
-            const errMsg = "" + role + " Login Required"
+            const errMsg = "" + role + " Login Required";
             alert("Access Denied: " + errMsg);
-            switch(currentUser.role){
-                case("admin"): navigate("/adminHome");break;
-                case("customer"): navigate("/customerHome");break;
-                default: navigate("/login");
-            }
+            navigate("/");
         }
     }
 
@@ -41,8 +39,17 @@ function UserBar({ role }) {
     return (
 
         <div>
-            <h4>User ID: {user.id} | Name: {user.name} | Email: {user.email} | Role: {user.role} </h4>
-            Token: {user.token}
+
+            <div className='userDiv'>
+                <PersonIcon  sx={{ color: 'blue'}}/><a> {user.name} </a>
+            </div>
+
+             <div className='userDiv'>
+                <EmailIcon  sx={{ color: 'blue'}}/><a> {user.email} </a>
+            </div>
+
+            {/* <h4>User ID: {user.id} | Name: {user.name} | Email: {user.email} | Role: {user.role} </h4> */}
+            {/* Token: {user.token} */}
         </div>
 
     );

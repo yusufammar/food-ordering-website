@@ -59,9 +59,7 @@ function CustomerOrderHistory() {
 
     return (
         <>
-            <NavBar></NavBar>
-
-            <UserBar role={roleRequired}></UserBar>
+           <NavBar role={roleRequired}/>
 
             <h1>My Orders</h1>
 

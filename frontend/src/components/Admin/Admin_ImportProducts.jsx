@@ -53,9 +53,7 @@ function AdminImportProducts() {
 
     return (
         <>
-            <NavBar></NavBar>
-
-            <UserBar role={roleRequired}></UserBar>
+           <NavBar role={roleRequired}/>
 
             <h1>Admin - Import Products</h1>
 

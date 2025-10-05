@@ -7,6 +7,9 @@ import UserBar from './UserBar';
 
 import * as utils from '../utils';
 import * as utilsErrorHandling from '../utils_errorHandling';
+import CustomerHome from './Customer/CustomerHome';
+import AdminHome from './Admin/AdminHome';
+import CashierOrders from './Cashier/Cashier_Orders';
 
 function Home() {
 
@@ -14,44 +17,28 @@ function Home() {
     const roleRequired = null;
     const user = utils.getSavedUser();
 
+    useEffect(handleNoUser, [user]);
+
     //-------------------------------------------------------
     // Event Handlers
     //-------------------------------------------------------
 
-    function handleSampleRequest() { // only for checking token middleware functionality
 
-
-        const config = { headers: { authorization: user.token } };
-
-        return axios.get(App.baseUrl + "/user/sampleRequest", config)
-            .then(res => utilsErrorHandling.handleSuccessStandard(res))
-            .catch(err => utilsErrorHandling.handleFailureStandard(err,navigate));
-
-        //---------------
-        //Test
-        // const data={};
-
-        // return axios.post(App.baseUrl + "/admin/importProducts", data,  config)
-        //     .then(res => handleSuccess(res))
-        //     .catch(err => handleFailure(err));
+    function handleNoUser() {
+        if (!user.role)
+            navigate("/login");
     }
+
 
     //-------------------------------------------------------
     //Helper Methods
     //-------------------------------------------------------
 
-
-
     return (
         <>
-
-            <NavBar></NavBar>
-            <UserBar role={roleRequired}></UserBar>
-
-            <h1>Home </h1>
-
-            <button onClick={handleSampleRequest}> Sample Request</button>
-
+            {(user.role == "customer") && <CustomerHome />}
+            {(user.role == "admin") && <AdminHome />}
+            {(user.role == "cashier") && <CashierOrders />}
         </>
 
     );

@@ -125,9 +125,7 @@ function CashierOrders() {
 
     return (
         <>
-            <NavBar></NavBar>
-
-            <UserBar role={roleRequired}></UserBar>
+            <NavBar role={roleRequired}/>
 
             <div className='titleFlexDiv'>
                 <h1>Orders</h1>

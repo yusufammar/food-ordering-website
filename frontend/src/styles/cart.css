@@ -1,0 +1,192 @@
+.cartSidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+
+    position: fixed;
+    /* Sidebar stays in place while scrolling */
+    top: 0;
+    /* Align to top of viewport */
+    right: 0;
+    /* Align to left edge */
+    width: 0;
+    /* Closed by default; width expands when opened */
+    height: 100%;
+    /* Full viewport height */
+    background-color: white;
+    /* Sidebar background color */
+    transition: 0.3s;
+    /* Smooth css property change, width change for slide-in/out animation or button hovers */
+    z-index: 2;
+    /* Ensure sidebar is above overlay and other content */
+    /* overflow-x: hidden; */
+    overflow: hidden;
+    /* ⬅️ important: hide ALL overflow */
+    padding: 0;
+    /* Hide horizontal overflow to prevent scrollbars */
+    /* padding-top: 60px;     Space at top for content below a navbar/header */
+}
+
+.cartSidebar.active {
+    width: 250px;
+    /* open width */
+    padding-left: 5%;
+    /* add padding only when active to avoid leaks on main screen */
+    padding-right: 5%;
+}
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* full screen */
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 1;
+    /* below sidebar */
+}
+
+/* When sidebar active, shift overlay to start after sidebar */
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+    margin-right: 250px;
+    /* ✅ prevents overlay from covering sidebar */
+    width: calc(100% - 250px);
+}
+
+
+.titleBox {
+    display: flex;
+    gap: 5%;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.items {
+    height: 55%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+}
+
+.paymentDiv {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5%;
+    font-weight: bold;
+    font-size: medium;
+    /* padding-left: 2.5%; */
+    /* padding-right: 2.5%; */
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.box1 {
+    width: 50%;
+}
+
+.box2 {
+    width: 70%;
+    display: flex;
+    justify-content: right;
+    text-align: center;
+    align-items: center;
+    /* border-color: black;
+    border-style: solid; */
+}
+
+
+.box3 {
+    justify-content: center;
+    text-align: center;
+    height: min-content;
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.box4 {
+    /* width: 60%; */
+    padding-left: 5px;
+    width: min-content;
+    justify-content: center;
+    text-align: right;
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.checkoutButton {
+    display: flex;
+    width: 100%;
+    gap: 10%;
+}
+
+.cartItem {
+    display: flex;
+    max-height: 15%;
+    gap:5%;
+      justify-content: center;
+    /* text-align: center; */
+    align-items: center;
+    /* width: 100%; */
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.cartItemNamePrice {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5%;
+    width: 50%;
+    font-size: medium;
+    font-weight: bold;
+    overflow: hidden;
+     /* border-color: black;
+    border-style: solid; */
+}
+
+.nameDiv{
+    font-size: small;
+    font-weight: normal;
+    max-height: 50%;
+    overflow: hidden;
+}
+
+.quantityDiv {
+    width: 25%;
+    height: fit-content;
+    display: flex;
+    gap: 30%;
+    padding: 10px;
+    
+     justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: lightgray; 
+    /* border-color: lightgray; */
+
+    /* border-style: solid; */
+    border-radius: 15px;
+    font-weight: bold;
+
+}
+
+.deleteDiv{
+    /* border-color: black;
+    border-style: solid; */
+    /* padding-top: 5px */
+    height: fit-content;
+        /* justify-content: center; */
+    /* text-align: center; */
+    /* align-items: center; */
+}
+
+.bottomDiv{
+    padding-top: 15%;
+}

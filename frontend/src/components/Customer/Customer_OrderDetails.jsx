@@ -58,9 +58,7 @@ function CustomerOrderDetails() {
 
     return (
         <>
-            <NavBar></NavBar>
-
-            <UserBar role={roleRequired}></UserBar>
+          <NavBar role={roleRequired}/>
 
             <h1>Order Details</h1>
             

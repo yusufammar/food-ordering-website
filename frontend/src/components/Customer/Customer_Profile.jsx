@@ -63,9 +63,7 @@ function CustomerProfile() {
 
     return (
         <>
-            <NavBar></NavBar>
-
-            <UserBar role={roleRequired}></UserBar>
+           <NavBar role={roleRequired}/>
 
             <h1>My Profile</h1>
 

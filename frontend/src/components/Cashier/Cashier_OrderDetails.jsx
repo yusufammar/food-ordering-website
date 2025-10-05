@@ -64,9 +64,7 @@ function CashierOrderDetails() {
 
     return (
         <>
-            <NavBar></NavBar>
-
-            <UserBar role={roleRequired}></UserBar>
+            <NavBar role={roleRequired}/>
 
             <hr></hr>
             <br></br>
