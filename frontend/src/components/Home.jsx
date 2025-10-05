@@ -17,17 +17,10 @@ function Home() {
     const roleRequired = null;
     const user = utils.getSavedUser();
 
-    useEffect(handleNoUser, [user]);
-
+   
     //-------------------------------------------------------
     // Event Handlers
     //-------------------------------------------------------
-
-
-    function handleNoUser() {
-        if (!user.role)
-            navigate("/login");
-    }
 
 
     //-------------------------------------------------------
@@ -36,7 +29,7 @@ function Home() {
 
     return (
         <>
-            {(user.role == "customer") && <CustomerHome />}
+            {((!user.role) || user.role == "customer") && <CustomerHome />}
             {(user.role == "admin") && <AdminHome />}
             {(user.role == "cashier") && <CashierOrders />}
         </>

@@ -4,6 +4,7 @@ const pool = require('../config/db.js')
 
 const user = require('../models/user');
 const address = require('../models/address');
+const product = require('../models/product');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
@@ -111,6 +112,21 @@ async function signUp(req, res) {
 
 }
 
+async function getProducts(req, res) {
+
+    try {
+        const result = await product.getProducts();
+        const products = result.rows;
+        // console.log(products);
+        return res.json({ products })
+
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+
+}
+
 //------------------------------------------------
 // Helper Methods
 
@@ -168,4 +184,4 @@ function throwPasswordErr() {
 }
 
 
-module.exports = { login, signUp };
+module.exports = { login, signUp, getProducts };

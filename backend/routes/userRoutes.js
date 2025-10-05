@@ -27,7 +27,7 @@ function verifyCustomerRoleMiddleware(req, res, next) {
 //Routes
 //----------------------------------------------------------
 userRouter.get('/sampleRequest', userController.sampleRequest);
-userRouter.get('/getProducts', userController.getProducts);
+// userRouter.get('/getProducts', userController.getProducts);
 userRouter.post('/checkoutOrder', userController.checkoutOrder);
 userRouter.get('/getOrders', userController.getOrders);
 userRouter.get('/getOrderItems/:orderID', userController.getOrderItems);

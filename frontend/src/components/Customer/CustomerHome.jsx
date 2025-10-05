@@ -16,27 +16,43 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 function CustomerHome() {
     const navigate = useNavigate();
-    const roleRequired = "customer";
+    const roleRequired = null;
     const user = utils.getSavedUser();
 
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
 
+  
     useEffect(getProductsRequest, []); //this should be blocked userbar gives access denied
+    useEffect(getSavedCart, []);
 
+    function getSavedCart(){
+        let savedCart= utils.getCart();
+        // console.log(savedCart);
+        if(savedCart)
+            setCart(savedCart);
+    }
     //-----------------------------
     // HTTP Requests
     //------------------------------
 
-    function getProductsRequest() {
-        const config = { headers: { authorization: user.token } };
+    // function getProductsRequest() {
+    //     const config = { headers: { authorization: user.token } };
 
-        axios.get(App.baseUrl + "/user/getProducts", config)
+    //     axios.get(App.baseUrl + "/user/getProducts", config)
+    //         .then(res => handleSuccess(res))
+    //         .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
+
+    // }
+
+      function getProductsRequest() {
+        // const config = { headers: { authorization: user.token } };
+
+        axios.get(App.baseUrl + "/getProducts")
             .then(res => handleSuccess(res))
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
 
     }
-
 
     //-------------------------------------------------------
     // Event Handlers
@@ -125,8 +141,7 @@ function CustomerHome() {
             <div className='productsItems'>
 
                 {products.map((value, index) =>
-                    // <button key={index} onClick={() => addToCart(value, index)}> {value.name} </button>
-
+                
                     <div className="product" key={index} onClick={() => addToCart(value, index)}>
                         <div className='productImage'>
                             <FastfoodIcon sx={{ fontSize: 80, color: 'blue' }}></FastfoodIcon>
@@ -146,8 +161,6 @@ function CustomerHome() {
                 )}
 
             </div>
-
-            {/* <div className='spacer'></div> */}
 
             <div className='buttonDiv'>
                 <button className='cartButton' onClick={openNav}>

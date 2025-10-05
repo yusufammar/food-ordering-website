@@ -69,6 +69,20 @@ function deletePayload() {
   localStorage.removeItem('email');
 }
 
+function setCart(cart) {
+  let cartJSON= JSON.stringify([...cart]);
+  localStorage.setItem('cartJSON', cartJSON);
+}
+
+function getCart() {
+  const cartJSON = localStorage.getItem('cartJSON');
+  let cartArray= JSON.parse(cartJSON);
+  // console.log(token);
+  return (cartArray);
+}
+function unsetCart() {
+  localStorage.removeItem('cartJSON');
+}
 
 //-------------------------------------------
 //##Review
@@ -109,7 +123,7 @@ function getCurrentUser() {
 }
 
 export {
-  getSavedUser, setUser, unsetUser, getToken, setToken, unsetToken,
+  getSavedUser, setUser, unsetUser, getToken, setToken, unsetToken, getCart, setCart, unsetCart,
   // validateData, 
   getCurrentUser
 };

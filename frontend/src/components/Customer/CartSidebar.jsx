@@ -14,6 +14,7 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import MoneyIcon from '@mui/icons-material/Money';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
 
 
 function CartSidebar({ user, cart, setCart }) {
@@ -30,6 +31,13 @@ function CartSidebar({ user, cart, setCart }) {
     async function handleCheckoutRequest(e) {
         e.preventDefault();
 
+        if (user.role!="customer"){
+            utils.setCart(cart);
+            alert("Please Login to make an order");
+            return navigate("/login");
+        }
+
+        //-------------------------------------------------
         const data = [
             { key: "cart", value: cart, type: "array", trim: 0, required: 1 },
             { key: "userID", value: user.id, type: "number", trim: 0, required: 1 },
@@ -56,7 +64,9 @@ function CartSidebar({ user, cart, setCart }) {
     //-------------------------------------------------------  
     function handleCheckoutSeccess(res) {
         utilsErrorHandling.handleSuccessStandard(res)
+        utils.unsetCart();
         window.location.reload();
+        
     }
 
     function updateCart() {
@@ -134,15 +144,23 @@ function CartSidebar({ user, cart, setCart }) {
         document.getElementById("cartOverlay").classList.remove("active");
     }
 
+    function clearCart(){
+        setCart([]);
+        utils.unsetCart();
+    }
+
 
     return (
         <>
 
             <div id="cartSidebar" className='cartSidebar'>
 
-                <div className='titleBox'>
+                <div className='cartTile' >
+                    <div className='titleBox'>
                     <LocalMallIcon/>
-                    <h2>Cart</h2>
+                    <h2>Cart</h2> </div>
+                     <ClearAllIcon className='clearIcon' sx={{color:"red",fontSize:40}} onClick={clearCart}/>
+
                 </div>
 
                 <div className='items'>
@@ -162,11 +180,11 @@ function CartSidebar({ user, cart, setCart }) {
 
                             <div className='quantityDiv'>   
 
-                                <div className='qunatityChanger' onClick={() => decrementQunatity(value, index)}> - </div>
+                                <div className='quantityChanger' onClick={() => decrementQunatity(value, index)}> - </div>
 
                                 <div>{value.quantity}</div>
 
-                                <div className='qunatityChanger' onClick={() => incrementQunatity(value, index)}> + </div>
+                                <div className='quantityChanger' onClick={() => incrementQunatity(value, index)}> + </div>
 
                             </div>
 

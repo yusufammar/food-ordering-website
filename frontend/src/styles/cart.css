@@ -60,12 +60,21 @@
     width: calc(100% - 250px);
 }
 
+.cartTile{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+}
 
 .titleBox {
     display: flex;
     gap: 5%;
     /* justify-content: center; */
     align-items: center;
+}
+
+.clearIcon:hover{
+    cursor: pointer;
 }
 
 .items {
@@ -175,6 +184,16 @@
     border-radius: 15px;
     font-weight: bold;
 
+}
+
+.quantityChanger:hover{
+    cursor: pointer;
+}
+
+.quantityChanger:active{
+    /* transform: scale(0.98); slightly shrink to give a pressed feel */
+    /* background-color: rgba(0,0,0,0.05); subtle feedback */
+    /* cursor: default; */
 }
 
 .deleteDiv{
