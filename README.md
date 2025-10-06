@@ -1,7 +1,7 @@
 # 🍴 Food Ordering Website
 
 A **full-stack food ordering platform** built for a startup restaurant.  
-Developed with **Node.js, Express, PostgreSQL (pg), and React**, it features **real-time cashier updates via SSE**, **JWT authentication**, and a **mobile-first, user-friendly UI** — deployed on **Render** with **zero downtime**.
+Developed with **Node.js, Express, PostgreSQL, and React**, it features **real-time cashier updates via SSE**, **JWT authentication**, and a **mobile-first responsive, user-friendly UI** — deployed on **Render** with **zero downtime**.
 
 ---
 
@@ -28,10 +28,10 @@ Developed with **Node.js, Express, PostgreSQL (pg), and React**, it features **r
 ## ⚙️ Tech Stack
 
 - **Frontend:** React, Axios,
-- **Backend:** Node.js, Express, PostgreSQL (**pg**), JSON Web Tokens (JWT)  
+- **Backend:** Node.js, Express, PostgreSQL, JSON Web Tokens (JWT)  
 - **Real-Time:** **Server-Sent Events (SSE)** for live cashier updates  
 - **Deployment:** Render (Frontend + Backend & Database)  
-- **Design:** Mobile-first, fast, and accessible UI  
+- **Design:** Mobile-first, responsive, fast, and accessible UI  
 
 ---
 
