@@ -55,7 +55,7 @@ function CartSidebar({ user, cart, setCart }) {
         console.log(transformedData);
         return axios.post(App.baseUrl + "/user/checkoutOrder", transformedData, config)
             .then(res => handleCheckoutSeccess(res))
-            .catch(err => utilsErrorHandling.handleFailureStandard(err,navigate));
+            .catch(err => handleCheckoutFailure(err));
     }
 
 
@@ -67,6 +67,12 @@ function CartSidebar({ user, cart, setCart }) {
         utils.unsetCart();
         window.location.reload();
         
+    }
+
+    function handleCheckoutFailure(err){
+        utils.setCart(cart);
+        utilsErrorHandling.handleFailureStandard(err,navigate)
+
     }
 
     function updateCart() {

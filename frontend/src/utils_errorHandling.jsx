@@ -35,7 +35,6 @@ function handleDataInvalid(errMessage) {
 function logout(navigate) {
   utils.unsetUser();
   
-  
   navigate("/login");
   window.location.reload();
 }

@@ -17,7 +17,7 @@ import FoodBankIcon from '@mui/icons-material/FoodBank';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
-function NavBar({ role }) {
+function NavBar({ role, cart }) {
     const user = utils.getSavedUser();
     const navigate = useNavigate();
 
@@ -42,6 +42,15 @@ function NavBar({ role }) {
     function navigateHome() {
         navigate("/");
     }
+
+   function logout2() {
+    if (cart)
+        utils.setCart(cart) 
+    
+    utils.unsetUser();
+    navigate("/login");
+    //  window.location.reload();
+   }
 
 
     return (
@@ -77,7 +86,7 @@ function NavBar({ role }) {
 
                         <div className='logoutDiv'>
 
-                            <LogoutIcon className='logoutIcon' sx={{ fontSize: 40, color: 'red', padding: "5px" }} onClick={() => utilsErrorHandling.logout(navigate)} />
+                            <LogoutIcon className='logoutIcon' sx={{ fontSize: 40, color: 'red', padding: "5px" }} onClick={logout2} />
                             <AccountCircleIcon className='profileIcon' sx={{ fontSize: 40, color: 'blue', padding: "5px" }} onClick={closeNav} />
 
                         </div>

@@ -20,10 +20,9 @@ function setUser(token) {
   savePayload(payload);
 }
 
-function unsetUser(token) {
-  localStorage.clear();
-  // unsetToken();
-  // deletePayload();
+function unsetUser() {
+  unsetToken();
+  deletePayload();
 }
 
 //----------------------------------------
@@ -67,6 +66,7 @@ function deletePayload() {
   localStorage.removeItem('id');
   localStorage.removeItem('name');
   localStorage.removeItem('email');
+  localStorage.removeItem('role');
 }
 
 function setCart(cart) {

@@ -135,7 +135,7 @@ function CustomerHome() {
     return (
         <div className='pageDiv'>
 
-            <NavBar role={roleRequired}/>
+            <NavBar role={roleRequired} cart={cart}/>
 
 
             <div className='productsItems'>
