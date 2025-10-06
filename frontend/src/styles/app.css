@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+/* Import Roboto Flex with all its variable axes */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex&display=swap');
+
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* stop horizontal scrollbar */
+    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+    font-family: 'Roboto Flex', sans-serif;
+    color: #222
+}
+
+
+
+form {
+    width: min-content;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+
+
+
+button {
+    font-family: 'Roboto Flex', sans-serif;
+    padding: 12px 20px;
+
+    font-size: large;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 25px;
+    border-color: #ffffff;
+    /* border-style: solid; */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: blue;
+
+    color: white;
+    width: max-content;
+
+    /* padding-block: 10px;
+    padding-inline: 15px;
+    border-radius: 10px; */
+}
+
+/* button:hover {
+    background-color: white;
+    color: blue;
+} */
+
+.secondaryButton{
+    background-color: white;
+    color:blue;
+    border-color: white;
+    border-style: solid;
+    /* bord */
+}
+
+.greenButton {
+    background-color: green;
+
+}
+
+/* .greenButton:hover {
+    background-color: white;
+    color: green;
+
+} */
+
+/* Apply only on desktop screens wider than 1024px */
+@media (min-width: 1025px) {
+  /* Target all scrollable elements */
+  *::-webkit-scrollbar {
+    width: 6px; /* width of the bar itself */
+    background: transparent; /* hide the track */ 
+  }
+
+  *::-webkit-scrollbar-button {
+    display: none; /* hide arrows */
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #777; 
+    border-radius: 4px;
+    border: none; /* remove any default border */
+  }
+}

@@ -1,0 +1,161 @@
+.pageDiv2 {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5%;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(16, 52, 120);
+  background-image: linear-gradient(to bottom, #09203F, #537895);
+}
+
+.formContainer {
+  display: flex;
+  height: 100%;
+  /* padding: 5px; */
+  width: 100%;
+  justify-content: center;
+  /* text-align: center; */
+  align-items: start;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  /* overflow: scroll; */
+  /* border-color: black;
+  border-style: solid; */
+}
+
+.signUpFormContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  /* text-align: center; */
+  align-items: start;
+  /* padding-top: 100px; */
+  padding-bottom: 100px;
+  /* padding-right: 5px; */
+  overflow-y: scroll;
+  /* border-color: black;
+  border-style: solid; */
+}
+
+
+
+.formCard {
+  padding: 5%;
+  display: flex;
+  width: 80%;
+  max-width: 350px;
+  height: fit-content;
+  background-color: white;
+  justify-content: center;
+  /* Note: these doesn't work without display set to flex */
+  /* text-align: center; */
+  /* align-items: center; */
+  border-color: lightgray;
+  /* border-style: solid; */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* card shadow */
+}
+
+.cardTitle {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  /* border-color: black;
+  border-style: solid; */
+  /* justify-content: center; */
+  /* text-align: center; */
+  align-items: center;
+
+}
+
+
+.flexButton {
+  display: flex;
+  gap: 10px;
+}
+
+
+.formButtons{
+  display: flex;
+  gap: 20px;
+}
+
+
+
+.productsItems {
+  padding: 2.5%;
+  height: 75vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5%;
+}
+
+
+.product {
+  display: flex;
+  padding: 2.5%;
+  gap: 5%;
+  /* background-color: lightgray;  */
+  border-color: lightgray;
+  /* border-style: solid; */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* card shadow */
+  /* justify-content: center;
+    text-align: left; */
+  /* align-items: end; */
+
+}
+
+.productItemNamePrice {
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.5%;
+  width: 65%;
+  font-size: large;
+  /* font-weight: bold; */
+  overflow: hidden;
+  justify-content: center;
+  /* text-align: left; */
+  align-items: left;
+  /* border-color: black;
+    border-style: solid; */
+}
+
+
+
+.productName {
+  font-size: large;
+  font-weight: bold;
+}
+
+.productImage {
+  /* width: 25%; */
+  /* border-color: black;
+    border-style: solid; */
+  height: fit-content;
+
+}
+
+
+
+
+
+.buttonSpacer {
+  width: 35%;
+  /* border-color: black;
+    border-style: solid; */
+}
+
+.spacer {
+  height: 0%;
+}

@@ -1,0 +1,193 @@
+.navbar {
+  height: 6.75%;
+  display: flex;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* subtle shadow */
+  /* padding-right: 10px;
+  padding-top: 5px; */
+  padding: 5px;
+  padding-bottom: 0;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  /* border-color: black;
+    border-style: solid; */
+
+}
+
+.layoutBox1 {
+  width: 15%;
+  text-align: left;
+  /* border-color: black;
+    border-style: solid; */
+}
+
+.layoutBox2 {
+  width: 15%;
+  text-align: right;
+  /* border-color: black;
+    border-style: solid; */
+}
+
+.titleDiv {
+  max-width: 60%;
+  overflow: hidden;
+  height: fit-content;
+
+  font-size: large;
+  font-weight: bold;
+  color: blue;
+  /* border-color: black;
+  border-style: solid; */
+
+}
+
+.storeIcon:hover{
+  cursor: pointer;
+}
+.profileIcon:hover{
+  cursor: pointer;
+}
+.titleDiv:hover{
+  cursor: pointer;
+}
+
+
+.title {
+  display: inline;
+  font-size: large;
+  font-weight: bold;
+  color: black;
+
+}
+
+.iconDiv {
+  border-color: black;
+  border-style: solid;
+}
+
+
+
+.logoutDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.profileIconSpacer{
+  width: 60%;
+}
+
+.spacer1 {
+  height: 15%;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.linkDiv {
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  justify-content: left;
+  color:  black;
+  font-size: large;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding-bottom: 10px;
+  padding-block: 10px;
+}
+.linkDiv:hover {
+  cursor: pointer;
+}
+
+.userDiv {
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  justify-content: left;
+  /* color: black; */
+  font-size: large;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  */
+  /* padding-bottom: 10px; */
+  /* padding-block: 10px; */
+}
+
+.userDiv:hover{
+  cursor: default;
+}
+
+.logoutIcon{
+  cursor: pointer;
+}
+
+.linkButton {
+  font-size: x-large;
+  text-decoration: none;
+  color: blue;
+  display: block;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar {
+  position: fixed;
+  /* Sidebar stays in place while scrolling */
+  top: 0;
+  /* Align to top of viewport */
+  right: 0;
+  /* Align to left edge */
+  width: 0;
+  /* Closed by default; width expands when opened */
+  height: 100%;
+  /* Full viewport height */
+  background-color: white;
+  /* Sidebar background color */
+  transition: 0.3s;
+  /* Smooth css property change, width change for slide-in/out animation or button hovers */
+  z-index: 2;
+  /* Ensure sidebar is above overlay and other content */
+  overflow: hidden;
+  padding: 0;
+  /*when sidebar closed padding should be 0 and overflow hidden, so items doesnt leek into main page. Change this values will get out of the viewport
+  /* Hide horizontal overflow to prevent scrollbars */
+  /* padding-top: 60px;     Space at top for content below a navbar/header */
+}
+
+
+.sidebar.active {
+  width: 250px;
+  /* open width */
+  padding-left: 2.5%;
+  /* add padding only when active to avoid leaks on main screen */
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* full screen */
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 1;
+  /* below sidebar */
+}
+
+/* When sidebar active, shift overlay to start after sidebar */
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+  margin-right: 250px;
+  /* ✅ prevents overlay from covering sidebar */
+  width: calc(100% - 250px);
+}
