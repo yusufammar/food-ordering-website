@@ -12,8 +12,10 @@ import CashierOrders from './components/Cashier/Cashier_Orders';
 import CashierOrderDetails from './components/Cashier/Cashier_OrderDetails';
 
 function App(){
-  
-  App.baseUrl= "http://localhost:5000/api";  
+  const developmentBackendBaseUrl= "http://localhost:5000/api"
+  const productionBackendBaseUrl= "https://food-ordering-website-0fhj.onrender.com/api"
+ 
+  App.baseUrl= productionBackendBaseUrl;
 
   return(
     <Router>
