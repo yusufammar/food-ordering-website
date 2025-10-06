@@ -47,7 +47,7 @@ function CustomerHome() {
 
       function getProductsRequest() {
         // const config = { headers: { authorization: user.token } };
-
+        // console.log(App.baseUrl + "/getProducts");
         axios.get(App.baseUrl + "/getProducts")
             .then(res => handleSuccess(res))
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));

@@ -1,6 +1,7 @@
 //Import Express & Create Express App
 const express= require('express');
 const app= express();
+const path= require('path');
 
 
 //Built In Middleware
@@ -23,6 +24,35 @@ app.use('/api/user',userRouter);
 app.use('/api/admin',adminRouter);
 app.use('/api/cashier',cashierRouter);
 
+
+//--------------------------------
+//#React - Serve static files from React build
+//--------------------------------------------
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// app.use(express.static(path.join(__dirname, "dist")));
+
+// SPA fallback for React (only handles GET requests)
+app.get("*", handleReactRouting); // app.get("*") → catch-all for GET requests only, used for SPA routing.
+
+function handleReactRouting(req, res) {
+    // Only serve index.html for non-API / non-upload routes
+    if (!req.path.startsWith('/api') && !req.path.startsWith('/uploads')) {
+        res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+    //  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    } 
+
+}
+// function handleReactRouting(req, res, next) {
+//     console.log("Request path:", req.path);
+//     // Only serve index.html for non-API / non-upload routes
+//     if (!req.path.startsWith('/api') && !req.path.startsWith('/uploads')) {
+//         res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+//     } 
+//     else 
+//         next(); // pass other requests (e.g., API routes) to their handlers
+    
+// }
+//-----------------------------------------------------
 
 
 module.exports = app;

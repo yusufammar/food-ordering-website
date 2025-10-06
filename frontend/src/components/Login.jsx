@@ -62,6 +62,7 @@ function Login() {
 
         //---------------------------------------------------------------
         alert("All Checks Passed, Forwarding Request...");
+        // console.log(App.baseUrl + "/login");
         return axios.post(App.baseUrl + "/login", transformedData)
             .then(res => handleLoginSuccess(res))
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
