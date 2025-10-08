@@ -53,9 +53,24 @@ function AdminImportProducts() {
 
     return (
         <>
-           <NavBar role={roleRequired}/>
+            <NavBar role={roleRequired} />
 
             <h1>Admin - Import Products</h1>
+
+            <br/> <br/>
+
+            <h2>Instructions</h2>
+
+            <a>Excel Sheet Columns</a>  <br/>
+            <a>- <b>Name</b>: Unique food name</a> <br/>
+            <a>- <b>Arabic Name</b>: </a> <br/>
+            <a>- <b>Category</b>: </a> <br/>
+            <a>- <b>Price</b>: Only number no currency</a> <br/>
+            <a>- <b>Image Filename</b>: unique file name, dont include extension</a> <br/><br/>
+
+            <a>Note: use the exact column names, order doesnt matter</a> <br/> <br/> <br/> <br/>
+
+
 
             <div>
                 <input type='file' onChange={handleFileChange} />

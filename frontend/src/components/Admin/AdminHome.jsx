@@ -23,8 +23,13 @@ function AdminHome() {
             <h1>Admin Home</h1>
 
             <Link className='linkButton' to="/adminImportProducts">Import Products</Link>
+
+            <br></br>
+            <Link className='linkButton' to="/adminUploadItemsImages">Upload Items Images</Link>
+
             <br></br>
             <Link className='linkButton' to="/adminSetStoreName">Set Store Name</Link>
+
 
         </>
 

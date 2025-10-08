@@ -25,7 +25,17 @@
 
 
 .product {
-  display: flex;
+  display: flex; 
+   /* fixed height for all tiles */
+  height: 75px;
+  min-height: 75px;
+  max-height: 75px;
+ 
+  max-width: 500px;
+   
+  
+  overflow: hidden;
+  /* clip any overflowing children */
   padding: 2.5%;
   gap: 5%;
   /* background-color: lightgray;  */
@@ -40,13 +50,16 @@
 
 }
 
-.product:hover{
+.product:hover {
   cursor: pointer;
 }
-.product:active{
-    transform: scale(0.98); /* slightly shrink to give a pressed feel */
-    background-color: rgba(0,0,0,0.05); /* subtle feedback */
-    cursor: default;
+
+.product:active {
+  transform: scale(0.9);
+  /* slightly shrink to give a pressed feel */
+  background-color: rgba(0, 0, 0, 0.05);
+  /* subtle feedback */
+  cursor: default;
 }
 
 .productItemNamePrice {
@@ -70,12 +83,50 @@
   font-weight: bold;
 }
 
-.productImage {
-  /* width: 25%; */
-  /* border-color: black;
-    border-style: solid; */
-  height: fit-content;
+.productImageContainer {
+  display: flex;
+  position: relative;
+  width: 30%;
+  min-width: 30%;
+  height: 100%;
+  min-height: 100%;
+  border-radius: 15px;
+  justify-content: start;
+  align-items: start;
+  text-align: center;
 
+  border-color: transparent;
+  border-style: solid;
+  /* border needed for z index to work and stacking to work */
+
+}
+
+.productImage {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  max-height: 75px;
+  border-radius: 15px;
+  z-index: 2;
+  justify-content: center;
+  align-items: center;
+  /* object-fit: fill;  */
+  border-color: transparent;
+  border-style: solid;
+  /* border needed for z index to work and stacking to work */
+}
+
+.productIcon {
+  width: 100%;
+  height: 100%;
+  /* justify-content:center ;
+  align-items: center; */
+  z-index: 1;
+  position: absolute;
+  /* border-color: black;
+  border-style: solid; */
 }
 
 .buttonDiv {
@@ -104,15 +155,15 @@
   align-items: center; */
   border-radius: 25px;
   border-color: white;
-    border-style: solid;
+  border-style: solid;
 }
 
-.buttonSpacer{
+.buttonSpacer {
   width: 35%;
   /* border-color: black;
     border-style: solid; */
 }
 
-.spacer{
+.spacer {
   height: 0%;
 }

@@ -22,14 +22,14 @@ function CustomerHome() {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
 
-  
+
     useEffect(getProductsRequest, []); //this should be blocked userbar gives access denied
     useEffect(getSavedCart, []);
 
-    function getSavedCart(){
-        let savedCart= utils.getCart();
+    function getSavedCart() {
+        let savedCart = utils.getCart();
         // console.log(savedCart);
-        if(savedCart)
+        if (savedCart)
             setCart(savedCart);
     }
     //-----------------------------
@@ -45,7 +45,7 @@ function CustomerHome() {
 
     // }
 
-      function getProductsRequest() {
+    function getProductsRequest() {
         // const config = { headers: { authorization: user.token } };
         // console.log(App.baseUrl + "/getProducts");
         axios.get(App.baseUrl + "/getProducts")
@@ -60,8 +60,13 @@ function CustomerHome() {
 
     function handleSuccess(res) {
         setProducts(res.data.products);
+        console.log(products);
     }
 
+    // // console.log(App.baseImageUrl+);
+    // const imgUrl= `App.baseImageUrl/${product.name}.jpg`;
+
+    // console.log(imgUrl);
 
     function addToCart(value, index) { // Approach: array (o(n) performance)
         //Logic
@@ -135,17 +140,27 @@ function CustomerHome() {
     return (
         <div className='pageDiv'>
 
-            <NavBar role={roleRequired} cart={cart}/>
+            <NavBar role={roleRequired} cart={cart} />
 
 
             <div className='productsItems'>
 
                 {products.map((value, index) =>
-                
+
                     <div className="product" key={index} onClick={() => addToCart(value, index)}>
-                        <div className='productImage'>
-                            <FastfoodIcon sx={{ fontSize: 80, color: 'blue' }}></FastfoodIcon>
+
+                        <div className='productImageContainer'>
+                            {/* {<FastfoodIcon sx={{ fontSize: 80, color: 'blue' }}></FastfoodIcon> } */}
+
+                            <img className='productImage' src={`${App.baseImageUrl}/${value.img_filename}.jpg`}
+                                onError={(e) => { e.target.style.display = 'none'; }}
+                            />
+                            <div className='productIcon'>
+                            <FastfoodIcon sx={{ fontSize: 75, color: 'blue'}} />
+                            </div>
                         </div>
+
+
 
                         <div className='productItemNamePrice'>
 
@@ -157,6 +172,7 @@ function CustomerHome() {
                             <a>{value.price} €</a>
 
                         </div>
+
                     </div>
                 )}
 

@@ -15,7 +15,8 @@ import CustomerOrderDetails from './components/Customer/Customer_OrderDetails';
 import CustomerProfile from './components/Customer/Customer_Profile';
 import CashierOrders from './components/Cashier/Cashier_Orders';
 import CashierOrderDetails from './components/Cashier/Cashier_OrderDetails';
-import AdminSetStoreName from './components/Admin/Admin_SetStoreName';
+import AdminSetStoreName from './components/Admin/Admin_UploadItemsImages';
+import AdminUploadItemsImages from './components/Admin/Admin_UploadItemsImages';
 
 function App() {
   const developmentBackendBaseUrl = "http://localhost:5000/api"
@@ -23,6 +24,9 @@ function App() {
 
   App.baseUrl= productionBackendBaseUrl;
   // App.baseUrl = developmentBackendBaseUrl;
+
+  
+  App.baseImageUrl= `${App.baseUrl.slice(0,-4)}/uploads/items`; // remove "/api" from baseUrl
 
   // useEffect(getSettings, []) // if I do it here on any page refresh this will be called, which is a bit overkill, i dont need to frequently update that much
 
@@ -53,6 +57,7 @@ function App() {
         <Route path="/customerHome" element={<CustomerHome />} />
         <Route path="/adminImportProducts" element={<AdminImportProducts />} />
         <Route path="/adminSetStoreName" element={<AdminSetStoreName />} />
+        <Route path="/adminUploadItemsImages" element={<AdminUploadItemsImages />} />
         <Route path="/customerOrderHistory" element={<CustomerOrderHistory />} />
         <Route path="/customerOrderDetails" element={<CustomerOrderDetails />} />
         <Route path="/customerProfile" element={<CustomerProfile />} />

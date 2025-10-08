@@ -15,7 +15,7 @@ function createProductsTable() {
             arabic_name VARCHAR(50),
             category VARCHAR(50) NOT NULL,
             price NUMERIC(10,2) NOT NULL,
-            img_url TEXT
+            img_filename TEXT
         );
     `;
 
@@ -32,21 +32,21 @@ async function insertProducts(productsArray) {
     console.log("Products Table Cleared");
     //----------------------------------------------------------
 
-    
-    const columnsNeeded = ["Name", "Category", "Price", "Arabic Name"]; 
+
+    const columnsNeeded = ["Name", "Category", "Price", "Arabic Name", "Image Filename"];
     const { valuesArray, placeholdersString } = utils.prepareMultipleInsert(productsArray, columnsNeeded);
 
     // console.log(valuesArray);
     // console.log(placeholdersString);
 
 
-    const query = `INSERT INTO products (name, category, price, arabic_name) VALUES ${placeholdersString}; `;
+    const query = `INSERT INTO products (name, category, price, arabic_name, img_filename) VALUES ${placeholdersString}; `;
     const values = valuesArray;
 
     return pool.query(query, values);
 }
 
-function getProducts(){
+function getProducts() {
     const query = `SELECT * FROM products;`;
 
     return pool.query(query);

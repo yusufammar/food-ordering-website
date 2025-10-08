@@ -29,6 +29,20 @@ function verifyAdminRoleMiddleware(req, res, next) {
 adminRouter.post('/importProducts', adminController.importProducts);
 adminRouter.post('/setStoreName', adminController.setStoreName);
 
+//-----------------------------------------
+//#Image Upload
+//-----------------------------------------
+adminRouter.post('/uploadItemsImages', adminController.clearFolderMiddleware,
+    adminController.uploadItemsImages, adminController.handleItemsImagesUploadSuccess);
+
+//------
+// Error Middleware for Image Uploads
+adminRouter.use((err, req, res, next) => {
+    return res.status(400).json({ error: err.message });
+
+});
+
+
 
 module.exports = adminRouter;
 

@@ -24,10 +24,12 @@ app.use('/api/user',userRouter);
 app.use('/api/admin',adminRouter);
 app.use('/api/cashier',cashierRouter);
 
+// Serve Items images
+app.use('/uploads/items', express.static(path.join(__dirname, 'uploads/items')));
 
 //--------------------------------
-//#React - Serve static files from React build
-//--------------------------------------------
+// #React - Serve static files from React build
+// --------------------------------------------
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 // app.use(express.static(path.join(__dirname, "dist")));
 
@@ -40,8 +42,8 @@ function handleReactRouting(req, res) {
         res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
     //  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
     } 
-
 }
+
 // function handleReactRouting(req, res, next) {
 //     console.log("Request path:", req.path);
 //     // Only serve index.html for non-API / non-upload routes
