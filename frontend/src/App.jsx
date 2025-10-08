@@ -25,9 +25,30 @@ function App() {
   App.baseUrl= productionBackendBaseUrl;
   // App.baseUrl = developmentBackendBaseUrl;
 
-  
-  App.baseImageUrl= `${App.baseUrl.slice(0,-4)}/uploads/items`; // remove "/api" from baseUrl
+  //----------------------------------------------
 
+  App.baseImageUrl = `${App.baseUrl.slice(0, -4)}/uploads/items`; // remove "/api" from baseUrl
+
+  //---------------------------------------------------
+  const settings = utils.getSettings(); // this needs to be here so title and icon is available for all pages, when they refresh
+  const appName = settings.storeName;
+  const appIcon = "/logo.ico"; // must be in public folder
+
+  useEffect(updateTabTitle, []);
+
+  function updateTabTitle() { // this needs to be here so its done for all pages on refresh too
+    // Set tab title
+    document.title = appName;
+
+    //Add Icon (Tab Title)
+    const link = document.createElement("link");
+    link.rel = "icon";
+    link.href = appIcon;
+    document.head.appendChild(link);
+  }
+
+
+  //------------------------------------------
   // useEffect(getSettings, []) // if I do it here on any page refresh this will be called, which is a bit overkill, i dont need to frequently update that much
 
   // function getSettings() {
@@ -46,6 +67,8 @@ function App() {
   //   utils.setSettings(res.data.settings);
   //   // console.log(res.data.settings)
   // }
+
+
 
   return (
     <Router>

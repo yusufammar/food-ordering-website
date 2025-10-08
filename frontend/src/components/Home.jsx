@@ -40,6 +40,8 @@ function Home() {
         // console.log(res.data.settings)
     }
 
+    
+
 
 
     return (
