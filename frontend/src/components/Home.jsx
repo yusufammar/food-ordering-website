@@ -17,15 +17,30 @@ function Home() {
     const roleRequired = null;
     const user = utils.getSavedUser();
 
-   
+
     //-------------------------------------------------------
     // Event Handlers
     //-------------------------------------------------------
 
+    useEffect(getSettings, []) // gets called on page load and page refresh, not redirects
+
+    function getSettings() {
+        axios.get(App.baseUrl + "/getSettings")
+            .then(res => handleSuccess(res))
+            .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
+
+    }
 
     //-------------------------------------------------------
     //Helper Methods
     //-------------------------------------------------------
+
+    function handleSuccess(res) {
+        utils.setSettings(res.data.settings);
+        // console.log(res.data.settings)
+    }
+
+
 
     return (
         <>

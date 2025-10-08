@@ -27,6 +27,7 @@ function verifyAdminRoleMiddleware(req, res, next) {
 //----------------------------------------------------------
 
 adminRouter.post('/importProducts', adminController.importProducts);
+adminRouter.post('/setStoreName', adminController.setStoreName);
 
 
 module.exports = adminRouter;

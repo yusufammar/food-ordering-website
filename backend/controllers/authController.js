@@ -5,6 +5,8 @@ const pool = require('../config/db.js')
 const user = require('../models/user');
 const address = require('../models/address');
 const product = require('../models/product');
+const settings = require('../models/settings');
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET
@@ -127,6 +129,21 @@ async function getProducts(req, res) {
 
 }
 
+async function getSettings(req, res) {
+
+    try {
+        const result = await settings.getAllSettings();
+        const settingsValues = result.rows;
+        // console.log(products);
+        return res.json({ settings: settingsValues })
+
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+
+}
+
 //------------------------------------------------
 // Helper Methods
 
@@ -184,4 +201,4 @@ function throwPasswordErr() {
 }
 
 
-module.exports = { login, signUp, getProducts };
+module.exports = { login, signUp, getProducts, getSettings };

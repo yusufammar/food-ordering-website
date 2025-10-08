@@ -21,10 +21,10 @@ function NavBar({ role, cart }) {
     const user = utils.getSavedUser();
     const navigate = useNavigate();
 
-    // function openNav() {
-    //     document.getElementById("mySidebar").style.width = "250px";
-    //     document.getElementById("overlay").classList.add("active");
-    // }
+    const settings = utils.getSettings();
+    // console.log(settings);
+
+    //------------------------------------------------------
 
     function openNav() {
         document.getElementById("sidebar").classList.add("active");
@@ -37,20 +37,18 @@ function NavBar({ role, cart }) {
     }
 
 
-
-
     function navigateHome() {
         navigate("/");
     }
 
-   function logout2() {
-    if (cart)
-        utils.setCart(cart) 
-    
-    utils.unsetUser();
-    navigate("/login");
-    //  window.location.reload();
-   }
+    function logout2() {
+        if (cart)
+            utils.setCart(cart)
+
+        utils.unsetUser();
+        navigate("/login");
+        //  window.location.reload();
+    }
 
 
     return (
@@ -63,7 +61,9 @@ function NavBar({ role, cart }) {
 
 
                 <div className="titleDiv" onClick={navigateHome}>
-                    Restaurant Name
+                    {/* Restaurant Name */}
+                    {/* {!settings.storeName && settings.storeName} */}
+                    {settings.storeName}
 
 
                     {/* <h1 className='title'>Restaurant Name */}

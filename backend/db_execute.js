@@ -2,13 +2,14 @@ const user = require('./models/user');
 const address = require('./models/address.js');
 const product = require('./models/product');
 const order = require('./models/order');
+const settings = require('./models/settings');
 const order_items = require('./models/order_items');
 
 const pool = require('./config/db.js')
 
 async function executeDB() {
-    try { 
-   
+    try {
+
         //--------------------
         //Custom Insterts
         //--------------------
@@ -17,6 +18,12 @@ async function executeDB() {
 
         //  await order.implementOrdersTrigger();
         // console.log("Orders Trigger Implemented");
+
+        await settings.createSettingsTable();
+        console.log("Settings Table Created");
+
+        await settings.insertSetting("storeName", "Store Name");
+        console.log("Default Store Name Insterted");
 
 
 

@@ -70,19 +70,56 @@ function deletePayload() {
 }
 
 function setCart(cart) {
-  let cartJSON= JSON.stringify([...cart]);
+  let cartJSON = JSON.stringify([...cart]);
   localStorage.setItem('cartJSON', cartJSON);
 }
 
 function getCart() {
   const cartJSON = localStorage.getItem('cartJSON');
-  let cartArray= JSON.parse(cartJSON);
+  let cartArray = JSON.parse(cartJSON);
   // console.log(token);
   return (cartArray);
 }
 function unsetCart() {
   localStorage.removeItem('cartJSON');
 }
+
+
+function setSettings(settings) {
+  let settingsJSON = JSON.stringify([...settings]);
+  localStorage.setItem('settingsJSON', settingsJSON);
+}
+
+function getSettings() {
+  const settingsJSON = localStorage.getItem('settingsJSON');
+  const settingsArray = JSON.parse(settingsJSON);
+  const settingsMap = constructSettingsMap(settingsArray);
+  return (settingsMap);
+}
+
+
+
+function unsetSettings() {
+  localStorage.removeItem('settingsJSON');
+}
+
+//---------------------------------------------
+//Helper Methods
+
+function constructSettingsMap(settingsArray) {
+  let settingsMap = {};
+  if (settingsArray != null) {
+    for (let x of settingsArray) {
+      let key = x.key;
+      let value = x.value;
+      settingsMap[key] = value;
+    }
+  }
+
+  // console.log(settingsMap);
+  return settingsMap;
+}
+
 
 //-------------------------------------------
 //##Review
@@ -123,7 +160,7 @@ function getCurrentUser() {
 }
 
 export {
-  getSavedUser, setUser, unsetUser, getToken, setToken, unsetToken, getCart, setCart, unsetCart,
+  getSavedUser, setUser, unsetUser, getToken, setToken, unsetToken, getCart, setCart, unsetCart, getSettings, setSettings, unsetSettings,
   // validateData, 
   getCurrentUser
 };

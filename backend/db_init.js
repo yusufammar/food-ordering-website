@@ -3,6 +3,7 @@ const address = require('./models/address.js');
 const product = require('./models/product');
 const order = require('./models/order');
 const order_items = require('./models/order_items');
+const settings = require('./models/settings');
 
 const pool = require('./config/db.js')
 
@@ -20,6 +21,8 @@ async function setupDB() {
         console.log("Orders Table Dropped");
         await order_items.dropOrderItemsTable();
         console.log("Order Items Table Dropped");
+        await settings.dropSettingsTable();
+        console.log("Settings Table Dropped");
 
         // await product.dropProductsTable();
         // console.log("Products Table Dropped");
@@ -37,6 +40,8 @@ async function setupDB() {
         console.log("Order Table Created");
         await order_items.createOrderItemsTable();
         console.log("Order Items Table Created");
+        await settings.createSettingsTable();
+        console.log("Settings Table Created");
 
         await product.createProductsTable();
         console.log("Products Table Created");
@@ -51,10 +56,13 @@ async function setupDB() {
         await user.insertCashier();
         console.log("Cashier Inserted");
 
+        await settings.insertSetting("storeName","Store Name");
+        console.log("Default Store Name Insterted");
+
         await order.implementOrdersTrigger();
         console.log("Orders Trigger Implemented");
 
-
+       
 
 
 
