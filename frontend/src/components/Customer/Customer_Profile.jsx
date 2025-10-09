@@ -68,7 +68,7 @@ function CustomerProfile() {
             <h1>My Profile</h1>
 
 
-            <p>  <b>Name:</b> {profile.name} | <b>Email:</b> {profile.email} </p>
+            <p>  <b>Name:</b> {profile.name} | <b>Email:</b> {profile.email} | <b>Phone No:</b> {profile.phone_no} </p>
 
 
             <h2>Address</h2>

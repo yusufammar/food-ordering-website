@@ -17,35 +17,47 @@ import CashierOrders from './components/Cashier/Cashier_Orders';
 import CashierOrderDetails from './components/Cashier/Cashier_OrderDetails';
 import AdminSetStoreName from './components/Admin/Admin_UploadItemsImages';
 import AdminUploadItemsImages from './components/Admin/Admin_UploadItemsImages';
+import AdminUploadStoreLogo from './components/Admin/Admin_UploadStoreLogo';
 
 function App() {
+
+  const productionMode = false;
+
+  //---------------------------------------------------
+
   const developmentBackendBaseUrl = "http://localhost:5000/api"
   const productionBackendBaseUrl = "https://oh-crepe.onrender.com/api"
 
-  App.baseUrl= productionBackendBaseUrl;
-  // App.baseUrl = developmentBackendBaseUrl;
-
-  //----------------------------------------------
-
+  App.baseUrl = productionMode ? productionBackendBaseUrl : developmentBackendBaseUrl
   App.baseImageUrl = `${App.baseUrl.slice(0, -4)}/uploads/items`; // remove "/api" from baseUrl
-
+  App.logoUrl = `${App.baseUrl.slice(0, -4)}/uploads/logo/logo.jpg`; // remove "/api" from baseUrl
+  App.defaultLogoUrl = `${App.baseUrl.slice(0, -4)}/uploads/logo/defaultLogo.jpg`; // remove "/api" from baseUrl
   //---------------------------------------------------
   const settings = utils.getSettings(); // this needs to be here so title and icon is available for all pages, when they refresh
   const appName = settings.storeName;
-  const appIcon = "/logo.ico"; // must be in public folder
 
   useEffect(updateTabTitle, []);
 
-  function updateTabTitle() { // this needs to be here so its done for all pages on refresh too
-    // Set tab title
-    document.title = appName;
+  function updateTabTitle() {
+  document.title = appName;
 
-    //Add Icon (Tab Title)
-    const link = document.createElement("link");
-    link.rel = "icon";
-    link.href = appIcon;
-    document.head.appendChild(link);
-  }
+  const customIcon = App.logoUrl;         
+  const fallbackIcon = App.defaultLogoUrl;        
+
+  const img = new Image();
+
+  img.src = customIcon;
+  img.onload = () => { setFavicon(customIcon); };
+  img.onerror = () => {  setFavicon(fallbackIcon); };
+}
+
+function setFavicon(url) {
+  const link = document.createElement("link");
+  link.rel = "icon";
+  link.href = url;
+  document.head.appendChild(link);
+}
+
 
 
   //------------------------------------------
@@ -81,6 +93,7 @@ function App() {
         <Route path="/adminImportProducts" element={<AdminImportProducts />} />
         <Route path="/adminSetStoreName" element={<AdminSetStoreName />} />
         <Route path="/adminUploadItemsImages" element={<AdminUploadItemsImages />} />
+        <Route path="/adminUploadStoreLogo" element={<AdminUploadStoreLogo />} />
         <Route path="/customerOrderHistory" element={<CustomerOrderHistory />} />
         <Route path="/customerOrderDetails" element={<CustomerOrderDetails />} />
         <Route path="/customerProfile" element={<CustomerProfile />} />

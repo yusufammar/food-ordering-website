@@ -100,6 +100,11 @@ async function checkInputs(data) {
         if (passwordErr) errList.push(passwordErr);
       } break;
 
+      case ("phone_no"): {
+        const phoneNoErr = checkPhoneNoInput(fieldValue);
+        if (phoneNoErr) errList.push(phoneNoErr);
+      } break;
+
       case ("excelFile"): { // Note: Field Value here is file, we will convert to prodduct array before sending to backend 
         //Note: data matrix wont be sent so type wont be sent, just need to update value)
 
@@ -128,10 +133,10 @@ async function checkInputs(data) {
 function checkEmailInput(input) {
   let errObj = {};
 
-  if (input == "admin" || input== "cashier")
+  if (input == "admin" || input == "cashier")
     return null;
 
-  if ( !input.includes("@") || !input.includes(".com") ) {
+  if (!input.includes("@") || !input.includes(".com")) {
     errObj.email = "* Invalid Email: Please Enter a Valid Email";
     return errObj;
   }
@@ -144,6 +149,17 @@ function checkPasswordInput(input) {
 
   if (input.length < 4) {
     errObj.password = "* Short Password: Please Enter Password Longer than 4 characters";
+    return errObj;
+  }
+  else
+    return null;
+}
+
+function checkPhoneNoInput(input) {
+  let errObj = {};
+
+  if (input.length != 11) {
+    errObj.password = "* Invalid Phone No";
     return errObj;
   }
   else

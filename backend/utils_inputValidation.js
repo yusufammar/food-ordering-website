@@ -99,6 +99,11 @@ async function checkInputs(data) {
         if (passwordErr) errList.push(passwordErr);
       } break;
 
+       case ("phone_no"): {
+        const phoneNoErr = checkPhoneNoInput(fieldValue);
+        if (phoneNoErr) errList.push(phoneNoErr);
+      } break;
+
       case ("excelFile"): { // Note: Field Value here is file, we will convert to prodduct array before sending to backend 
         //Note: data matrix wont be sent so type wont be sent, just need to update value)
 
@@ -145,6 +150,17 @@ function checkPasswordInput(input) {
 
   if (input.length < 4) {
     errObj.password = "* Short Password: Please Enter Password Longer than 4 characters";
+    return errObj;
+  }
+  else
+    return null;
+}
+
+function checkPhoneNoInput(input) {
+  let errObj = {};
+
+  if (input.length !=11) {
+    errObj.password = "* Invalid Phone No";
     return errObj;
   }
   else

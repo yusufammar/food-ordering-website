@@ -71,14 +71,15 @@ async function setStoreName(req, res) {
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-const uploadDir = path.join(__dirname, '../uploads/items');
+const itemsUploadDir = path.join(__dirname, '../uploads/items');
+const logoUploadDir = path.join(__dirname, '../uploads/logo');
 
 // Storage config for menu images
-const storage = multer.diskStorage({
+const itemStorage = multer.diskStorage({
     destination: function (req, file, cb) { // uploads folder
-        if (!fs.existsSync(uploadDir))
-            fs.mkdirSync(uploadDir, { recursive: true });
-        cb(null, uploadDir);
+        if (!fs.existsSync(itemsUploadDir))
+            fs.mkdirSync(itemsUploadDir, { recursive: true });
+        cb(null, itemsUploadDir);
     },
     filename: function (req, file, cb) {
         // cb(null, Date.now() + '-' + file.originalname);
@@ -88,7 +89,7 @@ const storage = multer.diskStorage({
         //Set all to jpg file extension
         const fileName = file.originalname.split(".")[0]; // name without extension
         const newName = `${fileName}.jpg`;
-
+      
         cb(null, newName); // save exactly as uploaded
 
         // console.log(file.originalname);
@@ -96,7 +97,24 @@ const storage = multer.diskStorage({
     }
 });
 
+const logoStorage = multer.diskStorage({
+    destination: function (req, file, cb) { // uploads folder
+        if (!fs.existsSync(logoUploadDir))
+            fs.mkdirSync(logoUploadDir, { recursive: true });
+        cb(null, logoUploadDir);
+    },
+    filename: function (req, file, cb) {
+        // cb(null, Date.now() + '-' + file.originalname);
+        // cb(null, file.originalname);
+        //-------------------------------------------------------------
+        //Set all to jpg file extension
+        const fileName = file.originalname.split(".")[0]; // name without extension
+        const newName = `${fileName}.jpg`;
+        const newName2 = `logo.jpg`;
 
+        cb(null, newName2); // save exactly as uploaded
+    }
+});
 
 //-----------------------------------------
 //# File Filter (accept only images)
@@ -112,8 +130,8 @@ function fileFilter(req, file, cb) {
 //-----------------------------------------
 //# Multer Configuration
 //-----------------------------------------
-const upload = multer({ // global limits: max uploads for whole app, ones using this variable
-    storage,
+const itemsUpload = multer({ // global limits: max uploads for whole app, ones using this variable
+    storage: itemStorage,
     fileFilter,
     limits: {
         files: 150,               // max 150 files per upload request
@@ -121,29 +139,47 @@ const upload = multer({ // global limits: max uploads for whole app, ones using 
     }
 });
 
+const logoUpload = multer({ // global limits: max uploads for whole app, ones using this variable
+   storage: logoStorage,
+    fileFilter,
+    limits: {
+        files: 1,               // max 150 files per upload request
+        fileSize: 200 * 1024     // 200 KB per file (sweet spot), 1024 bytes
+    }
+});
+
 
 //----------------------
 
-function clearFolderMiddleware(req, res, next) {
-    if (fs.existsSync(uploadDir)) {
-        fs.readdirSync(uploadDir).forEach(file => {
-            fs.unlinkSync(path.join(uploadDir, file));
+function clearItemsFolderMiddleware(req, res, next) {
+    if (fs.existsSync(itemsUploadDir)) {
+        fs.readdirSync(itemsUploadDir).forEach(file => {
+            fs.unlinkSync(path.join(itemsUploadDir, file));
+        });
+    }
+    next();
+}
+
+function clearLogoFolderMiddleware(req, res, next) {
+    if (fs.existsSync(logoUploadDir)) {
+        fs.readdirSync(logoUploadDir).forEach(file => {
+            fs.unlinkSync(path.join(logoUploadDir, file));
         });
     }
     next();
 }
 
 // // Middleware for handling multiple image uploads (mutler middleware)
-const uploadItemsImages = upload.array('images');
+const uploadItemsImages = itemsUpload.array('images');
 // //const uploadItemsImages = upload.array('images', 50); 
 // // Sent by frontend: formData.append('images', file) -> Add file under key 'images' // 50 is limit for images
-
+const uploadLogoImage = logoUpload.single('image');
 
 
 // Controller to process uploaded images (on success only) // note: if there an error in mutler midlerware to upload files, it wont reach here, so you cant handle errors here
 // must handle errors with error handling middleware (defined in routes)
-function handleItemsImagesUploadSuccess(req, res) {
-    const message = "Images Upload Successful"
+function handleImagesUploadSuccess(req, res) {
+    const message = "Image(s) Upload Successful"
     res.json({ message });
 
     // Optionally, you can save these URLs to your database linked to a menu item
@@ -157,4 +193,4 @@ function handleItemsImagesUploadSuccess(req, res) {
 
 
 
-module.exports = { importProducts, setStoreName, uploadItemsImages, handleItemsImagesUploadSuccess, clearFolderMiddleware };
+module.exports = { importProducts, setStoreName, uploadItemsImages, uploadLogoImage, handleImagesUploadSuccess, clearItemsFolderMiddleware, clearLogoFolderMiddleware };

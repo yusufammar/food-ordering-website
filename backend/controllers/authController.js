@@ -60,12 +60,14 @@ async function login(req, res) {
 }
 
 async function signUp(req, res) {
-    let { name, email, password, city, district, street, buildingNo, apartmentNo, addressDescription } = req.body;
+    let { name, email, password, phoneNo, city, district, street, buildingNo, apartmentNo, addressDescription } = req.body;
 
     const data = [
         { key: "name", value: name, type: "string", trim: 1, required: 1 },
         { key: "email", value: email, type: "email", trim: 1, required: 1 },
         { key: "password", value: password, type: "password", trim: 0, required: 1 },
+        { key: "phoneNo", value: phoneNo, type: "phone_no", trim: 1, required: 1 },
+
 
         { key: "city", value: city, type: "string", trim: 1, required: 1 },
         { key: "district", value: district, type: "string", trim: 1, required: 1 },
@@ -86,14 +88,14 @@ async function signUp(req, res) {
 
     const client = await pool.connect();
     try {
-        let { name, email, password, city, district, street, buildingNo, apartmentNo, addressDescription } = transformedData;
+        let { name, email, password, phoneNo, city, district, street, buildingNo, apartmentNo, addressDescription } = transformedData;
         const role = 'customer';
 
         await client.query('BEGIN');  // start transaction   
         // pass client to both model functions, ✅ This ensures that all queries use the same connection and 
         // are inside the transaction. Now ROLLBACK will actually undo the user insert if the address insert fails.
 
-        const userID = await user.insertUser(client, name, email, password, role);
+        const userID = await user.insertUser(client, name, email, password, phoneNo, role);
         await address.insertAddress(client, userID, city, district, street, buildingNo, apartmentNo, addressDescription);
 
         await client.query('COMMIT');

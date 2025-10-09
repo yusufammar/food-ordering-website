@@ -11,25 +11,26 @@ import * as utilsErrorHandling from '../../utils_errorHandling';
 import * as utilsInputValidation from '../../utils_inputValidation';
 
 
-function AdminUploadItemsImages() {
+function AdminUploadStoreLogo() {
     const navigate = useNavigate();
     const roleRequired = "admin";
     const user = utils.getSavedUser();
 
     //---------------------------------------
-    const [files, setFiles] = useState();
+    const [file, setFile] = useState();
 
-    function handleFilesChange(event) {
-        setFiles(event.target.files);
+    function handleFileChange(event) {
+        setFile(event.target.files[0]);
     }
 
     //-------------------------------------------------------
     // Event Handlers
     //-------------------------------------------------------
 
+  
     async function handleUpload() {
         //Input Validation
-        if (files.length == 0 || files == null) {
+        if (!file) {
             alert("Please Select Images to Upload")
             return;
         }
@@ -37,8 +38,7 @@ function AdminUploadItemsImages() {
         //------------------------------------
 
         const formData = new FormData();
-        for (let file of files)
-            formData.append('images', file);
+        formData.append('image', file);
 
         const config = {
             headers:
@@ -48,8 +48,8 @@ function AdminUploadItemsImages() {
             }
         };
 
-        return axios.post(App.baseUrl + "/admin/uploadItemsImages", formData, config)
-            .then(res => utilsErrorHandling.handleSuccessStandard(res))
+        return axios.post(App.baseUrl + "/admin/uploadStoreLogo", formData, config)
+            .then(res => handleSuccess(res))
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
 
 
@@ -61,25 +61,30 @@ function AdminUploadItemsImages() {
     //Helper Methods
     //-------------------------------------------------------
 
+    function handleSuccess(res){
+        utilsErrorHandling.handleSuccessStandard(res);
+        window.location.reload();
+    }
+
     return (
         <>
             <NavBar role={roleRequired} />
 
-            <h1>Admin - Upload Items Images</h1>
+            <h1>Admin - Upload Store Logo</h1>
 
             <br /> <br />
 
             <h2>Upload Instructions</h2>
 
-            <a>- <b>Allowed Image Extensions</b>: .jpg, .jpeg, .png </a> <br />
+            <a>- <b>Allowed Image Extensions</b>: .jpg, .jpeg, .png, .ico </a> <br />
             <a>- <b>Max Size Per Image</b>: 200 kb</a> <br />
-            <a>- <b>Max No of Images</b>: 150 </a> <br />
+            <a>- <b>Max No of Images</b>: 1 </a> <br />
 
             <a>Note: previous files are cleared with every upload, even with failed ones</a> <br /> <br /> <br /> <br />
 
 
             <div>
-                <input type='file' multiple accept=".jpg,.jpeg,.png" onChange={handleFilesChange} />
+                <input type='file'  accept=".jpg, .jpeg, .png, .ico" onChange={handleFileChange} />
                 <button type="submit" onClick={handleUpload}>Upload</button>
             </div>
 
@@ -89,4 +94,4 @@ function AdminUploadItemsImages() {
     );
 }
 
-export default AdminUploadItemsImages;
+export default AdminUploadStoreLogo;

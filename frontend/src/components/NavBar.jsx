@@ -55,7 +55,11 @@ function NavBar({ role, cart }) {
         <>
             <nav className='navbar'>
                 <div className="layoutBox1">
-                    <StorefrontIcon className='storeIcon' sx={{ fontSize: 40, color: 'blue', padding: "5px" }} onClick={navigateHome} />
+                    {/* <StorefrontIcon className='storeIcon' sx={{ fontSize: 40, color: 'blue', padding: "5px" }} onClick={navigateHome} /> */}
+                    <img  src={App.logoUrl} style={{height:"8vh", width: "8vh"}} onClick={navigateHome}
+                         onError={(e) => { e.target.src=App.defaultLogoUrl; e.target.style.width = "6vh";
+    e.target.style.height = "5vh"; }}
+                    />
                 </div>
 
 

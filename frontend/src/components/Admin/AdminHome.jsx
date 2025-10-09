@@ -30,6 +30,9 @@ function AdminHome() {
             <br></br>
             <Link className='linkButton' to="/adminSetStoreName">Set Store Name</Link>
 
+              <br></br>
+            <Link className='linkButton' to="/adminUploadStoreLogo">Upload Store Logo</Link>
+
 
         </>
 

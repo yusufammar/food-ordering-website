@@ -22,6 +22,7 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import FlagIcon from '@mui/icons-material/Flag';
 import SignpostIcon from '@mui/icons-material/Signpost';
 import WbIridescentIcon from '@mui/icons-material/WbIridescent';
+import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 
 function SignUp() {
 
@@ -36,6 +37,7 @@ function SignUp() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [phoneNo, setPhoneNo] = useState("");
 
     //Address
     const [city, setCity] = useState("");
@@ -59,6 +61,10 @@ function SignUp() {
 
     function handlePasswordChange(event) {
         setPassword(event.target.value);
+    }
+
+    function handlePhoneNoChange(event) {
+        setPhoneNo(event.target.value);
     }
 
     function handleCityChange(event) {
@@ -93,6 +99,7 @@ function SignUp() {
             { key: "name", value: name, type: "string", trim: 1, required: 1 },
             { key: "email", value: email, type: "email", trim: 1, required: 1 },
             { key: "password", value: password, type: "password", trim: 0, required: 1 },
+            { key: "phoneNo", value: phoneNo, type: "phone_no", trim: 1, required: 1 },
 
             { key: "city", value: city, type: "string", trim: 1, required: 1 },
             { key: "district", value: district, type: "string", trim: 1, required: 1 },
@@ -167,6 +174,14 @@ function SignUp() {
                         <TextField required label="Password" type='password' value={password} onChange={handlePasswordChange}  // required  id="outlined" defaultValue="Hello World"
                             slotProps={{
                                 input: { startAdornment: (<InputAdornment position="start"> <LockOpenIcon /> </InputAdornment>) }
+                            }}
+                            sx={{
+                                width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
+                            }} />
+
+                        <TextField required label="Phone No" type='number' value={phoneNo} onChange={handlePhoneNoChange}  // required  id="outlined" defaultValue="Hello World"
+                            slotProps={{
+                                input: { startAdornment: (<InputAdornment position="start"> <PhoneInTalkIcon /> </InputAdornment>) }
                             }}
                             sx={{
                                 width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }

@@ -12,6 +12,7 @@ function createUsersTable() {
       name VARCHAR(100) NOT NULL,
       email VARCHAR(50) UNIQUE NOT NULL,
       password TEXT NOT NULL,
+      phone_no VARCHAR(20) NOT NULL,
       role VARCHAR(20) NOT NULL
     ); 
   `;
@@ -35,12 +36,12 @@ async function getUserCredentials(email) {
 }
 
 
-async function insertUser(client, name, email, password, role) {
+async function insertUser(client, name, email, password, phone_no, role) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const query = `INSERT INTO users (name,email,password,role) VALUES ($1,$2,$3,$4)
+  const query = `INSERT INTO users (name, email, password, phone_no, role) VALUES ($1,$2,$3,$4,$5)
     RETURNING id;`;
-  const values = [name, email, hashedPassword, role];
+  const values = [name, email, hashedPassword, phone_no, role];
 
   const result = await client.query(query, values);
   // const result = await pool.query(query, values);
@@ -56,11 +57,11 @@ function deleteUserByID(userID) {
   return pool.query(query, values);
 }
 
-function getProfile(userID){
-    const query = `SELECT * FROM users WHERE id=$1`;
-    const values= [userID];
+function getProfile(userID) {
+  const query = `SELECT * FROM users WHERE id=$1`;
+  const values = [userID];
 
-    return pool.query(query,values);
+  return pool.query(query, values);
 }
 
 
@@ -73,10 +74,10 @@ function clearUsersTable() {
 }
 
 function dropUsersTable() {
-    const query = `DROP TABLE IF EXISTS users CASCADE`; 
-    return pool.query(query)
+  const query = `DROP TABLE IF EXISTS users CASCADE`;
+  return pool.query(query)
 
-   // You can't drop the parent table by default because it would leave the child table with a broken foreign key reference. This is a safety feature.
+  // You can't drop the parent table by default because it would leave the child table with a broken foreign key reference. This is a safety feature.
   //To force the deletion, you must use the DROP TABLE parent_table_name CASCADE; command. This will also delete the foreign key constraint on the child table and potentially the child table itself if it has no other dependencies.
 }
 
@@ -85,8 +86,8 @@ async function insertAdmin() {
   const adminPassword = 'admin';
   const adminHashedPassword = await bcrypt.hash(adminPassword, 10);
 
-  const query = `INSERT INTO users (name,email,password,role) VALUES ($1,$2,$3,$4); `;
-  const values = ['admin', 'admin', adminHashedPassword, 'admin'];
+  const query = `INSERT INTO users (name,email,password,phone_no,role) VALUES ($1,$2,$3,$4,$5); `;
+  const values = ['admin', 'admin', adminHashedPassword, 0, 'admin'];
   return pool.query(query, values)
 }
 
@@ -95,8 +96,8 @@ async function insertCashier() {
   const cashierPassword = 'cashier';
   const cashierHashedPassword = await bcrypt.hash(cashierPassword, 10);
 
-  const query = `INSERT INTO users (name,email,password,role) VALUES ($1,$2,$3,$4); `;
-  const values = ['cashier', 'cashier', cashierHashedPassword, 'cashier'];
+  const query = `INSERT INTO users (name,email,password,phone_no,role) VALUES ($1,$2,$3,$4,$5); `;
+  const values = ['cashier', 'cashier', cashierHashedPassword, 0, 'cashier'];
   return pool.query(query, values)
 }
 
