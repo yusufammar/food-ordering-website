@@ -46,12 +46,9 @@ function CustomerHome() {
     // }
 
     function getProductsRequest() {
-        // const config = { headers: { authorization: user.token } };
-        // console.log(App.baseUrl + "/getProducts");
         axios.get(App.baseUrl + "/getProducts")
             .then(res => handleSuccess(res))
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
-
     }
 
     //-------------------------------------------------------
@@ -60,13 +57,7 @@ function CustomerHome() {
 
     function handleSuccess(res) {
         setProducts(res.data.products);
-        console.log(products);
     }
-
-    // // console.log(App.baseImageUrl+);
-    // const imgUrl= `App.baseImageUrl/${product.name}.jpg`;
-
-    // console.log(imgUrl);
 
     function addToCart(value, index) { // Approach: array (o(n) performance)
         //Logic
@@ -156,7 +147,7 @@ function CustomerHome() {
                                 onError={(e) => { e.target.style.display = 'none'; }}
                             />
                             <div className='productIcon'>
-                            <FastfoodIcon sx={{ fontSize: 75, color: 'blue'}} />
+                                <FastfoodIcon sx={{ fontSize: 75, color: 'blue' }} />
                             </div>
                         </div>
 

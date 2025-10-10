@@ -37,7 +37,7 @@ adminRouter.post('/uploadItemsImages', adminController.clearItemsFolderMiddlewar
 // adminRouter.post('/uploadStoreLogo', adminController.clearLogoFolderMiddleware,
 //     adminController.uploadLogoImage, adminController.handleImagesUploadSuccess);
     adminRouter.post('/uploadStoreLogo',
-    adminController.uploadLogoImage, adminController.handleImagesUploadSuccess);
+    adminController.uploadLogoImage, adminController.handleLogoUploadSuccess);
 
 //------
 // Error Middleware for Image Uploads

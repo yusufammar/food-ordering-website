@@ -1,5 +1,5 @@
 
-const productionMode = false;
+const productionMode = true;
 
 //-------------------------------------------------------------------------
 //Import Express & Create Express App
@@ -23,6 +23,8 @@ const adminRouter = require('./routes/adminRoutes');
 const cashierRouter = require('./routes/cashierRoutes');
 
 
+
+
 app.use('/api', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/admin', adminRouter);
@@ -33,6 +35,8 @@ app.use('/uploads/items', express.static(path.join(__dirname, 'uploads/items')))
 // Serve Logo Image
 app.use('/uploads/logo', express.static(path.join(__dirname, 'uploads/logo')));
 
+
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 if (productionMode) {
     //--------------------------------

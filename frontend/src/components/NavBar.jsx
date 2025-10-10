@@ -56,25 +56,17 @@ function NavBar({ role, cart }) {
             <nav className='navbar'>
                 <div className="layoutBox1">
                     {/* <StorefrontIcon className='storeIcon' sx={{ fontSize: 40, color: 'blue', padding: "5px" }} onClick={navigateHome} /> */}
-                    <img  src={App.logoUrl} style={{height:"8vh", width: "8vh"}} onClick={navigateHome}
-                         onError={(e) => { e.target.src=App.defaultLogoUrl; e.target.style.width = "6vh";
-    e.target.style.height = "5vh"; }}
+                    <img src={App.logoUrl} style={{ height: "8vh", width: "8vh" }} onClick={navigateHome}
+                    //**Causes Problems in Production */                    
+                    //  onError={(e) => { e.target.src=App.defaultLogoUrl; e.target.style.width = "6vh";
+                    // e.target.style.height = "5vh"; }}
+
                     />
                 </div>
 
 
 
-                <div className="titleDiv" onClick={navigateHome}>
-                    {/* Restaurant Name */}
-                    {/* {!settings.storeName && settings.storeName} */}
-                    {settings.storeName}
-
-
-                    {/* <h1 className='title'>Restaurant Name */}
-                    {/* dsvondfn fvsdinvofdn fdvknfvnffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff fffffffffffddddddddddddddddddddddddddd */}
-                    {/* </h1> */}
-
-                </div>
+                {/* <div className="titleDiv" onClick={navigateHome}> {settings.storeName} </div> */}
 
                 <div className="layoutBox2">
                     <AccountCircleIcon className='profileIcon' sx={{ fontSize: 40, color: 'blue', padding: "5px" }} onClick={openNav} />

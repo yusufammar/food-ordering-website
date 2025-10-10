@@ -89,7 +89,7 @@ const itemStorage = multer.diskStorage({
         //Set all to jpg file extension
         const fileName = file.originalname.split(".")[0]; // name without extension
         const newName = `${fileName}.jpg`;
-      
+
         cb(null, newName); // save exactly as uploaded
 
         // console.log(file.originalname);
@@ -110,7 +110,7 @@ const logoStorage = multer.diskStorage({
         //Set all to jpg file extension
         const fileName = file.originalname.split(".")[0]; // name without extension
         const newName = `${fileName}.jpg`;
-        const newName2 = `logo.jpg`;
+        const newName2 = `newLogo.jpg`;
 
         cb(null, newName2); // save exactly as uploaded
     }
@@ -140,7 +140,7 @@ const itemsUpload = multer({ // global limits: max uploads for whole app, ones u
 });
 
 const logoUpload = multer({ // global limits: max uploads for whole app, ones using this variable
-   storage: logoStorage,
+    storage: logoStorage,
     fileFilter,
     limits: {
         files: 1,               // max 150 files per upload request
@@ -191,6 +191,28 @@ function handleImagesUploadSuccess(req, res) {
     // res.json({ files });
 };
 
+function handleLogoUploadSuccess(req, res) {
+
+    const oldPath = req.file.path;
+    const newName = `logo.jpg`; // your desired final name
+    const newPath = path.join(logoUploadDir, newName);
 
 
-module.exports = { importProducts, setStoreName, uploadItemsImages, uploadLogoImage, handleImagesUploadSuccess, clearItemsFolderMiddleware, clearLogoFolderMiddleware };
+    fs.rename(oldPath, newPath, (err) => {
+        let message = "";
+        if (err) {
+            message = 'Error renaming file';
+            return res.status(500).json({message});
+        }
+
+        message= 'Logo uploaded and renamed successfully!';
+        res.json({message});
+    });
+
+   
+
+};
+
+
+
+module.exports = { importProducts, setStoreName, uploadItemsImages, uploadLogoImage, handleImagesUploadSuccess, handleLogoUploadSuccess, clearItemsFolderMiddleware, clearLogoFolderMiddleware };

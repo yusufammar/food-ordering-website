@@ -21,13 +21,12 @@ import AdminUploadStoreLogo from './components/Admin/Admin_UploadStoreLogo';
 
 function App() {
 
-  const productionMode = false;
+  const productionMode = true;
 
   //---------------------------------------------------
-
   const developmentBackendBaseUrl = "http://localhost:5000/api"
   const productionBackendBaseUrl = "https://oh-crepe.onrender.com/api"
-
+  
   App.baseUrl = productionMode ? productionBackendBaseUrl : developmentBackendBaseUrl
   App.baseImageUrl = `${App.baseUrl.slice(0, -4)}/uploads/items`; // remove "/api" from baseUrl
   App.logoUrl = `${App.baseUrl.slice(0, -4)}/uploads/logo/logo.jpg`; // remove "/api" from baseUrl
@@ -40,18 +39,19 @@ function App() {
 
   function updateTabTitle() {
   document.title = appName;
+  setFavicon(App.logoUrl);
 
-  const customIcon = App.logoUrl;         
-  const fallbackIcon = App.defaultLogoUrl;        
-
-  const img = new Image();
-
-  img.src = customIcon;
-  img.onload = () => { setFavicon(customIcon); };
-  img.onerror = () => {  setFavicon(fallbackIcon); };
+  // const customIcon = App.logoUrl;      
+  // const fallbackIcon = App.defaultLogoUrl;        
+  // const img = new Image();
+  
+  // //***Causes Problems in Production
+  // img.src = customIcon;
+  // img.onload = () => { setFavicon(customIcon); };
+  // img.onerror = () => {  setFavicon(fallbackIcon); };
 }
 
-function setFavicon(url) {
+function setFavicon(url) { // icon should be always there, prevent logo upload if unseccusful
   const link = document.createElement("link");
   link.rel = "icon";
   link.href = url;
