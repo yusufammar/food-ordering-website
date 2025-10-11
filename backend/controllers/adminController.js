@@ -97,7 +97,7 @@ async function changeAdminPassword(req, res) {
             if (!passwordsMatch)
                 authController.throwPasswordErr();
             else { // change admin password
-                await user.updatePassword(adminEmail,newPass);
+                await user.updatePassword(adminEmail, newPass);
                 const message = "Admin Password Change Successful";
                 console.log(message);
                 return res.json({ message });
@@ -112,6 +112,51 @@ async function changeAdminPassword(req, res) {
         utilsErrorHandling.handleError(err, res);
     }
 }
+
+async function changeCashierPassword(req, res) {
+    let { adminPass, newCashierPass } = req.body;
+
+    const data = [
+        { key: "adminPass", value: adminPass, type: "password", trim: 0, required: 1 },
+        { key: "newCashierPass", value: newCashierPass, type: "password", trim: 0, required: 1 },
+    ];
+
+    const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
+
+
+    if (!dataValid)
+        return utilsErrorHandling.handleDataInvalid(res, errMessage); // stopping condition
+
+    //---------------------------------
+
+    try {
+        const adminEmail = req.user.email;
+        const cashierEmail = "cashier";
+        let { adminPass, newCashierPass } = transformedData;
+        const userCredentials = await user.getUserCredentials(adminEmail);
+        const userFound = (userCredentials != null);
+
+        if (userFound) {
+            const passwordsMatch = await authController.checkPassword(userCredentials, adminPass);
+            if (!passwordsMatch)
+                authController.throwPasswordErr();
+            else { // change cashier password
+                await user.updatePassword(cashierEmail, newCashierPass);
+                const message = "Cashier Password Change Successful";
+                console.log(message);
+                return res.json({ message });
+            }
+
+        }
+        else
+            authController.throwUserNotFoundErr();
+
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+}
+
 
 //----------------------------
 //# Uploads
@@ -264,4 +309,8 @@ function handleLogoUploadSuccess(req, res) {
 
 
 
-module.exports = { importProducts, setStoreName, changeAdminPassword, uploadItemsImages, uploadLogoImage, handleImagesUploadSuccess, handleLogoUploadSuccess, clearItemsFolderMiddleware, clearLogoFolderMiddleware };
+module.exports = {
+    importProducts, setStoreName, changeAdminPassword, changeCashierPassword,
+    uploadItemsImages, uploadLogoImage, handleImagesUploadSuccess,
+    handleLogoUploadSuccess, clearItemsFolderMiddleware, clearLogoFolderMiddleware
+};

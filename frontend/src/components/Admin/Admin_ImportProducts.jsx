@@ -62,7 +62,7 @@ function AdminImportProducts() {
             <h2>Instructions</h2>
 
             <a>Excel Sheet Columns</a>  <br/>
-            <a>- <b>Name</b>: Unique food name</a> <br/>
+            <a>- <b>Name</b>: Unique item name</a> <br/>
             <a>- <b>Arabic Name</b>: </a> <br/>
             <a>- <b>Category</b>: </a> <br/>
             <a>- <b>Price</b>: Only number no currency</a> <br/>

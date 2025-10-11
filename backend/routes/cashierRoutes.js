@@ -32,6 +32,7 @@ cashierRouter.get('/orderStream', cashierController.orderStream);
 cashierRouter.get('/updateOrderStatus/:orderID/:newStatus', cashierController.updateOrderStatus);
 
 
+
 module.exports = cashierRouter;
 
 

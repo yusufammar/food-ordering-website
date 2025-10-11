@@ -44,7 +44,10 @@ function AdminHome() {
       <br></br>
       <Link className='linkButton' to="/adminChangePassword">Change Admin Password</Link>
 
+      <br></br>
+      <Link className='linkButton' to="/adminChangeCashierPassword">Change Cashier Password</Link>
 
+    
     </>
 
   );
