@@ -15,7 +15,7 @@ import CustomerOrderDetails from './components/Customer/Customer_OrderDetails';
 import CustomerProfile from './components/Customer/Customer_Profile';
 import CashierOrders from './components/Cashier/Cashier_Orders';
 import CashierOrderDetails from './components/Cashier/Cashier_OrderDetails';
-import AdminSetStoreName from './components/Admin/Admin_UploadItemsImages';
+import AdminSetStoreName from './components/Admin/Admin_SetStoreName';
 import AdminUploadItemsImages from './components/Admin/Admin_UploadItemsImages';
 import AdminUploadStoreLogo from './components/Admin/Admin_UploadStoreLogo';
 

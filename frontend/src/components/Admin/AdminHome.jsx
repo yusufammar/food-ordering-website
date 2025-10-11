@@ -11,6 +11,7 @@ function AdminHome() {
     const navigate = useNavigate();
     const roleRequired = "admin";
 
+    const settings = utils.getSettings();
     //-------------------------------------------------------
     // Event Handlers
     //-------------------------------------------------------  
@@ -21,6 +22,13 @@ function AdminHome() {
           <NavBar role={roleRequired}/>
 
             <h1>Admin Home</h1>
+
+            
+
+            <a> Store Name: <b> {settings.storeName}</b> </a>
+
+            <br/> <br/><br/>
+
 
             <Link className='linkButton' to="/adminImportProducts">Import Products</Link>
 
