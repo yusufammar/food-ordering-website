@@ -1,5 +1,11 @@
 
-const productionMode = true;
+require('dotenv').config();
+
+//Frontend & Backend: Same Config
+//#MODE-> Possible Values: [production, dev, dev1port ]
+//#dev: basic dev mode, frontend and backend running on separate ports
+//#dev1port: run frontend and backend from same port: serve frontend build files from express same
+const mode = process.env.MODE || "production";
 
 //-------------------------------------------------------------------------
 //Import Express & Create Express App
@@ -38,7 +44,7 @@ app.use('/uploads/logo', express.static(path.join(__dirname, 'uploads/logo')));
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
-if (productionMode) {
+if (mode == "dev1port" || mode == "production") {
     //--------------------------------
     // #React - Serve static files from React build
     // --------------------------------------------

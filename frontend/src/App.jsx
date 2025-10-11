@@ -20,17 +20,30 @@ import AdminUploadItemsImages from './components/Admin/Admin_UploadItemsImages';
 import AdminUploadStoreLogo from './components/Admin/Admin_UploadStoreLogo';
 
 function App() {
+  const modes = { production: 'production', dev: 'dev', dev1port: 'dev1port' };
 
-  const productionMode = true;
+  //Frontend & Backend: Same Config
+  // #MODE-> Possible Values: [production, dev, dev1port ]
+  // #dev: basic dev mode, frontend and backend running on separate ports
+  // #dev1port: run frontend and backend from same port: serve frontend build files from express same
 
-  //---------------------------------------------------
+  //------------------------------
+  //# EDIT MODE (BEFORE BUILD)
+
+  const MODE = modes.production;
+
+  //#------------------------------
+
   const developmentBackendBaseUrl = "http://localhost:5000/api"
   const productionBackendBaseUrl = "https://oh-crepe.onrender.com/api"
-  
-  App.baseUrl = productionMode ? productionBackendBaseUrl : developmentBackendBaseUrl
+
+  //---------------------------------------------------
+
+  App.baseUrl = (MODE == modes.production) ? productionBackendBaseUrl : developmentBackendBaseUrl
   App.baseImageUrl = `${App.baseUrl.slice(0, -4)}/uploads/items`; // remove "/api" from baseUrl
   App.logoUrl = `${App.baseUrl.slice(0, -4)}/uploads/logo/logo.jpg`; // remove "/api" from baseUrl
   App.defaultLogoUrl = `${App.baseUrl.slice(0, -4)}/uploads/logo/defaultLogo.jpg`; // remove "/api" from baseUrl
+
   //---------------------------------------------------
   const settings = utils.getSettings(); // this needs to be here so title and icon is available for all pages, when they refresh
   const appName = settings.storeName;
@@ -38,25 +51,25 @@ function App() {
   useEffect(updateTabTitle, []);
 
   function updateTabTitle() {
-  document.title = appName;
-  setFavicon(App.logoUrl);
+    document.title = appName;
+    setFavicon(App.logoUrl);
 
-  // const customIcon = App.logoUrl;      
-  // const fallbackIcon = App.defaultLogoUrl;        
-  // const img = new Image();
-  
-  // //***Causes Problems in Production
-  // img.src = customIcon;
-  // img.onload = () => { setFavicon(customIcon); };
-  // img.onerror = () => {  setFavicon(fallbackIcon); };
-}
+    // const customIcon = App.logoUrl;      
+    // const fallbackIcon = App.defaultLogoUrl;        
+    // const img = new Image();
 
-function setFavicon(url) { // icon should be always there, prevent logo upload if unseccusful
-  const link = document.createElement("link");
-  link.rel = "icon";
-  link.href = url;
-  document.head.appendChild(link);
-}
+    // //***Causes Problems in Production
+    // img.src = customIcon;
+    // img.onload = () => { setFavicon(customIcon); };
+    // img.onerror = () => {  setFavicon(fallbackIcon); };
+  }
+
+  function setFavicon(url) { // icon should be always there, prevent logo upload if unseccusful
+    const link = document.createElement("link");
+    link.rel = "icon";
+    link.href = url;
+    document.head.appendChild(link);
+  }
 
 
 
