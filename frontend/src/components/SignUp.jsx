@@ -162,7 +162,7 @@ function SignUp() {
                                 width: "300px", fontSize: 20, '& .MuiOutlinedInput-root': { borderRadius: 50 }, '& .MuiInputLabel-root': { fontSize: 20 }
                             }} />
 
-                        <TextField required label="Email" type='text' value={email} onChange={handleEmailChange}// required  id="outlined" defaultValue="Hello World"
+                        <TextField required label="Email" type='email' value={email} onChange={handleEmailChange}// required  id="outlined" defaultValue="Hello World"
                             slotProps={{
                                 input: { startAdornment: (<InputAdornment position="start"> <EmailIcon /> </InputAdornment>) }
                             }}

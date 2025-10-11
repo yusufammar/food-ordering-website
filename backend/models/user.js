@@ -91,6 +91,14 @@ async function insertAdmin() {
   return pool.query(query, values)
 }
 
+async function updatePassword(email,newPassword) {
+  const newHashedPassword = await bcrypt.hash(newPassword, 10);
+
+  const query = `UPDATE users SET password=$1 WHERE email=$2; `;
+  const values = [newHashedPassword, email];
+  return pool.query(query, values)
+}
+
 
 async function insertCashier() {
   const cashierPassword = 'cashier';
@@ -105,6 +113,6 @@ async function insertCashier() {
 
 
 module.exports = {
-  createUsersTable, clearUsersTable, dropUsersTable, insertAdmin, insertCashier,
+  createUsersTable, clearUsersTable, dropUsersTable, insertAdmin, insertCashier, updatePassword,
   getUserCredentials, insertUser, deleteUserByID, getProfile
 };

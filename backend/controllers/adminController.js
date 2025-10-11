@@ -1,4 +1,7 @@
 require('dotenv').config();
+
+const pool = require('../config/db.js')
+
 const user = require('../models/user')
 const product = require('../models/product')
 const settings = require('../models/settings')
@@ -6,6 +9,8 @@ const settings = require('../models/settings')
 const utils = require('../utils');
 const utilsErrorHandling = require('../utils_errorHandling');
 const utilsInputValidation = require('../utils_inputValidation');
+
+const authController = require('../controllers/authController');
 
 
 async function importProducts(req, res) {
@@ -62,6 +67,50 @@ async function setStoreName(req, res) {
         utilsErrorHandling.handleError(err, res);
     }
 
+}
+
+
+async function changeAdminPassword(req, res) {
+    let { oldPass, newPass } = req.body;
+
+    const data = [
+        { key: "oldPass", value: oldPass, type: "password", trim: 0, required: 1 },
+        { key: "newPass", value: newPass, type: "password", trim: 0, required: 1 },
+    ];
+
+    const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
+
+
+    if (!dataValid)
+        return utilsErrorHandling.handleDataInvalid(res, errMessage); // stopping condition
+
+    //---------------------------------
+
+    try {
+        const adminEmail = req.user.email;
+        let { oldPass, newPass } = transformedData;
+        const userCredentials = await user.getUserCredentials(adminEmail);
+        const userFound = (userCredentials != null);
+
+        if (userFound) {
+            const passwordsMatch = await authController.checkPassword(userCredentials, oldPass);
+            if (!passwordsMatch)
+                authController.throwPasswordErr();
+            else { // change admin password
+                await user.updatePassword(adminEmail,newPass);
+                const message = "Admin Password Change Successful";
+                console.log(message);
+                return res.json({ message });
+            }
+
+        }
+        else
+            authController.throwUserNotFoundErr();
+
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
 }
 
 //----------------------------
@@ -202,17 +251,17 @@ function handleLogoUploadSuccess(req, res) {
         let message = "";
         if (err) {
             message = 'Error renaming file';
-            return res.status(500).json({message});
+            return res.status(500).json({ message });
         }
 
-        message= 'Logo uploaded and renamed successfully!';
-        res.json({message});
+        message = 'Logo uploaded and renamed successfully!';
+        res.json({ message });
     });
 
-   
+
 
 };
 
 
 
-module.exports = { importProducts, setStoreName, uploadItemsImages, uploadLogoImage, handleImagesUploadSuccess, handleLogoUploadSuccess, clearItemsFolderMiddleware, clearLogoFolderMiddleware };
+module.exports = { importProducts, setStoreName, changeAdminPassword, uploadItemsImages, uploadLogoImage, handleImagesUploadSuccess, handleLogoUploadSuccess, clearItemsFolderMiddleware, clearLogoFolderMiddleware };

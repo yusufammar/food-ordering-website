@@ -18,6 +18,7 @@ import CashierOrderDetails from './components/Cashier/Cashier_OrderDetails';
 import AdminSetStoreName from './components/Admin/Admin_SetStoreName';
 import AdminUploadItemsImages from './components/Admin/Admin_UploadItemsImages';
 import AdminUploadStoreLogo from './components/Admin/Admin_UploadStoreLogo';
+import AdminChangePassword from './components/Admin/Admin_ChangePassword';
 
 function App() {
   const modes = { production: 'production', dev: 'dev', dev1port: 'dev1port' };
@@ -107,6 +108,7 @@ function App() {
         <Route path="/adminSetStoreName" element={<AdminSetStoreName />} />
         <Route path="/adminUploadItemsImages" element={<AdminUploadItemsImages />} />
         <Route path="/adminUploadStoreLogo" element={<AdminUploadStoreLogo />} />
+        <Route path="/adminChangePassword" element={<AdminChangePassword />} />
         <Route path="/customerOrderHistory" element={<CustomerOrderHistory />} />
         <Route path="/customerOrderDetails" element={<CustomerOrderDetails />} />
         <Route path="/customerProfile" element={<CustomerProfile />} />

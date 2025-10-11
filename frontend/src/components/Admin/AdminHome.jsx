@@ -8,43 +8,46 @@ import UserBar from '../UserBar';
 import * as utils from '../../utils';
 
 function AdminHome() {
-    const navigate = useNavigate();
-    const roleRequired = "admin";
+  const navigate = useNavigate();
+  const roleRequired = "admin";
 
-    const settings = utils.getSettings();
-    //-------------------------------------------------------
-    // Event Handlers
-    //-------------------------------------------------------  
-
-
-    return (
-        <>
-          <NavBar role={roleRequired}/>
-
-            <h1>Admin Home</h1>
-
-            
-
-            <a> Store Name: <b> {settings.storeName}</b> </a>
-
-            <br/> <br/><br/>
+  const settings = utils.getSettings();
+  //-------------------------------------------------------
+  // Event Handlers
+  //-------------------------------------------------------  
 
 
-            <Link className='linkButton' to="/adminImportProducts">Import Products</Link>
+  return (
+    <>
+      <NavBar role={roleRequired} />
 
-            <br></br>
-            <Link className='linkButton' to="/adminUploadItemsImages">Upload Items Images</Link>
-
-            <br></br>
-            <Link className='linkButton' to="/adminSetStoreName">Set Store Name</Link>
-
-              <br></br>
-            <Link className='linkButton' to="/adminUploadStoreLogo">Upload Store Logo</Link>
+      <h1>Admin Home</h1>
 
 
-        </>
 
-    );
+      <a> Store Name: <b> {settings.storeName}</b> </a>
+
+      <br /> <br /><br />
+
+
+      <Link className='linkButton' to="/adminImportProducts">Import Products</Link>
+
+      <br></br>
+      <Link className='linkButton' to="/adminUploadItemsImages">Upload Items Images</Link>
+
+      <br></br>
+      <Link className='linkButton' to="/adminSetStoreName">Set Store Name</Link>
+
+      <br></br>
+      <Link className='linkButton' to="/adminUploadStoreLogo">Upload Store Logo</Link>
+
+      <br></br>
+      <Link className='linkButton' to="/adminChangePassword">Change Admin Password</Link>
+
+
+    </>
+
+  );
 }
 
 export default AdminHome;

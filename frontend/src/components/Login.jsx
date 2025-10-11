@@ -102,7 +102,7 @@ function Login() {
 
                         </div>
 
-                        <TextField label="Email" type='text' value={email} onChange={handleEmailChange}// required  id="outlined" defaultValue="Hello World"
+                        <TextField label="Email" type='email' value={email} onChange={handleEmailChange}// required  id="outlined" defaultValue="Hello World"
                             slotProps={{
                                 input: { startAdornment: (<InputAdornment position="start"> <EmailIcon /> </InputAdornment>) }
                             }}

@@ -203,4 +203,5 @@ function throwPasswordErr() {
 }
 
 
-module.exports = { login, signUp, getProducts, getSettings };
+module.exports = { login, signUp, getProducts, getSettings,
+     checkPassword, throwPasswordErr, throwUserNotFoundErr };
