@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar';
 import UserBar from '../UserBar';
 import '../../styles/orderHistory.css'
+import '../../styles/app.css'
 
 
 import * as utils from '../../utils';
@@ -72,7 +73,7 @@ function CustomerOrderHistory() {
    
 
     return (
-        <div className='pageDiv3'>
+        <div className='pageDiv'>
             <NavBar role={roleRequired} />
 
             <div className='header'>
@@ -88,41 +89,36 @@ function CustomerOrderHistory() {
                     <div key={index} className='order' onClick={() => viewOrderItems(value, index)}>
 
                         <div className='details'>
-                            {/* <b>Date:</b> {value.date}  <br /> */}
-                            {/* <b>Time:</b> {value.time} <br/> */}
-                            {/* <b>Status:</b> {value.status} */}
+                            {/* Date: {value.date}  <br /> */}
+                            {/* Time: {value.time} <br/> */}
+                            {/* Status: {value.status} */}
 
                             <div className='detail'>
-                                <TodayIcon /> <b>{value.date} </b>
+                                <TodayIcon /> {value.date} 
                             </div>
 
                             <div className='detail'>
-                                {/* <AlarmIcon /> <b>{value.time}</b> */}
-                                <AlarmIcon /> <b>{utils.convertTime(value.time)}</b>
+                                <AlarmIcon /> {utils.convertTime(value.time)}
                             </div>
-
-
-
-
 
 
                         </div>
 
                         <div className='details'>
-                            {/* <b>Total:</b> {value.total} € <br/> */}
-                            {/* <b>Payment:</b> {value.payment_method} */}
+                            {/* Total: {value.total} € <br/> */}
+                            {/* Payment: {value.payment_method} */}
 
                             <div className='detail'>
                                 {/* <AlarmIcon/>  */}
                                 <ShoppingCartIcon />
-                                <b>{value.total} €</b>
+                                {value.total} €
                             </div>
 
                             <div className='detail'>
                                 <PaymentIcon />
-                                <b>{value.payment_method}</b>
+                                {value.payment_method}
 
-                                {/* <b>{value.total} </b> € */}
+                                {/* {value.total}  € */}
                             </div>
 
                         </div>

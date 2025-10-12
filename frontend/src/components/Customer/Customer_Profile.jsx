@@ -9,6 +9,23 @@ import * as utils from '../../utils';
 import * as utilsErrorHandling from '../../utils_errorHandling';
 import * as utilsInputValidation from '../../utils_inputValidation';
 
+import '../../styles/app.css'
+import '../../styles/myProfile.css'
+
+import BadgeIcon from '@mui/icons-material/Badge';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import HomeIcon from '@mui/icons-material/Home';
+import ForestIcon from '@mui/icons-material/Forest';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import FlagIcon from '@mui/icons-material/Flag';
+import SignpostIcon from '@mui/icons-material/Signpost';
+import WbIridescentIcon from '@mui/icons-material/WbIridescent';
+import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
+
+
 function CustomerProfile() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -22,6 +39,7 @@ function CustomerProfile() {
     useEffect(getProfileRequest, []);
     // useEffect(updateProfile_Address, [profile,address]);
 
+    // useEffect(displayAddress, [address]);
 
     //-----------------------------
     // HTTP Requests
@@ -34,6 +52,10 @@ function CustomerProfile() {
             .then(res => handleSuccess(res))
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
 
+    }
+
+    function displayAddress(){
+        console.log(address);
     }
 
 
@@ -62,25 +84,83 @@ function CustomerProfile() {
 
 
     return (
-        <>
-           <NavBar role={roleRequired}/>
+        <div className='pageDiv'>
+            <NavBar role={roleRequired} />
 
-            <h1>My Profile</h1>
-
-
-            <p>  <b>Name:</b> {profile.name} | <b>Email:</b> {profile.email} | <b>Phone No:</b> {profile.phone_no} </p>
-
-
-            <h2>Address</h2>
-            <p> <b>City:</b> {address.city} | <b>District:</b> {address.district} | <b>Street:</b> {address.street} | <b>Building No:</b> {address.building_no} | <b>Apartment No:</b> {address.apt_no} </p>
-            <p> <b>Description:</b> {address.desscription}</p>
-
-           
+            <div className='header'>
+                <BadgeIcon sx={{ color: 'blue', fontSize: 40 }} />
+                <a>My Profile</a>
+            </div>
 
 
+            <div className='profileDetails'>
+
+                <div className="details">
 
 
-        </>
+                    <div className='detail'>
+                        <PersonIcon /> {profile.name}
+                    </div>
+
+                    <div className='detail'>
+                        <EmailIcon />   {profile.email}
+                    </div>
+
+                    <div className='detail'>
+                        <PhoneInTalkIcon />    {profile.phone_no}
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <div className='header-small'>
+                <HomeIcon sx={{ color: 'blue', fontSize: 30 }} />
+                <a>Address Details</a>
+            </div>
+
+            <div className='profileDetails'>
+
+                <div className="details">
+
+
+                    <div className='detail'>
+                        <ForestIcon /> <b>City:</b> {address.city}
+                    </div>
+
+                    <div className='detail'>
+                        <FlagIcon /> <b>District:</b> {address.district}
+                    </div>
+
+                    <div className='detail'>
+                        <SignpostIcon /> <b>Street:</b> {address.street}
+                    </div>
+
+                      <div className='detail'>
+                        <ApartmentIcon /> <b>Building No:</b> {address.building_no}
+                    </div>
+
+                    <div className='detail'>
+                        <HomeIcon /> <b>Apartment No:</b> {address.apt_no}
+                    </div>
+
+                    {
+                        address.description &&
+                         <div className='detail'>
+                        <WbIridescentIcon/> <b>Description:</b> {address.description}
+                    </div>
+                    }
+                   
+
+
+                </div>
+
+            </div>
+
+        </div>
 
     );
 }
