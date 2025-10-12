@@ -25,15 +25,15 @@
 
 
 .product {
-  display: flex; 
-   /* fixed height for all tiles */
+  display: flex;
+  /* fixed height for all tiles */
   height: 75px;
   min-height: 75px;
   max-height: 75px;
- 
+
   max-width: 500px;
-   
-  
+
+
   overflow: hidden;
   /* clip any overflowing children */
   padding: 2.5%;

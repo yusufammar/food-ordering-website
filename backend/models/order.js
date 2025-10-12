@@ -74,18 +74,19 @@ function dropOrdersTable() {
 async function insertOrder(client, userID, total) {
 
   const dateObject = new Date();
-  const date = dateObject.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
-  const time = dateObject.toTimeString().split(" ")[0]; // Format time as HH:MM:SS
+  const date = dateObject.toLocaleDateString('en-CA');
+  const time = dateObject.toLocaleTimeString('en-GB');
   const paymentMethod = "CASH";
 
 
   const query = `INSERT INTO orders (date, time, total, payment_method, user_id) VALUES ($1,$2,$3,$4,$5) RETURNING id;`;
   const values = [date, time, total, paymentMethod, userID];
 
-  // return pool.query(query, values);
-  // return client.query(query, values);
+  // console.log(dateObject)
+  // console.log(date);
+  // console.log(values);
 
-  const result = await client.query(query, values);
+   const result = await client.query(query, values);
   // const result = await pool.query(query, values);
 
   const orderID = result.rows[0].id;

@@ -62,7 +62,7 @@ function CustomerOrderDetails() {
 
             <h1>Order Details</h1>
             
-            <p> <b>Date:</b> {order.date} | <b>Time:</b> {order.time} | <b>Total:</b> {order.total} EGP | <b>Payment Method:</b> {order.payment_method}  </p>
+            <p> <b>Date:</b> {order.date} | <b>Time:</b> {order.time} | <b>Total:</b> {order.total} € | <b>Payment Method:</b> {order.payment_method}  </p>
             <p> <b>Status:</b> {order.status}</p>
 
             <br></br>

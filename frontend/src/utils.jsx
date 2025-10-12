@@ -120,6 +120,22 @@ function constructSettingsMap(settingsArray) {
   return settingsMap;
 }
 
+ function convertTime(time) {
+        const timeArray = time.split(":");
+        let hours = timeArray[0]
+        let minutes = timeArray[1]
+        let seconds = timeArray[2]
+        
+        // let amORpm = hours >= 12 ? 'pm' : 'am';
+        let hours12= Math.floor(hours / 12) 
+        let amORpm = hours12==1  ? 'PM' : 'AM';
+
+        hours = (hours % 12) || 12;
+        
+        const finalTime = `${hours}:${minutes} ${amORpm}`;
+        return finalTime;
+    }
+
 
 //-------------------------------------------
 //##Review
@@ -162,5 +178,5 @@ function getCurrentUser() {
 export {
   getSavedUser, setUser, unsetUser, getToken, setToken, unsetToken, getCart, setCart, unsetCart, getSettings, setSettings, unsetSettings,
   // validateData, 
-  getCurrentUser
+  getCurrentUser, convertTime
 };
