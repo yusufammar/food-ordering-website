@@ -38,11 +38,16 @@ async function getOrderDetails(req, res) {
     
     try {
         const orderItemsResult = await order_items.getOrderItems(orderID);
-        const customerAddressResult = await address.getAddress(customerID);
-
+        const customerDetailsResult= await user.getUserDetails(customerID);
+        // const customerAddressResult = await address.getAddress(customerID);
+        //  const customerAddress = customerAddressResult.rows[0];
+        
+       
         const orderItems = orderItemsResult.rows;
-        const customerAddress = customerAddressResult.rows[0];
-        return res.json({ orderItems, customerAddress })
+        const customerDetails = customerDetailsResult.rows[0];
+
+       
+        return res.json({ orderItems, customerDetails })
     }
     catch (err) {
         utilsErrorHandling.handleError(err, res);

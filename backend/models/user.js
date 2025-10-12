@@ -35,6 +35,17 @@ async function getUserCredentials(email) {
   return userCredentials;
 }
 
+function getUserDetails(userID) {
+  const query = `SELECT  a.*, u.name, u.email, u.phone_no 
+    FROM addresses a  
+    JOIN users u ON a.user_id = u.id
+    WHERE a.user_id=$1`;
+
+  const values = [userID]
+
+  return pool.query(query, values);
+}
+
 
 async function insertUser(client, name, email, password, phone_no, role) {
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -91,7 +102,7 @@ async function insertAdmin() {
   return pool.query(query, values)
 }
 
-async function updatePassword(email,newPassword) {
+async function updatePassword(email, newPassword) {
   const newHashedPassword = await bcrypt.hash(newPassword, 10);
 
   const query = `UPDATE users SET password=$1 WHERE email=$2; `;
@@ -114,5 +125,5 @@ async function insertCashier() {
 
 module.exports = {
   createUsersTable, clearUsersTable, dropUsersTable, insertAdmin, insertCashier, updatePassword,
-  getUserCredentials, insertUser, deleteUserByID, getProfile
+  getUserCredentials, getUserDetails, insertUser, deleteUserByID, getProfile
 };

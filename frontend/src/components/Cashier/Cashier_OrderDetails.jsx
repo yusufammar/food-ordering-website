@@ -17,11 +17,11 @@ function CashierOrderDetails() {
     const user = utils.getSavedUser();
     const order = location.state?.order; // retrieve passed state
     const [orderItems, setOrderItems] = useState([]);
-    const [customerAddress, setCustomerAddress] = useState({});
+    const [customerDetails, setCustomerDetails] = useState({});
 
 
     useEffect(getOrderDetailsRequest, []);
-    // useEffect(display, [orderItems, customerAddress]);
+    // useEffect(display, [orderItems, customerDetails]);
 
 
     //-----------------------------
@@ -39,22 +39,21 @@ function CashierOrderDetails() {
 
     }
 
-
     //-------------------------------------------------------
     // Event Handlers
     //-------------------------------------------------------  
 
     function handleSuccess(res) {
         setOrderItems(res.data.orderItems);
-        setCustomerAddress(res.data.customerAddress);
+        setCustomerDetails(res.data.customerDetails);
     }
 
     function display() {
         console.log("Order Items: ");
         console.log(orderItems);
         console.log("--------------");
-        console.log("CustomerAddress: ");
-        console.log(customerAddress);
+        console.log("Customer Details: ");
+        console.log(customerDetails);
         console.log("--------------");
     }
     //-------------------------------------------------------
@@ -75,11 +74,11 @@ function CashierOrderDetails() {
 
             {/* //get profile separatetly, like address or make a join query for details and address */}
             <br></br>
-            <p> <b>Name:</b> {order.name} | <b>Email:</b> {order.email} | <b>Phone No:</b> {order.phone_no} </p>
+            <p> <b>Name:</b> {customerDetails.name} | <b>Email:</b> {customerDetails.email} | <b>Phone No:</b> {customerDetails.phone_no} </p>
 
             <h3>Address</h3>
-            <p> <b>City:</b> {customerAddress.city} | <b>District:</b> {customerAddress.district} | <b>Street:</b> {customerAddress.street} | <b>Building No:</b> {customerAddress.building_no} | <b>Apartment No:</b> {customerAddress.apt_no} </p>
-            <p> <b>Description:</b> {customerAddress.desscription}</p>
+            <p> <b>City:</b> {customerDetails.city} | <b>District:</b> {customerDetails.district} | <b>Street:</b> {customerDetails.street} | <b>Building No:</b> {customerDetails.building_no} | <b>Apartment No:</b> {customerDetails.apt_no} </p>
+            <p> <b>Description:</b> {customerDetails.desscription}</p>
 
             <hr></hr>
 

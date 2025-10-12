@@ -24,8 +24,8 @@ async function setupDB() {
         await settings.dropSettingsTable();
         console.log("Settings Table Dropped");
 
-        // await product.dropProductsTable();
-        // console.log("Products Table Dropped");
+        await product.dropProductsTable();
+        console.log("Products Table Dropped");
 
 
 
