@@ -25,21 +25,21 @@ async function executeDB() {
         // await settings.insertSetting("storeName", "Store Name");
         // console.log("Default Store Name Insterted");
 
-        // await product.dropProductsTable();
-        // console.log("Products Table Dropped");
-        // await product.createProductsTable();
-        // console.log("Products Table Created");
-
-        await user.dropUsersTable();
+        await product.dropProductsTable();
         console.log("Products Table Dropped");
-        await user.createUsersTable();
+        await product.createProductsTable();
         console.log("Products Table Created");
 
-        await user.insertAdmin();
-        console.log("Admin Inserted");
+        // await user.dropUsersTable();
+        // console.log("Products Table Dropped");
+        // await user.createUsersTable();
+        // console.log("Products Table Created");
 
-        await user.insertCashier();
-        console.log("Cashier Inserted");
+        // await user.insertAdmin();
+        // console.log("Admin Inserted");
+
+        // await user.insertCashier();
+        // console.log("Cashier Inserted");
 
         //----------------------------------
         // Terminal stays open because the database connection pool is still active, keeping Node.js running until closed

@@ -64,6 +64,7 @@ function CashierOrderDetails() {
 
     return (
         <>
+        
             <NavBar role={roleRequired}/>
 
             <hr></hr>
@@ -72,8 +73,9 @@ function CashierOrderDetails() {
             <p> <b>Status:</b> {order.status}</p>
             <hr></hr>
 
+            {/* //get profile separatetly, like address or make a join query for details and address */}
             <br></br>
-            <p> <b>Name:</b> {order.name} | <b>Email:</b> {order.email} </p>
+            <p> <b>Name:</b> {order.name} | <b>Email:</b> {order.email} | <b>Phone No:</b> {order.phone_no} </p>
 
             <h3>Address</h3>
             <p> <b>City:</b> {customerAddress.city} | <b>District:</b> {customerAddress.district} | <b>Street:</b> {customerAddress.street} | <b>Building No:</b> {customerAddress.building_no} | <b>Apartment No:</b> {customerAddress.apt_no} </p>

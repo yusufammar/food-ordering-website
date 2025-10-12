@@ -104,7 +104,7 @@ function getOrders(userID) {
 function getAllOrders() {
   // const query = `SELECT * FROM orders ORDER BY date DESC, time DESC`;
   // const query = `SELECT * FROM orders o JOIN users u ON o.user_id= u.id;`;
-  const query = `SELECT  o.*, u.name, u.email 
+  const query = `SELECT  o.*, u.name, u.email, u.phone_no 
     FROM orders o  
     JOIN users u ON o.user_id = u.id  
     ORDER BY date DESC, time DESC`;

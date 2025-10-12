@@ -16,7 +16,7 @@ import CustomerProfile from './components/Customer/Customer_Profile';
 import CashierOrders from './components/Cashier/Cashier_Orders';
 import CashierOrderDetails from './components/Cashier/Cashier_OrderDetails';
 import AdminSetStoreName from './components/Admin/Admin_SetStoreName';
-import AdminUploadItemsImages from './components/Admin/Admin_UploadItemsImages';
+import AdminUploadProductsImages from './components/Admin/Admin_UploadProductsImages';
 import AdminUploadStoreLogo from './components/Admin/Admin_UploadStoreLogo';
 import AdminChangePassword from './components/Admin/Admin_ChangePassword';
 import AdminChangeCashierPassword from './components/Admin/Admin_CashierChangePassword';
@@ -42,7 +42,7 @@ function App() {
   //---------------------------------------------------
 
   App.baseUrl = (MODE == modes.production) ? productionBackendBaseUrl : developmentBackendBaseUrl
-  App.baseImageUrl = `${App.baseUrl.slice(0, -4)}/uploads/items`; // remove "/api" from baseUrl
+  App.baseImageUrl = `${App.baseUrl.slice(0, -4)}/uploads/products`; // remove "/api" from baseUrl
   App.logoUrl = `${App.baseUrl.slice(0, -4)}/uploads/logo/logo.jpg`; // remove "/api" from baseUrl
   App.defaultLogoUrl = `${App.baseUrl.slice(0, -4)}/uploads/logo/defaultLogo.jpg`; // remove "/api" from baseUrl
 
@@ -107,7 +107,7 @@ function App() {
         <Route path="/customerHome" element={<CustomerHome />} />
         <Route path="/adminImportProducts" element={<AdminImportProducts />} />
         <Route path="/adminSetStoreName" element={<AdminSetStoreName />} />
-        <Route path="/adminUploadItemsImages" element={<AdminUploadItemsImages />} />
+        <Route path="/adminUploadProductsImages" element={<AdminUploadProductsImages />} />
         <Route path="/adminUploadStoreLogo" element={<AdminUploadStoreLogo />} />
         <Route path="/adminChangePassword" element={<AdminChangePassword />} />
         <Route path="/adminChangeCashierPassword" element={<AdminChangeCashierPassword />} />

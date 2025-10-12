@@ -35,8 +35,8 @@ adminRouter.post('/changeCashierPassword', adminController.changeCashierPassword
 //-----------------------------------------
 //#Image Upload
 //-----------------------------------------
-adminRouter.post('/uploadItemsImages', adminController.clearItemsFolderMiddleware,
-    adminController.uploadItemsImages, adminController.handleImagesUploadSuccess);
+adminRouter.post('/uploadProductsImages', adminController.clearProductsFolderMiddleware,
+    adminController.uploadProductsImages, adminController.handleImagesUploadSuccess);
 // adminRouter.post('/uploadStoreLogo', adminController.clearLogoFolderMiddleware,
 //     adminController.uploadLogoImage, adminController.handleImagesUploadSuccess);
     adminRouter.post('/uploadStoreLogo',

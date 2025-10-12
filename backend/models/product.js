@@ -14,8 +14,7 @@ function createProductsTable() {
             name VARCHAR(50) NOT NULL UNIQUE,
             arabic_name VARCHAR(50),
             category VARCHAR(50) NOT NULL,
-            price NUMERIC(10,2) NOT NULL,
-            img_filename TEXT
+            price NUMERIC(10,2) NOT NULL
         );
     `;
 
@@ -33,14 +32,14 @@ async function insertProducts(productsArray) {
     //----------------------------------------------------------
 
 
-    const columnsNeeded = ["Name", "Category", "Price", "Arabic Name", "Image Filename"];
+    const columnsNeeded = ["Name", "Category", "Price", "Arabic Name"];
     const { valuesArray, placeholdersString } = utils.prepareMultipleInsert(productsArray, columnsNeeded);
 
     // console.log(valuesArray);
     // console.log(placeholdersString);
 
 
-    const query = `INSERT INTO products (name, category, price, arabic_name, img_filename) VALUES ${placeholdersString}; `;
+    const query = `INSERT INTO products (name, category, price, arabic_name) VALUES ${placeholdersString}; `;
     const values = valuesArray;
 
     return pool.query(query, values);

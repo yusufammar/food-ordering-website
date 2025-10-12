@@ -165,15 +165,15 @@ async function changeCashierPassword(req, res) {
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-const itemsUploadDir = path.join(__dirname, '../uploads/items');
+const productsUploadDir = path.join(__dirname, '../uploads/products');
 const logoUploadDir = path.join(__dirname, '../uploads/logo');
 
 // Storage config for menu images
-const itemStorage = multer.diskStorage({
+const productStorage = multer.diskStorage({
     destination: function (req, file, cb) { // uploads folder
-        if (!fs.existsSync(itemsUploadDir))
-            fs.mkdirSync(itemsUploadDir, { recursive: true });
-        cb(null, itemsUploadDir);
+        if (!fs.existsSync(productsUploadDir))
+            fs.mkdirSync(productsUploadDir, { recursive: true });
+        cb(null, productsUploadDir);
     },
     filename: function (req, file, cb) {
         // cb(null, Date.now() + '-' + file.originalname);
@@ -224,8 +224,8 @@ function fileFilter(req, file, cb) {
 //-----------------------------------------
 //# Multer Configuration
 //-----------------------------------------
-const itemsUpload = multer({ // global limits: max uploads for whole app, ones using this variable
-    storage: itemStorage,
+const productsUpload = multer({ // global limits: max uploads for whole app, ones using this variable
+    storage: productStorage,
     fileFilter,
     limits: {
         files: 150,               // max 150 files per upload request
@@ -245,10 +245,10 @@ const logoUpload = multer({ // global limits: max uploads for whole app, ones us
 
 //----------------------
 
-function clearItemsFolderMiddleware(req, res, next) {
-    if (fs.existsSync(itemsUploadDir)) {
-        fs.readdirSync(itemsUploadDir).forEach(file => {
-            fs.unlinkSync(path.join(itemsUploadDir, file));
+function clearProductsFolderMiddleware(req, res, next) {
+    if (fs.existsSync(productsUploadDir)) {
+        fs.readdirSync(productsUploadDir).forEach(file => {
+            fs.unlinkSync(path.join(productsUploadDir, file));
         });
     }
     next();
@@ -264,8 +264,8 @@ function clearLogoFolderMiddleware(req, res, next) {
 }
 
 // // Middleware for handling multiple image uploads (mutler middleware)
-const uploadItemsImages = itemsUpload.array('images');
-// //const uploadItemsImages = upload.array('images', 50); 
+const uploadProductsImages = productsUpload.array('images');
+// //const uploadProductsImages = upload.array('images', 50); 
 // // Sent by frontend: formData.append('images', file) -> Add file under key 'images' // 50 is limit for images
 const uploadLogoImage = logoUpload.single('image');
 
@@ -276,10 +276,10 @@ function handleImagesUploadSuccess(req, res) {
     const message = "Image(s) Upload Successful"
     res.json({ message });
 
-    // Optionally, you can save these URLs to your database linked to a menu item
+    // Optionally, you can save these URLs to your database linked to a menu product
     // const files = req.files.map(f => ({
     //     filename: f.filename,
-    //     url: `/uploads/items/${f.filename}`
+    //     url: `/uploads/products/${f.filename}`
     // }));
 
     // res.json({ files });
@@ -311,6 +311,6 @@ function handleLogoUploadSuccess(req, res) {
 
 module.exports = {
     importProducts, setStoreName, changeAdminPassword, changeCashierPassword,
-    uploadItemsImages, uploadLogoImage, handleImagesUploadSuccess,
-    handleLogoUploadSuccess, clearItemsFolderMiddleware, clearLogoFolderMiddleware
+    uploadProductsImages, uploadLogoImage, handleImagesUploadSuccess,
+    handleLogoUploadSuccess, clearProductsFolderMiddleware, clearLogoFolderMiddleware
 };

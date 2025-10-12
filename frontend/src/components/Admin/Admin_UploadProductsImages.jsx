@@ -11,7 +11,7 @@ import * as utilsErrorHandling from '../../utils_errorHandling';
 import * as utilsInputValidation from '../../utils_inputValidation';
 
 
-function AdminUploadItemsImages() {
+function AdminUploadProductsImages() {
     const navigate = useNavigate();
     const roleRequired = "admin";
     const user = utils.getSavedUser();
@@ -48,7 +48,7 @@ function AdminUploadItemsImages() {
             }
         };
 
-        return axios.post(App.baseUrl + "/admin/uploadItemsImages", formData, config)
+        return axios.post(App.baseUrl + "/admin/uploadProductsImages", formData, config)
             .then(res => utilsErrorHandling.handleSuccessStandard(res))
             .catch(err => utilsErrorHandling.handleFailureStandard(err, navigate));
 
@@ -65,15 +65,15 @@ function AdminUploadItemsImages() {
         <>
             <NavBar role={roleRequired} />
 
-            <h1>Admin - Upload Items Images</h1>
+            <h1>Admin - Upload Products Images</h1>
 
             <br /> <br />
 
             <h2>Upload Instructions</h2>
-
+            <a>- <b>Image Filename</b>: must match product name exactly, including spaces & uppercase letters</a> <br/><br/>
             <a>- <b>Allowed Image Extensions</b>: .jpg, .jpeg, .png </a> <br />
             <a>- <b>Max Size Per Image</b>: 200 kb</a> <br />
-            <a>- <b>Max No of Images</b>: 150 </a> <br />
+            <a>- <b>Max No of Images</b>: 150 </a> <br /><br />
 
             <a>Note: previous files are cleared with every upload, even with failed ones</a> <br /> <br /> <br /> <br />
 
@@ -89,4 +89,4 @@ function AdminUploadItemsImages() {
     );
 }
 
-export default AdminUploadItemsImages;
+export default AdminUploadProductsImages;

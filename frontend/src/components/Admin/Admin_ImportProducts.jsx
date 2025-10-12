@@ -57,18 +57,20 @@ function AdminImportProducts() {
 
             <h1>Admin - Import Products</h1>
 
-            <br/> <br/>
+            <br /> <br />
 
             <h2>Instructions</h2>
 
-            <a>Excel Sheet Columns</a>  <br/>
-            <a>- <b>Name</b>: Unique item name</a> <br/>
-            <a>- <b>Arabic Name</b>: </a> <br/>
-            <a>- <b>Category</b>: </a> <br/>
-            <a>- <b>Price</b>: Only number no currency</a> <br/>
-            <a>- <b>Image Filename</b>: unique file name, dont include extension</a> <br/><br/>
+            <a>Excel Sheet Columns</a>  <br />
+            <a>- <b>Name</b> (*required):  Unique product name</a> <br />
+            <a>- <b>Category</b> (*required) </a> <br />
+            <a>- <b>Price</b> (*required): Only number, don't include currency</a> <br />
+            <a>- <b>Arabic Name</b> </a> <br /> <br />
 
-            <a>Note: use the exact column names, order doesnt matter</a> <br/> <br/> <br/> <br/>
+            <a>Note: use the exact column names, order doesnt matter  </a> <br />
+     
+
+            <br /> <br /> <br />
 
 
 

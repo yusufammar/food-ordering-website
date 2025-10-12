@@ -36,8 +36,8 @@ app.use('/api/user', userRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/cashier', cashierRouter);
 
-// Serve Items images
-app.use('/uploads/items', express.static(path.join(__dirname, 'uploads/items')));
+// Serve Products images
+app.use('/uploads/products', express.static(path.join(__dirname, 'uploads/products')));
 // Serve Logo Image
 app.use('/uploads/logo', express.static(path.join(__dirname, 'uploads/logo')));
 

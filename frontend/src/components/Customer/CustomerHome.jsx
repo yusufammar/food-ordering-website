@@ -27,6 +27,8 @@ function CustomerHome() {
     useEffect(getProductsRequest, []); //this should be blocked userbar gives access denied
     useEffect(getSavedCart, []);
 
+    // useEffect(()=>console.log(products), [products]);
+
     function getSavedCart() {
         let savedCart = utils.getCart();
         // console.log(savedCart);
@@ -142,9 +144,8 @@ function CustomerHome() {
                     <div className="product" key={index} onClick={() => addToCart(value, index)}>
 
                         <div className='productImageContainer'>
-                            {/* {<FastfoodIcon sx={{ fontSize: 80, color: 'blue' }}></FastfoodIcon> } */}
 
-                            <img className='productImage' src={`${App.baseImageUrl}/${value.img_filename}.jpg`}
+                            <img className='productImage' src={`${App.baseImageUrl}/${value.name}.jpg`}
                                 onError={(e) => { e.target.style.display = 'none'; }}
                             />
                             <div className='productIcon'>

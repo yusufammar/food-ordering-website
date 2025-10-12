@@ -33,7 +33,7 @@ function AdminHome() {
       <Link className='linkButton' to="/adminImportProducts">Import Products</Link>
 
       <br></br>
-      <Link className='linkButton' to="/adminUploadItemsImages">Upload Items Images</Link>
+      <Link className='linkButton' to="/adminUploadProductsImages">Upload Products Images</Link>
 
       <br></br>
       <Link className='linkButton' to="/adminSetStoreName">Set Store Name</Link>
