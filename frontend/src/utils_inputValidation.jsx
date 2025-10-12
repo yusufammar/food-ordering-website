@@ -158,12 +158,14 @@ function checkPasswordInput(input) {
 function checkPhoneNoInput(input) {
   let errObj = {};
 
-  if (input.length != 11) {
-    errObj.password = "* Invalid Phone No";
-    return errObj;
-  }
-  else
-    return null;
+  return null;
+
+  // if (input.length != 11) {
+  //   errObj.password = "* Invalid Phone No";
+  //   return errObj;
+  // }
+  // else
+  //   return null;
 }
 
 function checkFileInput(file) {
