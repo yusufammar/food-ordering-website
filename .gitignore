@@ -1,6 +1,9 @@
 # Ignore all node_modules globally
 **/node_modules/
 
+#Uploads Folder: so each instance maintains independent uploads
+#backend/uploads/
+
 # Logs
 logs
 *.log

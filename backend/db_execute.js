@@ -9,37 +9,21 @@ const pool = require('./config/db.js')
 
 async function executeDB() {
     try {
+        await order.dropOrdersTable();
+        console.log("Orders Table Dropped");
+        await order_items.dropOrderItemsTable();
+        console.log("Order Items Table Dropped");
+        //------------------------------
+        await order.createOrdersTable();
+        console.log("Order Table Created");
+        await order_items.createOrderItemsTable();
+        console.log("Order Items Table Created");
 
-        //--------------------
-        //Custom Insterts
-        //--------------------
-        // await user.insertCashier();
-        // console.log("Cashier Inserted");
+        //------------
 
-        //  await order.implementOrdersTrigger();
-        // console.log("Orders Trigger Implemented");
+        await order.implementOrdersTrigger();
+        console.log("Orders Trigger Implemented");
 
-        // await settings.createSettingsTable();
-        // console.log("Settings Table Created");
-
-        // await settings.insertSetting("storeName", "Store Name");
-        // console.log("Default Store Name Insterted");
-
-        await product.dropProductsTable();
-        console.log("Products Table Dropped");
-        await product.createProductsTable();
-        console.log("Products Table Created");
-
-        // await user.dropUsersTable();
-        // console.log("Products Table Dropped");
-        // await user.createUsersTable();
-        // console.log("Products Table Created");
-
-        // await user.insertAdmin();
-        // console.log("Admin Inserted");
-
-        // await user.insertCashier();
-        // console.log("Cashier Inserted");
 
         //----------------------------------
         // Terminal stays open because the database connection pool is still active, keeping Node.js running until closed
