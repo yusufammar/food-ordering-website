@@ -49,7 +49,7 @@ function CartSidebar({ user, cart, setCart }) {
         const data = [
             { key: "cart", value: cart, type: "array", trim: 0, required: 1 },
             { key: "userID", value: user.id, type: "number", trim: 0, required: 1 },
-            { key: "subTotal", value: subTotal, type: "number", trim: 0, required: 1 },
+            { key: "total", value: total, type: "number", trim: 0, required: 1 },
         ];
 
         const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
