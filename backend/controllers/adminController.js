@@ -58,8 +58,36 @@ async function setStoreName(req, res) {
 
     try {
         let { storeName } = transformedData
-        await settings.insertSetting("storeName", storeName)
+        await settings.updateSetting("storeName", storeName)
         const message = "Set Store Name Successful";
+        console.log(message);
+        return res.json({ message })
+    }
+    catch (err) {
+        utilsErrorHandling.handleError(err, res);
+    }
+
+}
+
+async function setDeliveryFee(req, res) {
+    const { deliveryFee } = req.body
+
+    const data = [
+        { key: "deliveryFee", value: deliveryFee, type: "number", trim: 1, required: 1 },
+
+    ];
+
+    const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
+
+
+    if (!dataValid)
+        return utilsErrorHandling.handleDataInvalid(res, errMessage); // stopping condition
+    //-----------------------------
+
+    try {
+        let { deliveryFee } = transformedData
+        await settings.updateSetting("deliveryFee", deliveryFee)
+        const message = "Set Delivery Fee Successful";
         console.log(message);
         return res.json({ message })
     }
@@ -310,7 +338,7 @@ function handleLogoUploadSuccess(req, res) {
 
 
 module.exports = {
-    importProducts, setStoreName, changeAdminPassword, changeCashierPassword,
+    importProducts, setStoreName, setDeliveryFee, changeAdminPassword, changeCashierPassword,
     uploadProductsImages, uploadLogoImage, handleImagesUploadSuccess,
     handleLogoUploadSuccess, clearProductsFolderMiddleware, clearLogoFolderMiddleware
 };

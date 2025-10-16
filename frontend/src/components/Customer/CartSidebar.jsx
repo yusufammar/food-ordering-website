@@ -19,10 +19,18 @@ import ClearAllIcon from '@mui/icons-material/ClearAll';
 
 function CartSidebar({ user, cart, setCart }) {
     const navigate = useNavigate();
+    const [subTotal, setSubTotal] = useState(0);
     const [total, setTotal] = useState(0);
 
-    useEffect(updateCart, [cart]);
+     const settings = utils.getSettings();
+        // console.log(settings);
+    const deliveryFee= Number(settings.deliveryFee);
 
+
+    useEffect(updateCart, [cart]);
+    useEffect(calculateTotal, [subTotal]);
+    
+   
     //-----------------------------
     // HTTP Requests
     //------------------------------
@@ -41,7 +49,7 @@ function CartSidebar({ user, cart, setCart }) {
         const data = [
             { key: "cart", value: cart, type: "array", trim: 0, required: 1 },
             { key: "userID", value: user.id, type: "number", trim: 0, required: 1 },
-            { key: "total", value: total, type: "number", trim: 0, required: 1 },
+            { key: "subTotal", value: subTotal, type: "number", trim: 0, required: 1 },
         ];
 
         const [dataValid, errMessage, transformedData] = await utilsInputValidation.validateData(data);
@@ -79,7 +87,7 @@ function CartSidebar({ user, cart, setCart }) {
         // console.log("Cart: ");
         // console.log(cart);
         // console.log("--------------");
-        calculateTotal();
+        calculateSubTotal();
     }
 
 
@@ -133,7 +141,7 @@ function CartSidebar({ user, cart, setCart }) {
     // Helper Methods
     //-------------------------------------------------------  
 
-    function calculateTotal() {
+    function calculateSubTotal() {
         let x = 0;
 
         for (let item of cart) {
@@ -141,7 +149,12 @@ function CartSidebar({ user, cart, setCart }) {
             let itemPrice = item.price;
             x += itemQuantity * itemPrice;
         }
-        setTotal(x);
+        setSubTotal(x);
+    }
+
+     function calculateTotal(){
+        let sum= subTotal+deliveryFee;
+        setTotal(sum);
     }
 
 
@@ -207,16 +220,28 @@ function CartSidebar({ user, cart, setCart }) {
                     )}
                 </div>
                 <div className='bottomDiv'>
-                <div className='paymentDiv'>
+                <div className='sub-paymentDiv'>
+                    <a>Subtotal</a>  <a>{subTotal.toFixed(2)} €</a>
+                </div>
+
+                   <div className='sub-paymentDiv'>
+                    <a>Delivery Fee</a>  <a>{deliveryFee} €</a>
+                </div>
+
+                <br/>
+
+                   <div className='paymentDiv'>
                     <a>Total</a>  <a>{total.toFixed(2)} €</a>
                 </div>
+
+
 
                 <div className='paymentDiv'>
                     <div className='box1'>  <a>Payment</a> </div>
 
                     <div className='box2'>
                         <div className='box3'> <MoneyIcon sx={{ color: 'green' }}/></div>
-                        <div className='box4'> <a>Cash on Delivery</a></div>
+                        <div className='box4'> <a>Cash</a></div>
                     </div>
 
                 </div>

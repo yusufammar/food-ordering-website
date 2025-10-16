@@ -39,6 +39,9 @@ function AdminHome() {
       <Link className='linkButton' to="/adminSetStoreName">Set Store Name</Link>
 
       <br></br>
+      <Link className='linkButton' to="/adminSetDeliveryFee">Set Delivery Fee</Link>
+
+      <br></br>
       <Link className='linkButton' to="/adminUploadStoreLogo">Upload Store Logo</Link>
 
       <br></br>
@@ -47,7 +50,7 @@ function AdminHome() {
       <br></br>
       <Link className='linkButton' to="/adminChangeCashierPassword">Change Cashier Password</Link>
 
-    
+
     </>
 
   );

@@ -59,6 +59,9 @@ async function setupDB() {
         await settings.insertSetting("storeName","Store Name");
         console.log("Default Store Name Insterted");
 
+        await settings.insertSetting("deliveryFee",0);
+        console.log("Default Delivery Fee Insterted")
+
         await order.implementOrdersTrigger();
         console.log("Orders Trigger Implemented");
 

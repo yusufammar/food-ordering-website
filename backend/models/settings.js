@@ -43,6 +43,16 @@ function insertSetting(key,value) {
 
 }
 
+function updateSetting(key,value) {
+  
+    const query = `UPDATE settings SET value=$1 WHERE key=$2;`;
+    const values = [value, key];
+
+    return pool.query(query, values);
+ 
+
+}
+
 function getSetting(key) {
     const query = `SELECT * FROM settings WHERE key=$1`;
     const values = [key];
@@ -63,4 +73,4 @@ function getAllSettings() {
 
 
 
-module.exports = { createSettingsTable,dropSettingsTable, clearSettingsTable, insertSetting, getSetting, getAllSettings };
+module.exports = { createSettingsTable,dropSettingsTable, clearSettingsTable, insertSetting, updateSetting, getSetting, getAllSettings };

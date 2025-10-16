@@ -28,6 +28,7 @@ function verifyAdminRoleMiddleware(req, res, next) {
 
 adminRouter.post('/importProducts', adminController.importProducts);
 adminRouter.post('/setStoreName', adminController.setStoreName);
+adminRouter.post('/setDeliveryFee', adminController.setDeliveryFee);
 adminRouter.post('/changeAdminPassword', adminController.changeAdminPassword);
 adminRouter.post('/changeCashierPassword', adminController.changeCashierPassword);
 

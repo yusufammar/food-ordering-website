@@ -97,6 +97,18 @@
     border-style: solid; */
 }
 
+.sub-paymentDiv {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0%;
+    font-weight: normal;
+    font-size: medium;
+    /* padding-left: 2.5%; */
+    /* padding-right: 2.5%; */
+    /* border-color: black;
+    border-style: solid; */
+}
+
 .box1 {
     width: 50%;
 }
